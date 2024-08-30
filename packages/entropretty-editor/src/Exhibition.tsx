@@ -4,6 +4,7 @@ import { getSeed } from "./utils";
 type DrawFn = (context: CanvasRenderingContext2D, seed: Uint8Array) => void;
 
 const addDrawing = (draw: DrawFn, parent: HTMLDivElement) => {};
+
 function Exhibition() {
   const [script, setScript] = useState<{ draw: DrawFn } | undefined>(undefined);
 
