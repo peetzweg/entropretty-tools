@@ -3,6 +3,8 @@ import cac from "cac";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
 import path from "node:path";
+import tailwind from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 async function startServer(script: string) {
   const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -19,6 +21,17 @@ async function startServer(script: string) {
     },
     configFile: __dirname + "../vite.config.ts",
     root: __dirname + "..",
+    mode: "development",
+    css: {
+      postcss: {
+        plugins: [
+          tailwind({
+            config: path.join(__dirname, "../tailwind.config.js"),
+          }),
+          autoprefixer(),
+        ],
+      },
+    },
     server: {
       port: 4242,
     },
