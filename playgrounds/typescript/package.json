@@ -4,8 +4,8 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-      "dev": "entropretty dev ./src/bloom.ts",
-      "build": "echo entropretty build ./sketch.ts"
+      "dev": "entropretty dev ./src/roman.ts",
+      "build": "echo TODO entropretty build ./sketch.ts"
     },
     "devDependencies": {
       "entropretty-editor": "workspace:*"

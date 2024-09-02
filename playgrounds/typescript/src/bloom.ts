@@ -1,14 +1,5 @@
 import { FamilyKind, ProceduralSeed } from "./types";
-
-export function bytesToNibbles(bytes: Uint8Array) {
-  const nibbles = [];
-  for (let i = 0; i < bytes.length; i++) {
-    // Split each 8-bit number into two 4-bit numbers
-    nibbles.push((bytes[i] >> 4) & 0xf); // Upper 4 bits
-    nibbles.push(bytes[i] & 0xf); // Lower 4 bits
-  }
-  return nibbles;
-}
+import { bytesToNibbles } from "./utils";
 
 function drawPetals(
   ctx: CanvasRenderingContext2D,
