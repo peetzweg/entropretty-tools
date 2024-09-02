@@ -42,7 +42,7 @@ async function startServer(script: string) {
   server.bindCLIShortcuts({ print: true });
 }
 
-const cli = cac("penis");
+const cli = cac("entropretty");
 
 cli
   .command("dev <script>", "open editor with given script")

@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm --filter typescript-sketch dev",
+    "dev:js": "pnpm --filter javascript-sketch dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",
     "build": "pnpm run --r --filter \"./packages/**\" build",
     "lint": "pnpm run --r --filter \"./packages/**\" lint"
