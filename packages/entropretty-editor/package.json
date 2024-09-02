@@ -20,6 +20,7 @@
   },
   "files": [
     "dist",
+    "app",
     "src",
     "index.html",
     "postcss.config.js",

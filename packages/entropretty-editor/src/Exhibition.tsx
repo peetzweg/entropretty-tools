@@ -16,6 +16,10 @@ function Exhibition() {
     console.log({ __SCRIPTS__ });
     console.log({ env: import.meta.env.VITE_SCRIPTS });
     const scriptURL = import.meta.env.VITE_SCRIPTS || __SCRIPTS__[0];
+    if (scriptURL === undefined) {
+      console.warn("No script found");
+      return;
+    }
     import(/* @vite-ignore */ scriptURL)
       .then((module) => {
         let parent = undefined;

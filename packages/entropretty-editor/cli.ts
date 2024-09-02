@@ -21,7 +21,7 @@ async function startServer(script: string) {
       __SCRIPTS__: [fullPath],
     },
     configFile: __dirname + "../vite.config.ts",
-    root: __dirname + "..",
+    root: __dirname + "../app",
     mode: "development",
     css: {
       postcss: {
@@ -65,7 +65,7 @@ try {
   cli.parse(process.argv, { run: false });
   // Run the command yourself
   // You only need `await` when your command action returns a Promise
-  const result = await cli.runMatchedCommand();
+  await cli.runMatchedCommand();
 } catch (error) {
   if (error instanceof Error) console.error(error.message);
   else {
