@@ -6,15 +6,17 @@ type DrawFn = (context: CanvasRenderingContext2D, seed: Uint8Array) => void;
 function Exhibition() {
   const [script, setScript] = useState<{ draw: DrawFn } | undefined>(undefined);
 
-  const [seeds, setSeeds] = useState<Uint8Array[]>(
+  const [seeds] = useState<Uint8Array[]>(
     Array(1000)
       .fill(1)
       .map(() => getSeed("Procedural"))
   );
 
   useEffect(() => {
-    console.log(__SCRIPTS__);
-    import(/* @vite-ignore */ __SCRIPTS__[0])
+    console.log({ __SCRIPTS__ });
+    console.log({ env: import.meta.env.VITE_SCRIPTS });
+    const scriptURL = import.meta.env.VITE_SCRIPTS || __SCRIPTS__[0];
+    import(/* @vite-ignore */ scriptURL)
       .then((module) => {
         let parent = undefined;
         if (module.draw) {
@@ -35,7 +37,7 @@ function Exhibition() {
   return (
     <div className="flex flex-row flex-wrap">
       {script &&
-        seeds.map((seed, index) => (
+        seeds.map((seed) => (
           <Drawing
             key={JSON.stringify(seed)}
             draw={script.draw}

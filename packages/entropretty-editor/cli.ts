@@ -15,6 +15,7 @@ async function startServer(script: string) {
   const fullPath = path.join(__cwd, script);
   console.log({ __dirname, __cwd, relative, script, fullPath });
 
+  process.env.VITE_SCRIPTS = fullPath;
   const server = await createServer({
     define: {
       __SCRIPTS__: [fullPath],
