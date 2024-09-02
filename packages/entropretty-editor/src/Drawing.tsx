@@ -1,29 +1,24 @@
-import { useEffect, useRef } from "react";
-
-type DrawFn = (context: CanvasRenderingContext2D, seed: Uint8Array) => void;
+import { useEffect, useState } from "react";
+import { Skeleton } from "./components/ui/skeleton";
+import { offscreenWorker } from "./main";
 
 interface Props {
   seed: Uint8Array;
-  draw: DrawFn;
+  script: string;
   size: number;
 }
-export const Drawing: React.FC<Props> = ({ seed, draw, size }: Props) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+export const Drawing: React.FC<Props> = ({ seed, script, size }: Props) => {
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (canvasRef.current === null) return;
+    offscreenWorker.draw(script, seed, size).then((url) => {
+      console.log({ url });
+      setImageUrl(url);
+    });
+  }, [seed, script, size]);
 
-    canvasRef.current.title = seed.toString();
+  if (!imageUrl) return <Skeleton style={{ width: size, height: size }} />;
 
-    canvasRef.current.width = size;
-    canvasRef.current.height = size;
-
-    const context = canvasRef.current.getContext("2d")!;
-    context.save();
-    context.scale(size, size);
-    draw(context, seed);
-    context.restore();
-  }, [seed, draw, size]);
-
-  return <canvas ref={canvasRef} />;
+  return <img src={imageUrl} />;
 };

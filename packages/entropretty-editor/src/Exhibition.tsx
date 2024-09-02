@@ -1,52 +1,71 @@
-import { useEffect, useState } from "react";
-import { Drawing } from "./Drawing";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { DrawingBitmap } from "./DrawingBitmap";
+import { offscreenWorker } from "./main";
 import { getSeed } from "./utils";
-type DrawFn = (context: CanvasRenderingContext2D, seed: Uint8Array) => void;
 
 function Exhibition() {
-  const [script, setScript] = useState<{ draw: DrawFn } | undefined>(undefined);
+  const [script, setScript] = useState<string | undefined>(undefined);
+  const ticking = useRef<boolean>(false);
 
-  const [seeds] = useState<Uint8Array[]>(
-    Array(1000)
+  const [seeds, setSeeds] = useState<Uint8Array[]>(
+    Array(9)
       .fill(1)
       .map(() => getSeed("Procedural"))
   );
+  const size = useMemo(() => {
+    return window.innerHeight / 3;
+  }, []);
 
   useEffect(() => {
     console.log({ __SCRIPTS__ });
-    console.log({ env: import.meta.env.VITE_SCRIPTS });
+    console.log({ VITE_SCRIPTS: import.meta.env.VITE_SCRIPTS });
     const scriptURL = import.meta.env.VITE_SCRIPTS || __SCRIPTS__[0];
     if (scriptURL === undefined) {
       console.warn("No script found");
       return;
     }
-    import(/* @vite-ignore */ scriptURL)
-      .then((module) => {
-        let parent = undefined;
-        if (module.draw) {
-          parent = module;
-        } else if (module.schema && module.schema.draw) {
-          parent = module.schema;
-        } else {
-          throw new Error("draw function not found in script");
+    offscreenWorker.loadScript(scriptURL).then(() => {
+      setScript(scriptURL);
+    });
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollPercentage = getScrollPercentage();
+      if (scrollPercentage > 90) {
+        if (!ticking.current) {
+          ticking.current = true;
+          window.requestAnimationFrame(() => {
+            const newSeeds = Array(9)
+              .fill(1)
+              .map(() => getSeed("Procedural"));
+            setSeeds((oldSeeds) => [...oldSeeds, ...newSeeds]);
+            ticking.current = false;
+          });
         }
-        setScript(parent);
-      })
-      .catch((error) => {
-        console.error(error);
-        console.info("Failed to load the script", __SCRIPTS__[0]);
-      });
+      }
+    };
+    const getScrollPercentage = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      return (scrollTop / scrollHeight) * 100;
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <div className="flex flex-row flex-wrap">
+    <div className="flex flex-row flex-wrap justify-start  items-start">
       {script &&
         seeds.map((seed) => (
-          <Drawing
-            key={JSON.stringify(seed)}
-            draw={script.draw}
+          <DrawingBitmap
+            key={seed.join(",")}
+            script={script}
             seed={seed}
-            size={200}
+            size={size}
           />
         ))}
     </div>
