@@ -1,13 +1,13 @@
 {
-    "name": "typescript-sketch",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-      "dev": "entropretty dev ./src/roman.ts",
-      "build": "echo TODO entropretty build ./sketch.ts"
-    },
-    "devDependencies": {
-      "entropretty-editor": "workspace:*"
-    }
+  "name": "typescript-sketch",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "entropretty dev ./src/roman.ts",
+    "build": "echo TODO entropretty build ./sketch.ts"
+  },
+  "devDependencies": {
+    "entropretty-editor": "workspace:*"
   }
+}

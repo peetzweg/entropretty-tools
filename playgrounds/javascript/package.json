@@ -1,13 +1,13 @@
 {
-    "name": "javascript-sketch",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-      "dev": "entropretty dev ./sketch.js",
-      "build": "echo TODO entropretty build ./sketch.ts"
-    },
-    "devDependencies": {
-      "entropretty-editor": "workspace:*"
-    }
+  "name": "javascript-sketch",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "entropretty dev ./sketch.js",
+    "build": "echo TODO entropretty build ./sketch.ts"
+  },
+  "devDependencies": {
+    "entropretty-editor": "workspace:*"
   }
+}
