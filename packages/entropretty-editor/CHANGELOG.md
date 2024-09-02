@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.2
+
+### Patch Changes
+
+- a86df68: fix required dependencies
+
 ## 1.0.1
 
 ### Patch Changes
