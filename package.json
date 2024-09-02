@@ -9,7 +9,6 @@
     "lint": "pnpm run --r --filter \"./packages/**\" lint",
     "local-release": "changeset version && changeset publish"
   },
-  "packageManager": "pnpm@9.9.0",
   "author": "",
   "license": "MIT",
   "devDependencies": {

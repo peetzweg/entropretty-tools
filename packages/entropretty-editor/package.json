@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Web Editor for Entropretty Scripts",
+  "license": "MIT",
   "keywords": [
     "entropretty",
     "typescript",
