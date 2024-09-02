@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.5
+
+### Patch Changes
+
+- c0be3de: another try resolving react properly in node_modules
+
 ## 1.0.4
 
 ### Patch Changes
