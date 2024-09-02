@@ -6,7 +6,8 @@
     "dev:js": "pnpm --filter javascript-sketch dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",
     "build": "pnpm run --r --filter \"./packages/**\" build",
-    "lint": "pnpm run --r --filter \"./packages/**\" lint"
+    "lint": "pnpm run --r --filter \"./packages/**\" lint",
+    "local-release": "changeset version && changeset publish"
   },
   "packageManager": "pnpm@8.10.5",
   "author": "",

@@ -2,6 +2,32 @@
   "name": "entropretty-editor",
   "version": "0.1.0",
   "type": "module",
+  "description": "Web Editor for Entropretty Scripts",
+  "keywords": [
+    "entropretty",
+    "typescript",
+    "editor"
+  ],
+  "homepage": "https://github.com/peetzweg/entropretty-tools",
+  "bugs": {
+    "url": "https://github.com/peetzweg/entropretty-tools/issues"
+  },
+  "author": "peetzweg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattpocock/tt-package-demo.git"
+  },
+  "files": [
+    "dist",
+    "src",
+    "index.html",
+    "postcss.config.js",
+    "tailwind.config.js",
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
   "bin": {
     "entropretty": "./dist/cli.js"
   },
