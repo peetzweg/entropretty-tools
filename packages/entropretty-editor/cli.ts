@@ -21,7 +21,7 @@ async function startServer(script: string) {
       __SCRIPTS__: [fullPath],
     },
     configFile: __dirname + "../vite.config.ts",
-    root: __dirname + "../app",
+    root: __dirname + "..",
     mode: "development",
     css: {
       postcss: {

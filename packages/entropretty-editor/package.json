@@ -20,7 +20,6 @@
   },
   "files": [
     "dist",
-    "app",
     "src",
     "index.html",
     "postcss.config.js",
@@ -41,16 +40,13 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "bundleDependencies":["react","react-dom"],
   "dependencies": {
     "@eslint/js": "^9.9.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.1.0",
-    "@types/node": "^22.5.1",
-    "@types/react-dom": "^18.3.0",
-    "@types/react": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "autoprefixer": "^10.4.20",
-    "cac": "^6.7.14",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
@@ -59,16 +55,20 @@
     "globals": "^15.9.0",
     "lucide-react": "^0.438.0",
     "postcss": "^8.4.44",
+    "react-dom": "^18.3.1",
+    "react": "^18.3.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss": "^3.4.10",
-    "tsup": "^8.2.4",
     "typescript-eslint": "^8.3.0",
     "typescript": "^5.5.4",
     "vite": "^5.4.2"
   },
-  "peerDependencies": {
-    "react-dom": "^18.3.1",
-    "react": "^18.3.1"
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.5",
+    "cac": "^6.7.14",
+    "tsup": "^8.2.4"
   }
 }
