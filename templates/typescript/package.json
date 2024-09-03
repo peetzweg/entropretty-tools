@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "entropretty dev ./src/mine.ts",
+    "dev": "entropretty dev ./src/ringers.ts",
     "build": "echo TODO entropretty build ./sketch.ts"
   },
   "devDependencies": {
