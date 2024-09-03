@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
-import { offscreenWorker } from "../main";
+import { offscreenWorker } from "../App";
 import { cn } from "../lib/utils";
 
 interface Props {

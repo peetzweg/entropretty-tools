@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DrawingBitmap } from "./DrawingBitmap";
-import { offscreenWorker } from "../main";
+import { offscreenWorker } from "../App";
 import { getSeed } from "../utils";
 
 function Exhibition() {
