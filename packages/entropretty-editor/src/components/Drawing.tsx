@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Skeleton } from "./components/ui/skeleton";
-import { offscreenWorker } from "./main";
+import { Skeleton } from "./ui/skeleton";
+import { offscreenWorker } from "../main";
 
 interface Props {
   seed: Uint8Array;

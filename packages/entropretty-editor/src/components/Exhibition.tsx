@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DrawingBitmap } from "./DrawingBitmap";
-import { offscreenWorker } from "./main";
-import { getSeed } from "./utils";
+import { offscreenWorker } from "../main";
+import { getSeed } from "../utils";
 
 function Exhibition() {
   const [script, setScript] = useState<string | undefined>(undefined);
