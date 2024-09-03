@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.6
+
+### Patch Changes
+
+- 1282c4a: use another react plugin to resolve syntax error in bundled app
+
 ## 1.0.5
 
 ### Patch Changes
