@@ -2,10 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { DrawingBitmap } from "./DrawingBitmap";
 import { offscreenWorker } from "../App";
 import { getSeed } from "../utils";
+import { useApp } from "../state";
 
 function Exhibition() {
   const [script, setScript] = useState<string | undefined>(undefined);
   const ticking = useRef<boolean>(false);
+
+  const picked = useApp((state) => state.pickedSeeds);
+  const mode = useApp((state) => state.mode);
 
   const [seeds, setSeeds] = useState<Uint8Array[]>(
     Array(9)
@@ -30,6 +34,8 @@ function Exhibition() {
   }, []);
 
   useEffect(() => {
+    if (mode === "picked") return;
+
     const onScroll = () => {
       const scrollPercentage = getScrollPercentage();
       if (scrollPercentage > 90) {
@@ -55,12 +61,12 @@ function Exhibition() {
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [mode]);
 
   return (
     <div className="flex flex-row flex-wrap justify-start  items-start">
       {script &&
-        seeds.map((seed) => (
+        { explore: seeds, picked }[mode].map((seed) => (
           <DrawingBitmap
             key={seed.join(",")}
             script={script}
