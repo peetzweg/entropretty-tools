@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Skeleton } from "./ui/skeleton";
-import { offscreenWorker } from "../App";
-import { cn } from "../lib/utils";
-import { useApp } from "../state";
+import { Skeleton } from "@/components/ui/skeleton";
+import { offscreenWorker } from "@/App";
+import { cn } from "@/lib/utils";
 
 interface Props {
   seed: Uint8Array;
@@ -17,9 +16,6 @@ export const DrawingBitmap: React.FC<Props> = ({
 }: Props) => {
   const [ready, setIsReady] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pick = useApp((state) => state.pick);
-  const remove = useApp((state) => state.remove);
-  const mode = useApp((state) => state.mode);
 
   useEffect(() => {
     if (canvasRef.current === null) return;
@@ -37,7 +33,6 @@ export const DrawingBitmap: React.FC<Props> = ({
         style={{ width: size, height: size }}
       />
       <canvas
-        onClick={() => (mode === "picked" ? remove(seed) : pick(seed))}
         title={seed.join(",")}
         className={cn("cursor-pointer", { hidden: !ready })}
         ref={canvasRef}
