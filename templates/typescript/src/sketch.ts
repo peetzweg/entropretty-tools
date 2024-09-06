@@ -1,111 +1,143 @@
-import { FamilyKind, ProceduralSeed } from "./types";
+import { ProceduralSeed, Schema } from "./types";
 
-export function draw(ctx: CanvasRenderingContext2D, argSeed: Uint8Array) {
-  console.log({ argSeed });
-  if (argSeed.length !== 4) {
-    console.error("Seed must be exactly 4 bytes long");
-    return;
+function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
+  let seedIndex = 0;
+  const random = () => {
+    const value = seed[seedIndex] / 255;
+    seedIndex = (seedIndex + 1) % seed.length;
+    return value;
+  };
+
+  const GRID_SIZE = 4;
+  const STROKE_STYLE = "black";
+  const LINE_WIDTH = 0.02;
+  const MARGIN = 0.05;
+  const RADIUS = 0.08;
+  ctx.translate(MARGIN, MARGIN);
+
+  ctx.strokeStyle = STROKE_STYLE;
+  ctx.lineWidth = LINE_WIDTH;
+
+  const circles = createCircleGrid(GRID_SIZE, GRID_SIZE, MARGIN, RADIUS);
+
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+  // Seed-based randomization function
+
+  // Choose a random starting position
+  const startIdx = Math.floor(random() * GRID_SIZE * GRID_SIZE);
+  let currentCircle =
+    circles[Math.floor(startIdx / GRID_SIZE)][startIdx % GRID_SIZE];
+  let connectedCircles: Circle[] = [currentCircle];
+
+  const AMOUNT_OF_CIRCLES_TO_CONNECT = Math.max(3, Math.floor(random() * 6));
+
+  // Continue making connections from the current circle to any other circle
+  for (let i = 0; i < AMOUNT_OF_CIRCLES_TO_CONNECT; i++) {
+    const availableCircles = circles
+      .flat()
+      .filter((c) => !connectedCircles.includes(c));
+    if (availableCircles.length === 0) break;
+
+    const nextCircleIdx = Math.floor(random() * availableCircles.length);
+    const nextCircle = availableCircles[nextCircleIdx];
+
+    connectedCircles.push(nextCircle);
   }
 
-  // Use each byte of the seed
-  const bodyColor = argSeed[0];
-  const patternColor = argSeed[1];
-  const curvature = argSeed[2] / 255;
-  const patternSize = argSeed[3] / 255;
-
-  // Set canvas size
-  const width = 1;
-  const height = 1;
-  ctx.clearRect(0, 0, width, height);
-
-  // Calculate fish dimensions
-  const centerX = width / 2;
-  const centerY = height / 2;
-  const fishLength = width * 0.8;
-  const fishWidth = height * 0.3;
-
-  // Draw fish body
-  ctx.beginPath();
-  ctx.moveTo(centerX - fishLength / 2, centerY);
-  ctx.bezierCurveTo(
-    centerX - fishLength / 4,
-    centerY - (fishWidth / 2) * curvature,
-    centerX + fishLength / 4,
-    centerY - (fishWidth / 2) * curvature,
-    centerX + fishLength / 2,
-    centerY
-  );
-  ctx.bezierCurveTo(
-    centerX + fishLength / 4,
-    centerY + (fishWidth / 2) * curvature,
-    centerX - fishLength / 4,
-    centerY + (fishWidth / 2) * curvature,
-    centerX - fishLength / 2,
-    centerY
-  );
-  ctx.closePath();
-
-  // Fill fish body
-  const gradient = ctx.createLinearGradient(
-    centerX - fishLength / 2,
-    centerY,
-    centerX + fishLength / 2,
-    centerY
-  );
-  gradient.addColorStop(0, `hsl(${bodyColor}, 80%, 85%)`);
-  gradient.addColorStop(1, `hsl(${bodyColor}, 80%, 65%)`);
-  ctx.fillStyle = gradient;
-  ctx.fill();
-
-  // Draw pattern
-  const patternCount = 3 + Math.floor(patternSize * 3);
-  for (let i = 0; i < patternCount; i++) {
-    const t = i / (patternCount - 1);
-    const x = centerX - fishLength / 2 + fishLength * t;
-    const y = centerY + ((Math.sin(t * Math.PI) * fishWidth) / 4) * curvature;
-    const spotSize = fishWidth * 0.1 * (1 - t);
-
+  // Draw the connected circles
+  for (const circ of connectedCircles) {
     ctx.beginPath();
-    ctx.arc(x, y, spotSize, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${patternColor}, 80%, 50%, 0.6)`;
+    ctx.arc(circ.x, circ.y, circ.r, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+
+  const notConnectedCircles = circles
+    .flat()
+    .filter((c) => !connectedCircles.includes(c));
+  // Draw the connected circles
+  for (const circ of notConnectedCircles) {
+    ctx.beginPath();
+    ctx.arc(circ.x, circ.y, 0.008, 0, 2 * Math.PI);
     ctx.fill();
   }
 
-  // Draw eye
-  const eyeX = centerX - fishLength / 3;
-  const eyeY = centerY - fishWidth / 6;
-  const eyeSize = fishWidth * 0.05;
-  ctx.beginPath();
-  ctx.arc(eyeX, eyeY, eyeSize, 0, Math.PI * 2);
-  ctx.fillStyle = "black";
-  ctx.fill();
+  // Draw the connections between the circles
+  for (let i = 0; i < connectedCircles.length; i++) {
+    let [p1, p2] = getTangentPoints(
+      connectedCircles[i % connectedCircles.length],
+      connectedCircles[(i + 1) % connectedCircles.length]
+    );
 
-  // Draw fin
-  ctx.beginPath();
-  ctx.moveTo(centerX, centerY - fishWidth / 3);
-  ctx.quadraticCurveTo(
-    centerX + fishLength / 8,
-    centerY,
-    centerX,
-    centerY + fishWidth / 3
-  );
-  ctx.strokeStyle = `hsla(${bodyColor}, 80%, 40%, 0.6)`;
-  ctx.lineWidth = fishWidth * 0.03;
-  ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+  }
 }
 
-interface Schema<> {
-  draw: (context: CanvasRenderingContext2D, seed: ProceduralSeed) => void;
-  kind: FamilyKind;
-  name: string;
-  author: string;
+function createCircleGrid(
+  rows: number,
+  cols: number,
+  margin: number,
+  radius: number
+) {
+  const circles: Circle[][] = [];
+  const stepX = (1 - 2 * margin - 2 * (margin + radius)) / (cols - 1);
+  const stepY = (1 - 2 * margin - 2 * (margin + radius)) / (rows - 1);
+
+  for (let r = 0; r < rows; r++) {
+    const row: Circle[] = [];
+    for (let c = 0; c < cols; c++) {
+      const x = margin + radius + c * stepX;
+      const y = margin + radius + r * stepY;
+      const circle = new Circle(x, y, radius);
+      row.push(circle);
+    }
+    circles.push(row);
+  }
+
+  return circles;
+}
+
+function getTangentPoints(c1: Circle, c2: Circle): [Point2d, Point2d] {
+  const dx = c2.x - c1.x;
+  const dy = c2.y - c1.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const r = c1.r;
+  const offsetX = (r * dy) / dist;
+  const offsetY = (r * dx) / dist;
+
+  const p1 = { x: c1.x + offsetX, y: c1.y - offsetY };
+  const p2 = { x: c2.x + offsetX, y: c2.y - offsetY };
+
+  return [p1, p2];
+}
+
+class Circle {
+  x: number;
+  y: number;
+  r: number;
+  neighbors: Circle[];
+
+  constructor(x: number, y: number, r: number) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.neighbors = [];
+  }
+}
+
+interface Point2d {
+  x: number;
+  y: number;
 }
 
 export const schema: Schema = {
   draw,
+  name: "Gummiring",
+  author: "peet.sh",
   kind: "Procedural",
-  name: "Petals",
-  author: "Jenn Schiffer",
 };
 
 export default schema;

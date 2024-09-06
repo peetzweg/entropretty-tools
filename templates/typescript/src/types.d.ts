@@ -24,3 +24,10 @@ export type FamilyKind =
   | "Procedural"
   | "ProceduralPersonal"
   | "ProceduralAccount";
+
+interface Schema<> {
+  draw: (context: CanvasRenderingContext2D, seed: ProceduralSeed) => void;
+  kind: FamilyKind;
+  name: string;
+  author: string;
+}
