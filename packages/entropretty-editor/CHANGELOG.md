@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.12
+
+### Patch Changes
+
+- 33b7132: inline worker code to be loaded correctly on users machine
+
 ## 1.0.11
 
 ### Patch Changes
