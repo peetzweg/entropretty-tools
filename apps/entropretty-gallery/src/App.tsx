@@ -6,6 +6,7 @@ export const worker = new Worker();
 function App() {
   return (
     <>
+      <h1>Gallery</h1>
       <EntroprettyEditor worker={worker} />
     </>
   );
