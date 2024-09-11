@@ -27,105 +27,17 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
 
-  packages/entropretty-editor:
-    dependencies:
-      '@eslint/js':
-        specifier: ^9.9.1
-        version: 9.9.1
-      '@radix-ui/react-icons':
-        specifier: ^1.3.0
-        version: 1.3.0(react@18.3.1)
-      '@radix-ui/react-slot':
-        specifier: ^1.1.0
-        version: 1.1.0(@types/react@18.3.5)(react@18.3.1)
-      '@vitejs/plugin-react-swc':
-        specifier: ^3.7.0
-        version: 3.7.0(vite@5.4.2(@types/node@22.5.2))
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.44)
-      cac:
-        specifier: ^6.7.14
-        version: 6.7.14
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      comlink:
-        specifier: ^4.4.1
-        version: 4.4.1
-      lucide-react:
-        specifier: ^0.438.0
-        version: 0.438.0(react@18.3.1)
-      postcss:
-        specifier: ^8.4.44
-        version: 8.4.44
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      tailwind-merge:
-        specifier: ^2.5.2
-        version: 2.5.2
-      tailwindcss:
-        specifier: ^3.4.10
-        version: 3.4.10
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.10)
-      tsup:
-        specifier: ^8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
-      typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
-      typescript-eslint:
-        specifier: ^8.3.0
-        version: 8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
-      vite:
-        specifier: ^5.4.2
-        version: 5.4.2(@types/node@22.5.2)
-      zustand:
-        specifier: ^4.5.5
-        version: 4.5.5(@types/react@18.3.5)(react@18.3.1)
-    devDependencies:
-      '@types/node':
-        specifier: ^22.5.1
-        version: 22.5.2
-      '@types/react':
-        specifier: ^18.3.5
-        version: 18.3.5
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
-      eslint:
-        specifier: ^9.9.1
-        version: 9.9.1(jiti@1.21.6)
-      eslint-plugin-react-hooks:
-        specifier: ^5.1.0-rc.0
-        version: 5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1(jiti@1.21.6))
-      eslint-plugin-react-refresh:
-        specifier: ^0.4.11
-        version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
-      globals:
-        specifier: ^15.9.0
-        version: 15.9.0
-      vite-plugin-dts:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@22.5.2)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.2))
-
-  packages/entropretty-gallery:
+  apps/entropretty-gallery:
     dependencies:
       comlink:
         specifier: ^4.4.1
         version: 4.4.1
       entropretty-editor:
         specifier: workspace:*
-        version: link:../entropretty-editor
+        version: link:../../packages/entropretty-editor
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-utils
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -166,6 +78,110 @@ importers:
       vite:
         specifier: ^5.4.1
         version: 5.4.2(@types/node@22.5.2)
+
+  packages/entropretty-editor:
+    dependencies:
+      '@radix-ui/react-icons':
+        specifier: ^1.3.0
+        version: 1.3.0(react@18.3.1)
+      '@radix-ui/react-slot':
+        specifier: ^1.1.0
+        version: 1.1.0(@types/react@18.3.5)(react@18.3.1)
+      '@vitejs/plugin-react-swc':
+        specifier: ^3.7.0
+        version: 3.7.0(vite@5.4.2(@types/node@22.5.2))
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      comlink:
+        specifier: ^4.4.1
+        version: 4.4.1
+      lucide-react:
+        specifier: ^0.438.0
+        version: 0.438.0(react@18.3.1)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      tailwind-merge:
+        specifier: ^2.5.2
+        version: 2.5.2
+      tailwindcss:
+        specifier: ^3.4.10
+        version: 3.4.10
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.10)
+      zustand:
+        specifier: ^4.5.5
+        version: 4.5.5(@types/react@18.3.5)(react@18.3.1)
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.9.1
+        version: 9.9.1
+      '@types/node':
+        specifier: ^22.5.1
+        version: 22.5.2
+      '@types/react':
+        specifier: ^18.3.5
+        version: 18.3.5
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.44)
+      cac:
+        specifier: ^6.7.14
+        version: 6.7.14
+      eslint:
+        specifier: ^9.9.1
+        version: 9.9.1(jiti@1.21.6)
+      eslint-plugin-react-hooks:
+        specifier: ^5.1.0-rc.0
+        version: 5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1(jiti@1.21.6))
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.11
+        version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
+      globals:
+        specifier: ^15.9.0
+        version: 15.9.0
+      postcss:
+        specifier: ^8.4.44
+        version: 8.4.44
+      tsup:
+        specifier: ^8.2.4
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+      typescript-eslint:
+        specifier: ^8.3.0
+        version: 8.3.0(eslint@9.9.1(jiti@1.21.6))(typescript@5.5.4)
+      vite:
+        specifier: ^5.4.2
+        version: 5.4.2(@types/node@22.5.2)
+      vite-plugin-dts:
+        specifier: ^4.2.1
+        version: 4.2.1(@types/node@22.5.2)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.2))
+
+  packages/entropretty-utils:
+    dependencies:
+      tsup:
+        specifier: ^8.2.4
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.5.1
+        version: 22.5.2
+      eslint:
+        specifier: ^9.9.1
+        version: 9.9.1(jiti@1.21.6)
 
   templates/javascript:
     devDependencies:

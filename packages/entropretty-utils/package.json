@@ -1,0 +1,44 @@
+{
+  "name": "entropretty-utils",
+  "version": "1.0.12",
+  "type": "module",
+  "main": "./dist/entropretty-editor.umd.cjs",
+  "module": "./dist/entropretty-editor.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "description": "Utilities library for Entropretty",
+  "license": "MIT",
+  "keywords": [
+    "entropretty",
+    "typescript",
+    "editor"
+  ],
+  "homepage": "https://github.com/peetzweg/entropretty-tools/tree/main/packages/entropretty-edutilsutilsuitor",
+  "bugs": {
+    "url": "https://github.com/peetzweg/entropretty-tools/issues"
+  },
+  "author": "peetzweg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peetzweg/entropretty-tools.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "watch": "tsup --watch",
+    "build": "tsup",
+    "lint": "tsc && eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "eslint": "^9.9.1"
+  },
+  "dependencies": {
+    "tsup": "^8.2.4"
+  }
+}

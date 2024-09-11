@@ -68,3 +68,5 @@ export const createWorker = (
     },
   };
 };
+
+export type OffscreenCanvasWorker = ReturnType<typeof createWorker>;

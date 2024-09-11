@@ -1,25 +1,31 @@
-import type { Remote } from "comlink";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Controls } from "./components/Controls";
 import Exhibition from "./components/Exhibition";
 import { useApp } from "./state";
-import type { OffscreenCanvasWorker } from "./workers/offscreen-canvas-worker";
-export type { Schema } from "./types";
 
 interface Props {
-  schemas: Array<string>;
-  worker: Remote<OffscreenCanvasWorker>;
+  worker: Worker;
 }
 
-export const EntroprettyEditor: React.FC<Props> = ({ schemas, worker }) => {
+export const EntroprettyEditor: React.FC<Props> = ({ worker }) => {
   const setWorker = useApp((state) => state.setWorker);
   const internalWorker = useApp((state) => state.worker);
+  const [schemas, setSchemas] = useState<string[]>([]);
 
   useEffect(() => {
     setWorker(worker);
-    worker.alive().then((res) => console.log(res));
   }, [setWorker, worker]);
+
+  useEffect(() => {
+    if (!internalWorker) return;
+
+    internalWorker.init().then((schemas) => {
+      console.log({ schemas });
+      setSchemas(schemas);
+      console.log("complete from entropretty-editor");
+    });
+  }, [internalWorker]);
 
   if (!internalWorker) {
     console.log("Worker not set");
@@ -28,15 +34,6 @@ export const EntroprettyEditor: React.FC<Props> = ({ schemas, worker }) => {
 
   return (
     <main className="h-[101vh]">
-      <h1>Scripts</h1>
-      <ol>
-        {Object.entries(schemas).map(([name, schema]) => (
-          <li key={name}>
-            <h2>{schema}</h2>
-            <p>{schema}</p>
-          </li>
-        ))}
-      </ol>
       {schemas.length > 0 && <Exhibition schema={schemas[0]} />}
       <Controls />
     </main>

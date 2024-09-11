@@ -1,12 +1,13 @@
-import { Remote } from "comlink";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { OffscreenCanvasWorker } from "./workers/offscreen-canvas-worker";
+import { OffscreenCanvasWorker } from "./lib/createWorker";
+import { Remote, wrap } from "comlink";
+
 type Mode = "explore" | "picked";
 
 interface AppState {
   worker: Remote<OffscreenCanvasWorker> | null;
-  setWorker: (worker: Remote<OffscreenCanvasWorker>) => void;
+  setWorker: (worker: Worker) => void;
   mode: Mode;
   changeMode: (newMode: Mode) => void;
 }
@@ -16,7 +17,7 @@ export const useApp = create<AppState>()(
     (set) => ({
       worker: null,
       setWorker(worker) {
-        set({ worker });
+        set({ worker: wrap(worker) });
       },
       mode: "explore",
       changeMode(newMode) {
