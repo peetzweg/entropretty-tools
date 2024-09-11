@@ -2,7 +2,7 @@
 
 import { cheapRandomGenerator } from "entropretty-utils";
 
-function doDraw(ctx, seed, monochrome) {
+export function doDraw(ctx, seed, monochrome) {
   let rng = cheapRandomGenerator(seed);
   const pallete = ["#D00000", "#FFBA08", "#3F88C5", "#032B43", "#136F63"];
   ctx.scale(100, 100);
@@ -36,7 +36,7 @@ function doDraw(ctx, seed, monochrome) {
 }
 
 export const schema = {
-  draw: (c, s) => doDraw(c, s, true),
-  name: "Squares (Mono)",
+  draw: (c, s) => doDraw(c, s, false),
+  name: "Squares (Chroma)",
   artist: "ggwpez.gh",
 };
