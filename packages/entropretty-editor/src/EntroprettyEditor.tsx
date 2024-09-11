@@ -2,30 +2,20 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Controls } from "./components/Controls";
 import Exhibition from "./components/Exhibition";
-import { useApp } from "./state";
+import { useApp } from "./lib/state";
 
 interface Props {
   worker: Worker;
 }
 
 export const EntroprettyEditor: React.FC<Props> = ({ worker }) => {
-  const setWorker = useApp((state) => state.setWorker);
+  const init = useApp((state) => state.init);
   const internalWorker = useApp((state) => state.worker);
-  const [schemas, setSchemas] = useState<string[]>([]);
+  const currentSchema = useApp((state) => state.schema);
 
   useEffect(() => {
-    setWorker(worker);
-  }, [setWorker, worker]);
-
-  useEffect(() => {
-    if (!internalWorker) return;
-
-    internalWorker.init().then((schemas) => {
-      console.log({ schemas });
-      setSchemas(schemas);
-      console.log("complete from entropretty-editor");
-    });
-  }, [internalWorker]);
+    init(worker);
+  }, [init, worker]);
 
   if (!internalWorker) {
     console.log("Worker not set");
@@ -34,7 +24,7 @@ export const EntroprettyEditor: React.FC<Props> = ({ worker }) => {
 
   return (
     <main className="h-[101vh]">
-      {schemas.length > 0 && <Exhibition schema={schemas[0]} />}
+      {currentSchema && <Exhibition schema={currentSchema} />}
       <Controls />
     </main>
   );

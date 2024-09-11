@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import { useApp } from "../state";
+import { useApp } from "../lib/state";
 
 interface Props {
   seed: Uint8Array;
@@ -16,8 +16,11 @@ export const DrawingBitmap: React.FC<Props> = ({ seed, schema, size }) => {
 
   useEffect(() => {
     if (canvasRef.current === null) return;
+
     worker!.drawTransfer(schema, seed, size).then((bitmap) => {
-      canvasRef.current!.getContext("2d")!.drawImage(bitmap, 0, 0, size, size);
+      const context = canvasRef.current!.getContext("2d")!;
+      context.clearRect(0, 0, size, size);
+      context.drawImage(bitmap, 0, 0, size, size);
       setIsReady(true);
     });
   }, [seed, schema, size, worker]);

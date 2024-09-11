@@ -20,19 +20,10 @@ export const createWorker = (
           }
         })
       );
-      console.log({ schemaMap: schemas });
       return Array.from(schemas.keys());
     },
     hasSchema: (name: string) => {
       return schemas.has(name);
-    },
-
-    alive: (): Promise<string> => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("I'm alive");
-        }, 1000);
-      });
     },
     drawTransfer: async (name: string, seed: Uint8Array, size: number) => {
       const canvas = new OffscreenCanvas(size, size);
@@ -45,7 +36,6 @@ export const createWorker = (
         throw "Schema not loaded, try adding it before drawing";
 
       context.clearRect(0, 0, canvas.width, canvas.height);
-      // context.scale(canvas.width, canvas.height);
       context.scale(canvas.width / 100, canvas.width / 100);
       context.lineWidth = 1;
       context.lineCap = "butt";
@@ -56,8 +46,7 @@ export const createWorker = (
       context.textBaseline = "bottom";
 
       try {
-        console.log("draw");
-        schema.draw(context, seed);
+        schema.draw(context as unknown as CanvasRenderingContext2D, seed);
       } catch (e) {
         console.error("Error drawing", name);
         console.info(e);
