@@ -1,11 +1,12 @@
 {
   "name": "entropretty-editor",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "module",
   "main": "./dist/entropretty-editor.umd.cjs",
   "module": "./dist/entropretty-editor.js",
   "exports": {
     ".": {
+      "types": "./dist/entropretty-editor.d.ts",
       "import": "./dist/entropretty-editor.js",
       "require": "./dist/entropretty-editor.umd.cjs"
     },

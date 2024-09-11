@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.10
+
+### Patch Changes
+
+- 6a7213a: exports types correctly
+
 ## 1.0.9
 
 ### Patch Changes
