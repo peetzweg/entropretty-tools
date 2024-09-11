@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.7
+
+### Patch Changes
+
+- df304cd: compile to to lib instead of using source with vite
+
 ## 1.0.6
 
 ### Patch Changes
