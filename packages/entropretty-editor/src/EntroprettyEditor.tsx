@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { useEffect } from "react";
 import { Controls } from "./components/Controls";
 import Exhibition from "./components/Exhibition";
 import { useApp } from "./lib/state";

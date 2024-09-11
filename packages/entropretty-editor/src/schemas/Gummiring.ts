@@ -134,4 +134,9 @@ interface Point2d {
   y: number;
 }
 
-export const schema: Schema = { draw, name: "Gummiring", artist: "peet.sh" };
+export const schema: Schema = {
+  draw,
+  name: "Gummiring",
+  artist: "peet.sh",
+  kind: "Procedural",
+};
