@@ -30,3 +30,39 @@ export function bits(seed: Uint8Array, from = 0, to = 32) {
   }
   return r;
 }
+
+export function symmetrical(
+  factor: number,
+  fn: (index: number) => void,
+  ctx: CanvasRenderingContext2D
+) {
+  ctx.translate(50, 50);
+  ctx.scale(50, 50);
+  for (let i = 0; i < factor; ++i) {
+    ctx.save();
+    ctx.rotate((Math.PI * 2 * i) / factor);
+    fn(i);
+    ctx.restore();
+  }
+}
+
+export function strokeEach<E, T extends Array<E>>(
+  array: T,
+  fn: (element: E, index: number) => void,
+  ctx: CanvasRenderingContext2D
+) {
+  array.forEach((element, index) => {
+    ctx.save();
+    fn(element, index);
+    ctx.restore();
+  });
+}
+
+export function numeric(seed: Uint8Array) {
+  // TODO throw if seed is too long to represent safely as numeric value in JS
+  let result = 0;
+  for (let i = 0; i < seed.length; i++) {
+    result |= seed[i] << (8 * i);
+  }
+  return result >>> 0;
+}

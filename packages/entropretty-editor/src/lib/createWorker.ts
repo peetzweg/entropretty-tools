@@ -5,6 +5,7 @@ export const createWorker = (
   dynamicImports: Record<string, () => Promise<unknown>>
 ) => {
   const _schemas = new Map<string, Schema>();
+  let _isInitialized = false;
   return {
     init: async () => {
       await Promise.all(
@@ -19,7 +20,11 @@ export const createWorker = (
           }
         })
       );
+      _isInitialized = true;
       return Array.from(_schemas.keys());
+    },
+    isInitialized: () => {
+      return _isInitialized;
     },
     hasSchema: (name: string) => {
       return _schemas.has(name);
@@ -57,4 +62,4 @@ export const createWorker = (
   };
 };
 
-export type OffscreenCanvasWorker = ReturnType<typeof createWorker>;
+export type EntroprettyEditorWorker = ReturnType<typeof createWorker>;

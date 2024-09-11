@@ -39,6 +39,7 @@
     "eslint": "^9.9.1"
   },
   "dependencies": {
+    "prando": "^6.0.1",
     "tsup": "^8.2.4"
   }
 }

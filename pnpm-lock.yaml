@@ -194,6 +194,9 @@ importers:
 
   packages/entropretty-utils:
     dependencies:
+      prando:
+        specifier: ^6.0.1
+        version: 6.0.1
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
@@ -2433,6 +2436,9 @@ packages:
   postcss@8.4.44:
     resolution: {integrity: sha512-Aweb9unOEpQ3ezu4Q00DPvvM2ZTUitJdNKeP/+uQgr1IBIqu574IaZoURId7BKtWMREwzKa9OgzPzezWGPWFQw==}
     engines: {node: ^10 || ^12 || >=14}
+
+  prando@6.0.1:
+    resolution: {integrity: sha512-ghUWxQ1T9IJmPu6eshc3VU0OwveUtXQ33ZLXYUcz1Oc5ppKLDXKp0TBDj6b0epwhEctzcQSNGR2iHyvQSn4W5A==}
 
   preferred-pm@3.1.4:
     resolution: {integrity: sha512-lEHd+yEm22jXdCphDrkvIJQU66EuLojPPtvZkpKIkiD+l0DMThF/niqZKJSoU8Vl7iuvtmzyMhir9LdVy5WMnA==}
@@ -5278,6 +5284,8 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.1
       source-map-js: 1.2.0
+
+  prando@6.0.1: {}
 
   preferred-pm@3.1.4:
     dependencies:

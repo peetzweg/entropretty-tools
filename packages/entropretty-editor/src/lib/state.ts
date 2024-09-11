@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { OffscreenCanvasWorker } from "./createWorker";
+import { EntroprettyEditorWorker } from "./createWorker";
 import { Remote, wrap } from "comlink";
 
 type Mode = "explore" | "picked";
 
 interface AppState {
-  worker: Remote<OffscreenCanvasWorker> | null;
+  worker: Remote<EntroprettyEditorWorker> | null;
   schemas: string[];
   schema: string | null;
   setSchema: (schema: string) => void;
@@ -22,7 +22,7 @@ export const useApp = create<AppState>()(
       schema: null,
       schemas: [],
       async init(worker) {
-        const wrapped: Remote<OffscreenCanvasWorker> = wrap(worker);
+        const wrapped: Remote<EntroprettyEditorWorker> = wrap(worker);
         const schemas = await wrapped.init();
         if (get().schema === null) {
           set({ schema: schemas[0] });

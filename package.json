@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm --filter entropretty-editor dev",
+    "dev:gallery": "pnpm --filter entropretty-gallery dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",
     "build": "pnpm run --r --filter \"./packages/**\" build",
     "build:apps": "pnpm run --r --filter \"./apps/**\" build",
