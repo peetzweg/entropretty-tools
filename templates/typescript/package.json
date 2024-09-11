@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "entropretty dev ../sketch.ts",
+    "dev": "entropretty dev",
     "build": "echo TODO entropretty build ./sketch.ts"
   },
   "devDependencies": {
