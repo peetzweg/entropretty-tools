@@ -8,9 +8,9 @@ export const createWorker = (
   return {
     init: async () => {
       await Promise.all(
-        Object.entries(dynamicImports).map(async ([name, promise]) => {
+        Object.values(dynamicImports).map(async (importPromise) => {
           try {
-            const result = await promise();
+            const result = await importPromise();
             const module = (result as { schema: Schema }).schema as Schema;
 
             _schemas.set(module.name, module);

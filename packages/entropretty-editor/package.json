@@ -19,7 +19,7 @@
     "typescript",
     "editor"
   ],
-  "homepage": "https://github.com/peetzweg/entropretty-tools/tree/main/packages/entropretty-editor",
+  "homepage": "https://github.com/peetzweg/entropretty-tools",
   "bugs": {
     "url": "https://github.com/peetzweg/entropretty-tools/issues"
   },
@@ -61,14 +61,12 @@
     "@types/react-dom": "^18.3.0",
     "@types/react": "^18.3.5",
     "autoprefixer": "^10.4.20",
-    "cac": "^6.7.14",
     "entropretty-utils": "workspace:*",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
     "eslint": "^9.9.1",
     "globals": "^15.9.0",
     "postcss": "^8.4.44",
-    "tsup": "^8.2.4",
     "typescript-eslint": "^8.3.0",
     "typescript": "^5.5.4",
     "vite-plugin-dts": "^4.2.1",

@@ -4,15 +4,14 @@ import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
 import fs from "node:fs/promises";
 import path from "node:path";
-import tailwind from "tailwindcss";
-import autoprefixer from "autoprefixer";
+import react from "@vitejs/plugin-react-swc";
 
 const index_html = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entropretty Editor</title>
+    <title>Entropretty Sketch</title>
   </head>
   <body>
     <div id="root"></div>
@@ -21,10 +20,31 @@ const index_html = `<!doctype html>
 </html>
 `;
 const main_tsx = `
+import "entropretty-editor/style.css";
+import { EntroprettyEditor } from "entropretty-editor";
 import { createRoot } from "react-dom/client";
-import App from "entropretty-editor/src/App.tsx";
+import Worker from "./worker?worker";
+
+export const worker = new Worker();
+
+function App() {
+  return (
+    <>
+      <h1>Sketch</h1>
+      <EntroprettyEditor worker={worker} />
+    </>
+  );
+}
 
 createRoot(document.getElementById("root")!).render(<App />);
+`;
+
+const worker_ts = `
+import * as Comlink from "comlink";
+import { createWorker } from "entropretty-editor";
+
+Comlink.expose(createWorker(import.meta.glob(["../src/*.js","../src/*.ts"])));
+
 `;
 
 async function startServer(script: string) {
@@ -43,25 +63,20 @@ async function startServer(script: string) {
   await fs.mkdir(appPath);
   await fs.writeFile(path.join(appPath, "index.html"), index_html);
   await fs.writeFile(path.join(appPath, "main.tsx"), main_tsx);
+  await fs.writeFile(path.join(appPath, "worker.ts"), worker_ts);
   const server = await createServer({
     define: {
       __SCRIPTS__: [fullPath],
     },
-    configFile: __dirname + "../vite.config.ts",
+    // configFile: __dirname + "../vite.config.ts",
+    plugins: [react()],
     root: appPath,
     mode: "development",
-    css: {
-      postcss: {
-        plugins: [
-          tailwind({
-            config: path.join(__dirname, "../tailwind.config.js"),
-          }),
-          autoprefixer(),
-        ],
-      },
-    },
     server: {
       port: 4242,
+    },
+    worker: {
+      format: "es",
     },
   });
   await server.listen();

@@ -1,4 +1,4 @@
-import { ProceduralSeed, Schema } from "./types";
+import { ProceduralSeed, Schema } from "entropretty-editor";
 
 function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
   ctx.scale(100, 100);
@@ -137,7 +137,7 @@ interface Point2d {
 export const schema: Schema = {
   draw,
   name: "Gummiring",
-  author: "peet.sh",
+  artist: "peet.sh",
   kind: "Procedural",
 };
 

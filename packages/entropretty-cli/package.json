@@ -1,16 +1,11 @@
 {
-  "name": "entropretty-utils",
+  "name": "entropretty-cli",
   "version": "1.0.12",
   "type": "module",
-  "main": "./dist/entropretty-editor.umd.cjs",
-  "module": "./dist/entropretty-editor.js",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+  "bin":{
+    "entropretty": "./dist/cli.js"
   },
-  "description": "Utilities library for Entropretty",
+  "description": "Command line tool for Entropretty",
   "license": "MIT",
   "keywords": [
     "entropretty",
@@ -30,8 +25,8 @@
     "dist"
   ],
   "scripts": {
-    "watch": "tsup --watch",
-    "build": "tsup",
+    "watch": "tsup-node --watch",
+    "build": "tsup-node",
     "lint": "tsc && eslint ."
   },
   "devDependencies": {
@@ -39,6 +34,9 @@
     "eslint": "^9.9.1"
   },
   "dependencies": {
-    "tsup": "^8.2.4"
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "cac": "^6.7.14",
+    "tsup": "^8.2.4",
+    "vite": "^5.4.4"
   }
 }
