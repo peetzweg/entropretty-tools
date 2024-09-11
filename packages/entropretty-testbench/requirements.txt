@@ -1,8 +1,0 @@
-numpy
-opencv-python
-scikit-image
-scikit-learn
-Pillow
-ImageHash
-tensorflow
-matplotlib
