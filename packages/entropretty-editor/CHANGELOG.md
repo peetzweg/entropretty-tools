@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.11
+
+### Patch Changes
+
+- ee330d0: tries to fix how to init worker
+
 ## 1.0.10
 
 ### Patch Changes
