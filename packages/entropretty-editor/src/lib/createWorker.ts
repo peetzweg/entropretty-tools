@@ -8,6 +8,7 @@ export const createWorker = (
   let _isInitialized = false;
   return {
     init: async () => {
+      const imported: Omit<Schema, "draw">[] = [];
       await Promise.all(
         Object.values(dynamicImports).map(async (importPromise) => {
           try {
@@ -15,12 +16,16 @@ export const createWorker = (
             const module = (result as { schema: Schema }).schema as Schema;
 
             _schemas.set(module.name, module);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { draw, ...rest } = module;
+            imported.push(rest);
           } catch (e) {
             console.log({ e });
           }
         })
       );
       _isInitialized = true;
+      // return Array.from(imported);
       return Array.from(_schemas.keys());
     },
     isInitialized: () => {
