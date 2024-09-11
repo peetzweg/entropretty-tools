@@ -25,9 +25,16 @@ export type FamilyKind =
   | "ProceduralPersonal"
   | "ProceduralAccount";
 
-interface Schema<> {
-  draw: (context: CanvasRenderingContext2D, seed: ProceduralSeed) => void;
+export type Schema = {
+  draw: (
+    context: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    seed: ProceduralSeed
+  ) => void;
   kind: FamilyKind;
   name: string;
   artist: string;
+};
+
+export interface PassableSchema extends Omit<Schema, "draw"> {
+  draw: string;
 }

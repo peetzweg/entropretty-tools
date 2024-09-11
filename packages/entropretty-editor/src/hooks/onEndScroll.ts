@@ -1,4 +1,4 @@
-const ticking = useRef<boolean>(false);
+// const ticking = useRef<boolean>(false);
 // useEffect(() => {
 //   const onScroll = () => {
 //     const scrollPercentage = getScrollPercentage();

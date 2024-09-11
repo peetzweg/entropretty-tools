@@ -1,6 +1,8 @@
 import { ProceduralSeed, Schema } from "./types";
 
 function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
+  ctx.scale(100, 100);
+  // Seed-based randomization function
   let seedIndex = 0;
   const random = () => {
     const value = seed[seedIndex] / 255;
@@ -13,6 +15,7 @@ function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
   const LINE_WIDTH = 0.02;
   const MARGIN = 0.05;
   const RADIUS = 0.08;
+
   ctx.translate(MARGIN, MARGIN);
 
   ctx.strokeStyle = STROKE_STYLE;
@@ -21,8 +24,6 @@ function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
   const circles = createCircleGrid(GRID_SIZE, GRID_SIZE, MARGIN, RADIUS);
 
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  // Seed-based randomization function
 
   // Choose a random starting position
   const startIdx = Math.floor(random() * GRID_SIZE * GRID_SIZE);

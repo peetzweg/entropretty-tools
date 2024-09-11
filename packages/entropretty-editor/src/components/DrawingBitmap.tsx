@@ -1,29 +1,26 @@
-import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { offscreenWorker } from "@/App";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import { useApp } from "../state";
 
 interface Props {
   seed: Uint8Array;
-  script: string;
+  schema: string;
   size: number;
 }
 
-export const DrawingBitmap: React.FC<Props> = ({
-  seed,
-  script,
-  size,
-}: Props) => {
+export const DrawingBitmap: React.FC<Props> = ({ seed, schema, size }) => {
   const [ready, setIsReady] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const worker = useApp((state) => state.worker);
 
   useEffect(() => {
     if (canvasRef.current === null) return;
-    offscreenWorker.drawTransfer(script, seed, size).then((bitmap) => {
+    worker!.drawTransfer(schema, seed, size).then((bitmap) => {
       canvasRef.current!.getContext("2d")!.drawImage(bitmap, 0, 0, size, size);
       setIsReady(true);
     });
-  }, [seed, script, size]);
+  }, [seed, schema, size, worker]);
 
   return (
     <>

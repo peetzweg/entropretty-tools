@@ -1,26 +1,36 @@
 import * as Comlink from "comlink";
-import { PassableSchema, Schema } from "../types";
-
-type DrawFn = (
-  context: CanvasRenderingContext2D | OffscreenRenderingContext,
-  seed: number[] | string | number
-) => void;
+import type { Schema } from "entropretty-editor";
 
 const schemas = new Map<string, Schema>();
-
+const test = await new Promise((resolve) => resolve(true));
+if (test) {
+  console.log("tla");
+}
 const offscreen = {
-  scripts: new Map<string, DrawFn>(),
-  addSchema: (name: string, schema: PassableSchema) => {
-    console.log({ schema });
-    const actualSchema = {
-      ...schema,
-      draw: new Function("context", "seed", schema.draw),
-    } as Schema;
-    schemas.set(name, actualSchema);
+  init: async () => {
+    const SCHEMAS = import.meta.glob("../schemas/*.js");
+    console.log({ SCHEMAS });
+    const schemaImports = import.meta.glob("../schemas/*.js");
+    console.log({ schemaImports });
+    await Promise.all(
+      Object.entries(schemaImports).map(async ([name, promise]) => {
+        console.log("init", { name, promise });
+        try {
+          const module = ((await promise()) as any).schema as Schema;
+
+          schemas.set(module.name, module);
+        } catch (e) {
+          console.log({ e });
+        }
+      })
+    );
+    console.log({ schemaMap: schemas });
+    return Array.from(schemas.keys());
   },
   hasSchema: (name: string) => {
-    return !!schemas.get(name);
+    return schemas.has(name);
   },
+
   alive: (): Promise<string> => {
     return new Promise((resolve) => {
       setTimeout(() => {

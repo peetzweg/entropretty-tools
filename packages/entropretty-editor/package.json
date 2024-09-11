@@ -36,9 +36,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build:vite": "tsc -b && vite build",
+    "build": "tsc -b && vite build",
     "watch": "tsup-node --watch",
-    "build": "tsup-node",
+    "build:cli": "tsup-node",
     "lint": "eslint .",
     "preview": "vite preview"
   },

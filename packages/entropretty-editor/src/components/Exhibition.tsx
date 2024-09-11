@@ -1,11 +1,11 @@
-import { offscreenWorker } from "@/App";
 import { DrawingBitmap } from "@/components/DrawingBitmap";
 import { getSeedFamily, seedToKey } from "@/lib/utils";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
-function Exhibition() {
-  const [script, setScript] = useState<string | undefined>(undefined);
-
+interface Props {
+  schema: string;
+}
+function Exhibition({ schema }: Props) {
   const families = useMemo(() => {
     return Array(8)
       .fill(1)
@@ -17,21 +17,6 @@ function Exhibition() {
     return [innerWidth / 2, innerWidth / 8, innerWidth / 16];
   }, []);
 
-  useEffect(() => {
-    console.log({ __SCRIPTS__ });
-    console.log({ VITE_SCRIPTS: import.meta.env.VITE_SCRIPTS });
-    const scriptURL = import.meta.env.VITE_SCRIPTS || __SCRIPTS__[0];
-    if (scriptURL === undefined) {
-      console.warn("No script found");
-      return;
-    }
-    offscreenWorker.loadScript(scriptURL).then(() => {
-      setScript(scriptURL);
-    });
-  }, []);
-
-  if (!script) return null;
-
   return (
     <div className="flex flex-col">
       {families[0] && (
@@ -39,7 +24,7 @@ function Exhibition() {
           <div>
             <DrawingBitmap
               key={seedToKey(families[0][0])}
-              script={script}
+              schema={schema}
               seed={families[0][0]}
               size={focusSize}
             />
@@ -48,7 +33,7 @@ function Exhibition() {
             {families[0].map((seed) => (
               <DrawingBitmap
                 key={seedToKey(seed)}
-                script={script}
+                schema={schema}
                 seed={seed}
                 size={gridSize}
               />
@@ -56,12 +41,12 @@ function Exhibition() {
           </div>
         </div>
       )}
-      {families.map((seeds) => (
-        <div className="flex flex-row">
+      {families.map((seeds, index) => (
+        <div className="flex flex-row" key={`seed_family_${index}`}>
           {seeds.map((seed) => (
             <DrawingBitmap
               key={seedToKey(seed)}
-              script={script}
+              schema={schema}
               seed={seed}
               size={rowSize}
             />
