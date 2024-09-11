@@ -4,26 +4,33 @@ import * as Comlink from "comlink";
 export const createWorker = (
   dynamicImports: Record<string, () => Promise<unknown>>
 ) => {
-  const schemas = new Map<string, Schema>();
+  const _schemas = new Map<string, Schema>();
   return {
+    initWithSchemas: async (schemas: Schema[]) => {
+      for (const schema of schemas) {
+        _schemas.set(schema.name, schema);
+      }
+      return Array.from(_schemas.keys());
+    },
     init: async () => {
       await Promise.all(
         Object.entries(dynamicImports).map(async ([name, promise]) => {
           console.log("init", { name, promise });
           try {
-            const module = ((await promise()) as { schema: Schema })
-              .schema as Schema;
+            const result = await promise();
+            console.log({ result });
+            const module = (result as { schema: Schema }).schema as Schema;
 
-            schemas.set(module.name, module);
+            _schemas.set(module.name, module);
           } catch (e) {
             console.log({ e });
           }
         })
       );
-      return Array.from(schemas.keys());
+      return Array.from(_schemas.keys());
     },
     hasSchema: (name: string) => {
-      return schemas.has(name);
+      return _schemas.has(name);
     },
     drawTransfer: async (name: string, seed: Uint8Array, size: number) => {
       const canvas = new OffscreenCanvas(size, size);
@@ -31,7 +38,7 @@ export const createWorker = (
       if (!context)
         throw "Unable to get Context from OffscreenCanvas in Worker";
 
-      const schema = schemas.get(name);
+      const schema = _schemas.get(name);
       if (schema === undefined)
         throw "Schema not loaded, try adding it before drawing";
 

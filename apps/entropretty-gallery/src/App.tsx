@@ -1,6 +1,6 @@
 import { EntroprettyEditor } from "entropretty-editor";
 
-import Worker from "./worker?worker&inline";
+import Worker from "./worker?worker";
 export const worker = new Worker();
 
 function App() {
