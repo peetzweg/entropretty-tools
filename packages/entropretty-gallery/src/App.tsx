@@ -1,12 +1,9 @@
-import type { Schema } from "entropretty-editor";
 import { EntroprettyEditor } from "entropretty-editor";
-import { useEffect, useState } from "react";
 
+import { wrap } from "comlink";
 import Worker from "./worker?worker";
-import { Remote, wrap } from "comlink";
-import { OffscreenCanvasWorker } from "./worker";
-
-export const worker = wrap(new Worker()) as Remote<OffscreenCanvasWorker>;
+import { useEffect, useState } from "react";
+export const worker = wrap(new Worker());
 
 function App() {
   const [schemas, setSchemas] = useState<string[]>([]);
