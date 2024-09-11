@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.9
+
+### Patch Changes
+
+- e82c8d5: export css and test worker state
+
 ## 1.0.8
 
 ### Patch Changes

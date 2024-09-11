@@ -1,6 +1,6 @@
 {
   "name": "entropretty-editor",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "module",
   "main": "./dist/entropretty-editor.umd.cjs",
   "module": "./dist/entropretty-editor.js",
@@ -8,7 +8,8 @@
     ".": {
       "import": "./dist/entropretty-editor.js",
       "require": "./dist/entropretty-editor.umd.cjs"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "bin": {
     "entropretty": "./dist/cli.js"
@@ -30,13 +31,7 @@
     "url": "git+https://github.com/peetzweg/entropretty-tools.git"
   },
   "files": [
-    "dist",
-    "postcss.config.js",
-    "tailwind.config.js",
-    "tsconfig.json",
-    "tsconfig.app.json",
-    "tsconfig.node.json",
-    "vite.config.ts"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
@@ -76,6 +71,7 @@
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "vite-plugin-dts": "^4.2.1"
   }
 }
