@@ -29,7 +29,7 @@ function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
   const startIdx = Math.floor(random() * GRID_SIZE * GRID_SIZE);
   const currentCircle =
     circles[Math.floor(startIdx / GRID_SIZE)][startIdx % GRID_SIZE];
-  let connectedCircles: Circle[] = [currentCircle];
+  const connectedCircles: Circle[] = [currentCircle];
 
   const AMOUNT_OF_CIRCLES_TO_CONNECT = Math.max(3, Math.floor(random() * 6));
 
