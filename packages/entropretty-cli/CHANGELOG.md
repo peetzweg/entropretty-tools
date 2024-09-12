@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.15
+
+### Patch Changes
+
+- d4efa91: initial release of create-entropretty package
+
 ## 1.0.14
 
 ### Patch Changes
