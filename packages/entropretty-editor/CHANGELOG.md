@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.13
+
+### Patch Changes
+
+- 108d719: initial release of cli and utils
+
 ## 1.0.12
 
 ### Patch Changes

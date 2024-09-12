@@ -1,8 +1,8 @@
 {
   "name": "entropretty-cli",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "type": "module",
-  "bin":{
+  "bin": {
     "entropretty": "./dist/cli.js"
   },
   "description": "Command line tool for Entropretty",
