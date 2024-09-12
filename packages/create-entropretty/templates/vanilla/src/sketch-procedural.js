@@ -10,17 +10,15 @@
  * @param {Uint8Array} seed - Array of bytes, depending on the kind of design, it is either 4, 8 or 32 bytes.
  */
 function draw(ctx, seed) {
-  // Clear the canvas
-  ctx.clearRect(0, 0, 100, 100);
-
-  // Set up the canvas
+  /// Set up the canvas
   ctx.translate(5, 5); // Add a small margin
+
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
   const length = seed.length;
   const grid = Math.ceil(Math.sqrt(length));
-  const cellSize = 90 / grid; // 90 to leave space for margins
+  const cellSize = Math.floor(90 / grid); // 90 to leave space for margins
   const fontSize = Math.max(8, Math.floor(cellSize * 0.4)); // Minimum font size of 8px
   ctx.font = `${fontSize}px sans-serif`;
 
@@ -53,7 +51,7 @@ function draw(ctx, seed) {
  */
 export const schema = {
   artist: "Your-Name",
-  name: "Your-Designs-Name",
+  name: "Procedural-Design",
   draw,
-  kind: "Procedural",
+  kind: "Procedural", // Try changing this to "ProceduralPersonal" or "ProceduralAccount" to explore how the seed changes
 };

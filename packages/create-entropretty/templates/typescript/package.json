@@ -8,8 +8,8 @@
     "build": "echo TODO entropretty build ./sketch.ts"
   },
   "devDependencies": {
-    "entropretty-cli": "1.0.16",
-    "entropretty-editor": "1.0.16",
+    "entropretty-cli": "1.0.17",
+    "entropretty-editor": "1.0.17",
     "entropretty-utils": "1.0.16",
     "comlink": "^4.4.1",
     "react": "^18.3.1",

@@ -12,7 +12,6 @@ export const Controls = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log({ event });
       if (event.key === "q") {
         cycleMode();
       }

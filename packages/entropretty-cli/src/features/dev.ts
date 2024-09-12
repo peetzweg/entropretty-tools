@@ -28,7 +28,6 @@ export const worker = new Worker();
 function App() {
   return (
     <>
-      <h1>Sketch</h1>
       <EntroprettyEditor worker={worker} />
     </>
   );

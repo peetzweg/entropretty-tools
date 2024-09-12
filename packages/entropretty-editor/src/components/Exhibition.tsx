@@ -18,25 +18,24 @@ function Exhibition({ schema }: Props) {
   const mode = useApp((s) => s.mode);
 
   const [focusSize, gridSize] = useMemo(() => {
-    const innerWidth = window.innerWidth;
-    const innerHeight = window.innerHeight;
-    console.log({ innerHeight, innerWidth });
+    const innerWidth = window.innerWidth || 1000;
+    const innerHeight = window.innerHeight || 1000;
 
-    const focusSize = {
+    const focus = {
       horizontal: innerWidth / 2,
       vertical: innerHeight / 2,
       grid: 0,
-      single: innerHeight,
+      single: innerHeight < innerWidth ? innerHeight : innerWidth,
     }[mode];
 
-    const gridSize = {
+    const grid = {
       horizontal: innerWidth / 8,
       vertical: innerHeight / 8,
-      grid: innerHeight / 4,
+      grid: innerHeight < innerWidth ? innerHeight / 4 : innerWidth / 4,
       single: 0,
     }[mode];
 
-    return [focusSize, gridSize];
+    return [focus, grid];
   }, [mode]);
 
   return (

@@ -1,17 +1,15 @@
 import { Schema } from "@/types";
 
 function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
-  // Clear the canvas
-  ctx.clearRect(0, 0, 100, 100);
-
   // Set up the canvas
   ctx.translate(5, 5); // Add a small margin
+
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
   const length = seed.length;
   const grid = Math.ceil(Math.sqrt(length));
-  const cellSize = 90 / grid; // 90 to leave space for margins
+  const cellSize = Math.floor(90 / grid); // 90 to leave space for margins
   const fontSize = Math.max(8, Math.floor(cellSize * 0.4)); // Minimum font size of 8px
   ctx.font = `${fontSize}px sans-serif`;
 

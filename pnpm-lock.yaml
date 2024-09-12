@@ -164,9 +164,6 @@ importers:
       comlink:
         specifier: ^4.4.1
         version: 4.4.1
-      entropretty-utils:
-        specifier: workspace:*
-        version: link:../entropretty-utils
       lucide-react:
         specifier: ^0.439.0
         version: 0.439.0(react@18.3.1)
@@ -204,6 +201,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.44)
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../entropretty-utils
       eslint:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)

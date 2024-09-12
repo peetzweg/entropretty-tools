@@ -24,15 +24,24 @@ export const useApp = create<AppState>()(
     (set, get) => ({
       worker: null,
       schema: null,
+      schemas: [],
       showControls: true,
       toggleControls() {
         set({ showControls: !get().showControls });
       },
-      schemas: [],
       async init(worker) {
         const wrapped: Remote<EntroprettyEditorWorker> = wrap(worker);
         const schemas = await wrapped.init();
-        if (get().schema === null) {
+
+        if (schemas.length === 0) throw new Error("No schemas found");
+
+        const previousSchema = get().schema;
+        if (
+          previousSchema &&
+          schemas.find((s) => s.name === previousSchema.name)
+        ) {
+          set({ schema: previousSchema });
+        } else {
           set({ schema: schemas[0] });
         }
 
