@@ -121,6 +121,9 @@ importers:
       comlink:
         specifier: ^4.4.1
         version: 4.4.1
+      picocolors:
+        specifier: ^1.0.1
+        version: 1.0.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -247,6 +250,27 @@ importers:
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
+
+  playgrounds/typescript-template:
+    devDependencies:
+      comlink:
+        specifier: ^4.4.1
+        version: 4.4.1
+      entropretty-cli:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-cli
+      entropretty-editor:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-editor
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-utils
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
 
 packages:
 

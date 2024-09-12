@@ -1,0 +1,18 @@
+{
+  "name": "typescript-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "entropretty dev",
+    "build": "entropretty build ./src/*.ts"
+  },
+  "devDependencies": {
+    "entropretty-cli": "workspace:*",
+    "entropretty-editor": "workspace:*",
+    "entropretty-utils": "workspace:*",
+    "comlink": "^4.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
