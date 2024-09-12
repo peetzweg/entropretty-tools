@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.20
+
+### Patch Changes
+
+- ea7842b: fix broken build
+
 ## 1.0.19
 
 ### Patch Changes
