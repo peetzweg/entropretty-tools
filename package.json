@@ -2,8 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter entropretty-editor dev",
-    "dev:gallery": "pnpm --filter entropretty-gallery dev",
+    "dev:entropretty-editor": "pnpm --filter entropretty-editor dev",
+    "dev:entropretty-gallery": "pnpm --filter entropretty-gallery dev",
+    "dev:create-entropretty": "pnpm --filter create-entropretty dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",
     "build": "pnpm run --r --filter \"./packages/**\" build",
     "build:apps": "pnpm run --r --filter \"./apps/**\" build",

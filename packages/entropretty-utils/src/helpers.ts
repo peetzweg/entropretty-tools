@@ -1,3 +1,14 @@
+export function contextPrelude(ctx: CanvasRenderingContext2D) {
+  ctx.lineWidth = 1;
+  ctx.lineCap = "butt";
+  ctx.lineJoin = "miter";
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+  ctx.save();
+}
+
 export function split(seed: Uint8Array, parts: number) {
   let r = [];
   let last = 0;
@@ -58,11 +69,16 @@ export function strokeEach<E, T extends Array<E>>(
   });
 }
 
-export function numeric(seed: Uint8Array) {
-  // TODO throw if seed is too long to represent safely as numeric value in JS
-  let result = 0;
-  for (let i = 0; i < seed.length; i++) {
-    result |= seed[i] << (8 * i);
+export function numeric(seed: Uint8Array): bigint {
+  const MAX_BYTES = 64;
+
+  if (seed.length > MAX_BYTES) {
+    throw "Seed too long to safely convert to a bigint";
   }
-  return result >>> 0;
+
+  let result = 0n;
+  for (let i = 0; i < seed.length; i++) {
+    result = (result << 8n) | BigInt(seed[i]); // Shift and add each byte
+  }
+  return result;
 }

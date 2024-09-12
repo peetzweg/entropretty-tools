@@ -17,6 +17,7 @@ import {
   pkgFromUserAgent,
   toValidPackageName,
 } from "./utils.js";
+import { templates } from "./templates.js";
 
 const cli = cac("create-entropretty");
 
@@ -53,7 +54,7 @@ async function init() {
   }
 
   let result: prompts.Answers<
-    "familyKind" | "overwrite" | "packageName" | "projectName"
+    "familyKind" | "overwrite" | "packageName" | "projectName" | "template"
   >;
   try {
     result = await prompts(
@@ -116,6 +117,19 @@ async function init() {
             };
           }),
         },
+        {
+          type: "select",
+          name: "template",
+          message: pc.reset("Select the template you want to use:"),
+          initial: 0,
+          choices: templates.map((template) => {
+            const color = template.color;
+            return {
+              title: color(template.display),
+              value: template.name,
+            };
+          }),
+        },
       ],
       {
         onCancel() {
@@ -128,7 +142,7 @@ async function init() {
     return;
   }
 
-  const { overwrite, packageName } = result;
+  const { template, overwrite, packageName } = result;
 
   const root = path.join(cwd, targetDir);
 
@@ -144,11 +158,14 @@ async function init() {
   else if (options.yarn) pkgManager = "yarn";
   else pkgManager = pkgInfo ? (pkgInfo.name as PkgManager) : "npm";
 
+  console.log(`\nScaffolding project in ${root}...`);
+
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
-    "../../templates",
-    "typescript"
+    "../../../templates",
+    template
   );
+  console.log({ templateDir });
 
   function write(file: string, content?: string) {
     const targetPath = path.join(root, renameFiles[file] ?? file);

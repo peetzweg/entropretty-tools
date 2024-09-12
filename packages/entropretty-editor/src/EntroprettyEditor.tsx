@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Controls } from "./components/Controls";
 import Exhibition from "./components/Exhibition";
 import { useApp } from "./lib/state";
+import { SchemaSelect } from "./components/SchemaSelect";
 
 interface Props {
   worker: Worker;
@@ -23,9 +24,10 @@ export const EntroprettyEditor: React.FC<Props> = ({ worker }) => {
   }
 
   return (
-    <main className="h-[101vh]">
+    <main className="h-screen w-screen flex flex-col items-center justify-center">
       {currentSchema && <Exhibition schema={currentSchema} />}
       <Controls />
+      <SchemaSelect />
     </main>
   );
 };

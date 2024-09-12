@@ -1,4 +1,4 @@
-import { Schema } from "@/types";
+import { Schema, SchemaMetadata } from "@/types";
 import * as Comlink from "comlink";
 
 export const createWorker = (
@@ -8,7 +8,7 @@ export const createWorker = (
   let _isInitialized = false;
   return {
     init: async () => {
-      const imported: Omit<Schema, "draw">[] = [];
+      const imported: SchemaMetadata[] = [];
       await Promise.all(
         Object.values(dynamicImports).map(async (importPromise) => {
           try {
@@ -17,16 +17,22 @@ export const createWorker = (
 
             _schemas.set(module.name, module);
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { draw, ...rest } = module;
+            let { draw, ...rest } = module;
+            if (rest.kind === undefined) {
+              console.warn(
+                `Schema kind for '${rest.name}' not defined, defaulting to 'Procedural'`
+              );
+              rest.kind = "Procedural";
+            }
             imported.push(rest);
           } catch (e) {
             console.log({ e });
           }
         })
       );
+
       _isInitialized = true;
-      // return Array.from(imported);
-      return Array.from(_schemas.keys());
+      return Array.from(imported).sort((a, b) => a.name.localeCompare(b.name));
     },
     isInitialized: () => {
       return _isInitialized;

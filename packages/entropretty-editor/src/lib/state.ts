@@ -1,18 +1,22 @@
+import { SchemaMetadata } from "@/types";
+import { Remote, wrap } from "comlink";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { EntroprettyEditorWorker } from "./createWorker";
-import { Remote, wrap } from "comlink";
 
-type Mode = "explore" | "picked";
+export const MODES = ["horizontal", "vertical", "grid", "single"] as const;
+type Mode = (typeof MODES)[number];
 
 interface AppState {
   worker: Remote<EntroprettyEditorWorker> | null;
-  schemas: string[];
-  schema: string | null;
+  schemas: SchemaMetadata[];
+  schema: SchemaMetadata | null;
   setSchema: (schema: string) => void;
   init: (worker: Worker) => Promise<void>;
+  showControls: boolean;
+  toggleControls: () => void;
   mode: Mode;
-  changeMode: (newMode: Mode) => void;
+  cycleMode: () => void;
 }
 
 export const useApp = create<AppState>()(
@@ -20,6 +24,10 @@ export const useApp = create<AppState>()(
     (set, get) => ({
       worker: null,
       schema: null,
+      showControls: true,
+      toggleControls() {
+        set({ showControls: !get().showControls });
+      },
       schemas: [],
       async init(worker) {
         const wrapped: Remote<EntroprettyEditorWorker> = wrap(worker);
@@ -33,19 +41,23 @@ export const useApp = create<AppState>()(
           schemas,
         });
       },
-      setSchema(schema) {
+      setSchema(schemaName) {
+        const schema = get().schemas.find((s) => s.name === schemaName);
         set({ schema });
       },
-      mode: "explore",
-      changeMode(newMode) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        set({ mode: newMode });
+      mode: "horizontal",
+      cycleMode() {
+        const currentMode = get().mode;
+        const currentIndex = MODES.indexOf(currentMode);
+        const nextIndex = (currentIndex + 1) % MODES.length;
+        set({ mode: MODES[nextIndex] });
       },
     }),
     {
       name: "entropretty-editor-state",
       partialize: (state) => ({
         mode: state.mode,
+        showControls: state.showControls,
         schema: state.schema,
       }),
     }

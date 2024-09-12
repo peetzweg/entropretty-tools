@@ -11,7 +11,16 @@ export const rng = sfc32(1, 2, 3, 4);
 export function getSeed(kind: FamilyKind): Uint8Array {
   return {
     Procedural: getRandomBytes(4, rng),
-    ProceduralPersonal: getRandomBytes(8, rng),
+    ProceduralPersonal: Uint8Array.from([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      ...getRandomBytes(1, rng),
+    ]),
     ProceduralAccount: getRandomBytes(32, rng),
   }[kind];
 }
@@ -38,7 +47,8 @@ export function getSeedFamily(kind: FamilyKind): Uint8Array[] {
 
   while (seedFamilyMap.size < 16) {
     const mutatedSeed = new Uint8Array(seed);
-    mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed);
+    // mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed);
+    mutateBits(1)(mutatedSeed);
     if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
       seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed);
     }

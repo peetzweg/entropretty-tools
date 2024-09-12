@@ -30,9 +30,12 @@ export type DrawFn = (
   seed: ProceduralSeed
 ) => void;
 
-export type Schema = {
-  draw: DrawFn;
+export interface SchemaMetadata {
+  artist: string;
   kind: FamilyKind;
   name: string;
-  artist: string;
-};
+}
+
+export interface Schema extends SchemaMetadata {
+  draw: DrawFn;
+}
