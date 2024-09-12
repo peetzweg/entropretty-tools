@@ -34,13 +34,13 @@ export const Controls = () => {
     <>
       <nav
         className={cn(
-          "fixed text-sm bottom-4 left-4 flex flex-row items-center justify-center rounded-xl overflow-hidden border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/30 transition-all duration-300 ease-in-out pr-4",
+          "fixed text-sm bottom-4 left-4 flex flex-row items-center justify-center rounded-md overflow-hidden border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/30 transition-all duration-300 ease-in-out pr-4",
           { hidden: !showControls }
         )}
       >
         <div
           className={cn(
-            "w-fit px-4 h-10 flex flex-row items-center justify-center rounded-r-xl",
+            "w-fit px-4 h-10 flex flex-row items-center justify-center rounded-r-md",
             {
               "bg-yellow-400": schema.kind === "Procedural",
               "bg-blue-400": schema.kind === "ProceduralAccount",
@@ -56,12 +56,10 @@ export const Controls = () => {
         </Button>
         <div className="flex flex-row gap-2">
           <div onClick={toggleControls} className="text-muted-foreground">
-            (w) Hide
+            (w) hide
           </div>
-          <div onClick={toggleControls} className="text-muted-foreground">
-            (e) Refresh Seeds
-          </div>
-          <div className="text-muted-foreground">(r) Reload</div>
+          <div className="text-muted-foreground">(e) new seed</div>
+          <div className="text-muted-foreground">(r) reload</div>
         </div>
       </nav>
       {!showControls && (
@@ -70,7 +68,7 @@ export const Controls = () => {
           onMouseDown={toggleControls}
           className="fixed text-sm text-muted-foreground left-4 bottom-4 h-10"
         >
-          Controls
+          show
         </Button>
       )}
     </>

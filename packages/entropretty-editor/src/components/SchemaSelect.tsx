@@ -11,7 +11,7 @@ export const SchemaSelect = () => {
   return (
     <aside
       className={cn(
-        "fixed h-10 top-4 left-4 flex flex-row items-center justify-center rounded-xl overflow-hidden border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/30 transition-all duration-300 ease-in-out",
+        "fixed h-10 top-4 left-4 flex flex-row items-center justify-center rounded-md border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/30 transition-all duration-300 ease-in-out",
         { hidden: !showControls }
       )}
     >

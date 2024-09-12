@@ -11,8 +11,8 @@ function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
 
   const GRID_SIZE = 4;
   const STROKE_STYLE = "black";
-  const LINE_WIDTH = 0.02;
-  const MARGIN = 0.05;
+  const LINE_WIDTH = 0.01;
+  const MARGIN = 0.08;
   const RADIUS = 0.08;
   ctx.translate(MARGIN, MARGIN);
 

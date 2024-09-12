@@ -49,7 +49,7 @@ function Exhibition({ schema }: Props) {
             "flex-col": mode === "vertical",
           })}
         >
-          <div>
+          <div className="overflow-hidden">
             <DrawingBitmap
               key={seedToKey(families[0][0])}
               schema={schema.name}
@@ -59,12 +59,13 @@ function Exhibition({ schema }: Props) {
           </div>
           <div className="grid grid-cols-4">
             {families[0].map((seed) => (
-              <DrawingBitmap
-                key={seedToKey(seed)}
-                schema={schema.name}
-                seed={seed}
-                size={gridSize}
-              />
+              <div key={seedToKey(seed)} className="overflow-hidden">
+                <DrawingBitmap
+                  schema={schema.name}
+                  seed={seed}
+                  size={gridSize}
+                />
+              </div>
             ))}
           </div>
         </div>
