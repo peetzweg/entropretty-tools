@@ -45,13 +45,14 @@ Comlink.expose(createWorker(import.meta.glob(["../src/*.js","../src/*.ts"])));
 
 export default async function run() {
   const __cwd = process.cwd();
-
   const appPath = path.join(__cwd, ".entropretty");
+
   await fs.rm(appPath, { recursive: true, force: true });
   await fs.mkdir(appPath);
   await fs.writeFile(path.join(appPath, "index.html"), index_html);
   await fs.writeFile(path.join(appPath, "main.tsx"), main_tsx);
   await fs.writeFile(path.join(appPath, "worker.ts"), worker_ts);
+
   const server = await createServer({
     plugins: [react()],
     root: appPath,

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import cac from "cac";
 import dev from "@/features/dev";
+import build from "@/features/build";
 
 const cli = cac("entropretty");
 
@@ -9,11 +10,17 @@ cli.command("dev", "start entropretty editor in dev mode").action(async () => {
 });
 
 cli
-  // Simply omit the command name, just brackets
-  .command("[...args]", "Build files")
-  .action(() => {
-    cli.outputHelp();
+  .command("build [...files]", "bundle schemas for distribution")
+  .action(async (files) => {
+    for (const file of files) {
+      await build(file);
+    }
   });
+
+// Prints help if no command is provided
+cli.command("[...args]", "Print help").action(() => {
+  cli.outputHelp();
+});
 
 cli.help();
 
