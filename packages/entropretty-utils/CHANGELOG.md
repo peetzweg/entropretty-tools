@@ -1,5 +1,11 @@
 # entropretty-utils
 
+## 1.0.16
+
+### Patch Changes
+
+- 5629f2a: major feature upgrade to editor
+
 ## 1.0.15
 
 ### Patch Changes
