@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.17
+
+### Patch Changes
+
+- e138ac8: cleanup for testride release
+
 ## 1.0.16
 
 ### Patch Changes

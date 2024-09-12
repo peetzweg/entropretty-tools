@@ -1,5 +1,12 @@
 # entropretty-gallery
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [e138ac8]
+  - entropretty-editor@1.0.17
+
 ## 0.0.4
 
 ### Patch Changes
