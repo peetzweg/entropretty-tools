@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.18
+
+### Patch Changes
+
+- 2c47edd: update compiled parts
+
 ## 1.0.17
 
 ### Patch Changes
