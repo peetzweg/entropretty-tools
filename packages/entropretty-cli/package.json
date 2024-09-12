@@ -1,6 +1,6 @@
 {
   "name": "entropretty-cli",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "type": "module",
   "bin": {
     "entropretty": "./dist/cli.js"
@@ -36,6 +36,9 @@
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.7.0",
     "cac": "^6.7.14",
+    "comlink": "^4.4.1",
+    "react-dom": "^18.3.1",
+    "react": "^18.3.1",
     "tsup": "^8.2.4",
     "vite": "^5.4.4"
   }

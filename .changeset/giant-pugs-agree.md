@@ -1,7 +1,8 @@
 ---
 "entropretty-editor": patch
 "entropretty-utils": patch
+"entropretty-gallery": patch
 "entropretty-cli": patch
 ---
 
-optimizes dependencies
+initial release of create-entropretty package
