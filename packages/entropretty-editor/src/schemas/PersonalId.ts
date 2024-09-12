@@ -3,7 +3,7 @@ import { numeric } from "entropretty-utils";
 
 function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
   const size = 100;
-  const personalId = numeric(seed);
+  const personalId = numeric(seed).toString();
   ctx.strokeStyle = "";
   ctx.fillStyle = "black";
   ctx.textAlign = "center";

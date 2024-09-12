@@ -34,8 +34,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "watch": "tsup-node --watch",
-    "build:cli": "tsup-node",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -50,6 +48,7 @@
     "lucide-react": "^0.439.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "tailwindcss": "^3.4.10",
     "zustand": "^4.5.5"
   },
   "peerDependencies": {
@@ -68,7 +67,6 @@
     "eslint": "^9.9.1",
     "globals": "^15.9.0",
     "postcss": "^8.4.44",
-    "tailwindcss": "^3.4.10",
     "typescript-eslint": "^8.3.0",
     "typescript": "^5.5.4",
     "vite-plugin-dts": "^4.2.1",

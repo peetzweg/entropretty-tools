@@ -1,138 +1,36 @@
-import { ProceduralSeed, Schema } from "entropretty-editor";
+import { DrawFn, Schema } from "entropretty-editor";
 
-function draw(ctx: CanvasRenderingContext2D, seed: ProceduralSeed) {
-  ctx.scale(100, 100);
-  // Seed-based randomization function
-  let seedIndex = 0;
-  const random = () => {
-    const value = seed[seedIndex] / 255;
-    seedIndex = (seedIndex + 1) % seed.length;
-    return value;
-  };
+const draw: DrawFn = (ctx, seed) => {
+  // Clear the canvas
+  ctx.clearRect(0, 0, 100, 100);
 
-  const GRID_SIZE = 4;
-  const STROKE_STYLE = "black";
-  const LINE_WIDTH = 0.02;
-  const MARGIN = 0.05;
-  const RADIUS = 0.08;
+  // Set up the canvas
+  ctx.translate(5, 5); // Add a small margin
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
-  ctx.translate(MARGIN, MARGIN);
+  const length = seed.length;
+  const grid = Math.ceil(Math.sqrt(length));
+  const cellSize = 90 / grid; // 90 to leave space for margins
+  const fontSize = Math.max(8, Math.floor(cellSize * 0.4)); // Minimum font size of 8px
+  ctx.font = `${fontSize}px sans-serif`;
 
-  ctx.strokeStyle = STROKE_STYLE;
-  ctx.lineWidth = LINE_WIDTH;
+  // Draw grid and numbers
+  seed.forEach((n, i) => {
+    const row = Math.floor(i / grid);
+    const col = i % grid;
+    const x = col * cellSize;
+    const y = row * cellSize;
 
-  const circles = createCircleGrid(GRID_SIZE, GRID_SIZE, MARGIN, RADIUS);
+    // Draw cell border
+    ctx.strokeStyle = "#ccc";
+    ctx.strokeRect(x, y, cellSize, cellSize);
 
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  // Choose a random starting position
-  const startIdx = Math.floor(random() * GRID_SIZE * GRID_SIZE);
-  let currentCircle =
-    circles[Math.floor(startIdx / GRID_SIZE)][startIdx % GRID_SIZE];
-  let connectedCircles: Circle[] = [currentCircle];
-
-  const AMOUNT_OF_CIRCLES_TO_CONNECT = Math.max(3, Math.floor(random() * 6));
-
-  // Continue making connections from the current circle to any other circle
-  for (let i = 0; i < AMOUNT_OF_CIRCLES_TO_CONNECT; i++) {
-    const availableCircles = circles
-      .flat()
-      .filter((c) => !connectedCircles.includes(c));
-    if (availableCircles.length === 0) break;
-
-    const nextCircleIdx = Math.floor(random() * availableCircles.length);
-    const nextCircle = availableCircles[nextCircleIdx];
-
-    connectedCircles.push(nextCircle);
-  }
-
-  // Draw the connected circles
-  for (const circ of connectedCircles) {
-    ctx.beginPath();
-    ctx.arc(circ.x, circ.y, circ.r, 0, 2 * Math.PI);
-    ctx.stroke();
-  }
-
-  const notConnectedCircles = circles
-    .flat()
-    .filter((c) => !connectedCircles.includes(c));
-  // Draw the connected circles
-  for (const circ of notConnectedCircles) {
-    ctx.beginPath();
-    ctx.arc(circ.x, circ.y, 0.008, 0, 2 * Math.PI);
-    ctx.fill();
-  }
-
-  // Draw the connections between the circles
-  for (let i = 0; i < connectedCircles.length; i++) {
-    let [p1, p2] = getTangentPoints(
-      connectedCircles[i % connectedCircles.length],
-      connectedCircles[(i + 1) % connectedCircles.length]
-    );
-
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-  }
-}
-
-function createCircleGrid(
-  rows: number,
-  cols: number,
-  margin: number,
-  radius: number
-) {
-  const circles: Circle[][] = [];
-  const stepX = (1 - 2 * margin - 2 * (margin + radius)) / (cols - 1);
-  const stepY = (1 - 2 * margin - 2 * (margin + radius)) / (rows - 1);
-
-  for (let r = 0; r < rows; r++) {
-    const row: Circle[] = [];
-    for (let c = 0; c < cols; c++) {
-      const x = margin + radius + c * stepX;
-      const y = margin + radius + r * stepY;
-      const circle = new Circle(x, y, radius);
-      row.push(circle);
-    }
-    circles.push(row);
-  }
-
-  return circles;
-}
-
-function getTangentPoints(c1: Circle, c2: Circle): [Point2d, Point2d] {
-  const dx = c2.x - c1.x;
-  const dy = c2.y - c1.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  const r = c1.r;
-  const offsetX = (r * dy) / dist;
-  const offsetY = (r * dx) / dist;
-
-  const p1 = { x: c1.x + offsetX, y: c1.y - offsetY };
-  const p2 = { x: c2.x + offsetX, y: c2.y - offsetY };
-
-  return [p1, p2];
-}
-
-class Circle {
-  x: number;
-  y: number;
-  r: number;
-  neighbors: Circle[];
-
-  constructor(x: number, y: number, r: number) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.neighbors = [];
-  }
-}
-
-interface Point2d {
-  x: number;
-  y: number;
-}
+    // Draw number
+    ctx.fillStyle = "#000";
+    ctx.fillText(n.toString(), x + cellSize / 2, y + cellSize / 2);
+  });
+};
 
 export const schema: Schema = {
   draw,
@@ -140,5 +38,3 @@ export const schema: Schema = {
   artist: "peet.sh",
   kind: "Procedural",
 };
-
-export default schema;

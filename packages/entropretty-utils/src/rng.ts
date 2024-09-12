@@ -1,12 +1,13 @@
-import Prando from "prando";
-import { bits, numeric } from "./helpers.js";
+// import Prando from "prando";
+import { bits } from "./helpers.js";
 
 export function randomGenerator(seed: Uint8Array) {
-  const p = new Prando(numeric(seed));
+  throw "Not implemented yet";
+  // const p = new Prando(numeric(seed.toString()));
 
-  return function () {
-    return p.next();
-  };
+  // return function () {
+  //   return p.next();
+  // };
 }
 
 export function cheapRandomGenerator(seed: Uint8Array) {

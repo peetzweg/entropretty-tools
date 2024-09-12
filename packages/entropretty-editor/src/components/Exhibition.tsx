@@ -1,12 +1,13 @@
 import { DrawingBitmap } from "@/components/DrawingBitmap";
 import { cn, getSeedFamily, seedToKey } from "@/lib/utils";
 import { useMemo } from "react";
-import { SchemaMetadata } from "../types";
-import { useApp } from "../lib/state";
+import { SchemaMetadata } from "@/types";
+import { useApp } from "@/lib/state";
 
 interface Props {
   schema: SchemaMetadata;
 }
+
 function Exhibition({ schema }: Props) {
   const families = useMemo(() => {
     return Array(8)
@@ -16,7 +17,7 @@ function Exhibition({ schema }: Props) {
 
   const mode = useApp((s) => s.mode);
 
-  const [focusSize, gridSize, rowSize] = useMemo(() => {
+  const [focusSize, gridSize] = useMemo(() => {
     const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;
     console.log({ innerHeight, innerWidth });
@@ -35,10 +36,8 @@ function Exhibition({ schema }: Props) {
       single: 0,
     }[mode];
 
-    return [focusSize, gridSize, innerWidth / 16];
+    return [focusSize, gridSize];
   }, [mode]);
-
-  console.log({ focusSize, gridSize });
 
   return (
     <div className="flex flex-col">
@@ -70,19 +69,6 @@ function Exhibition({ schema }: Props) {
           </div>
         </div>
       )}
-      {/*
-      {families.map((seeds, index) => (
-        <div className="flex flex-row" key={`seed_family_${index}`}>
-          {seeds.map((seed) => (
-            <DrawingBitmap
-              key={seedToKey(seed)}
-              schema={schema.name}
-              seed={seed}
-              size={rowSize}
-            />
-          ))}
-        </div>
-      ))} */}
     </div>
   );
 }

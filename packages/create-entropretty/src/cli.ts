@@ -165,7 +165,6 @@ async function init() {
     "../../../templates",
     template
   );
-  console.log({ templateDir });
 
   function write(file: string, content?: string) {
     const targetPath = path.join(root, renameFiles[file] ?? file);

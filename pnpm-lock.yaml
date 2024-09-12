@@ -164,6 +164,9 @@ importers:
       comlink:
         specifier: ^4.4.1
         version: 4.4.1
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../entropretty-utils
       lucide-react:
         specifier: ^0.439.0
         version: 0.439.0(react@18.3.1)
@@ -176,6 +179,9 @@ importers:
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
+      tailwindcss:
+        specifier: ^3.4.10
+        version: 3.4.10
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.10)
@@ -198,9 +204,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.44)
-      entropretty-utils:
-        specifier: workspace:*
-        version: link:../entropretty-utils
       eslint:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
@@ -216,9 +219,6 @@ importers:
       postcss:
         specifier: ^8.4.44
         version: 8.4.44
-      tailwindcss:
-        specifier: ^3.4.10
-        version: 3.4.10
       typescript:
         specifier: ^5.5.4
         version: 5.5.4

@@ -1,4 +1,4 @@
-import { Schema } from "../types";
+import { Schema } from "@/types";
 
 function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
   ctx.scale(100, 100);

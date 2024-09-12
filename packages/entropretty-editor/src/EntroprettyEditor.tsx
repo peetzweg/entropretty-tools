@@ -1,9 +1,9 @@
-import "./App.css";
+import { Controls } from "@/components/Controls";
+import Exhibition from "@/components/Exhibition";
+import { SchemaSelect } from "@/components/SchemaSelect";
+import { useApp } from "@/lib/state";
 import { useEffect } from "react";
-import { Controls } from "./components/Controls";
-import Exhibition from "./components/Exhibition";
-import { useApp } from "./lib/state";
-import { SchemaSelect } from "./components/SchemaSelect";
+import "./App.css";
 
 interface Props {
   worker: Worker;
