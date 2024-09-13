@@ -73,7 +73,7 @@
   }
 
   h2 {
-    @apply w-2/3 font-mono text-4xl uppercase text-black dark:text-white;
+    @apply w-2/3 font-mono text-3xl sm:text-4xl uppercase text-black dark:text-white;
   }
 
   p{

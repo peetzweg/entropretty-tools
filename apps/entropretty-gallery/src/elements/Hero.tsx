@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
   return (
     <div className="flex flex-col justify-start gap-10">
       <div className="flex flex-col items-baseline">
-        <div className="w-2/3 font-serif text-5xl text-black dark:text-white">
+        <div className="w-2/3 font-serif text-4xl text-black sm:text-5xl dark:text-white">
           Contribute to{" "}
           <span className="whitespace-nowrap font-sans font-semibold italic">
             Proof of Ink
@@ -17,7 +17,7 @@ export const Hero: React.FC = () => {
 
         <HyperText
           duration={4000}
-          className="p-0 font-mono text-5xl font-bold text-black dark:text-white"
+          className="p-0 font-mono text-4xl font-bold text-black sm:text-5xl dark:text-white"
           text="× ENTROPRETTY "
         />
       </div>
