@@ -1,3 +1,3 @@
-export * from "./helpers";
-export * from "./colors";
-export * from "./rng";
+export * from "./helpers"
+export * from "./colors"
+export * from "./rng"

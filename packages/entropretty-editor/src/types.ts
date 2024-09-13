@@ -4,38 +4,38 @@
  * 32 Bit / 4 bytes / 4 elements between 0 and 255
  */
 
-export type ProceduralSeed = Uint8Array;
+export type ProceduralSeed = Uint8Array
 
 /**
  * PersonalId of the user. A u64 number represented in bytes.
  *
  * 64 Bit / 8 bytes / 8 elements between 0 and 255
  */
-export type ProceduralPersonalSeed = Uint8Array;
+export type ProceduralPersonalSeed = Uint8Array
 
 /**
  * AccountId of the user represented as 32 bytes
  *
  * 256 Bit / 32 bytes / 32 elements between 0 and 255
  */
-export type ProceduralAccountSeed = Uint8Array;
+export type ProceduralAccountSeed = Uint8Array
 
 export type FamilyKind =
   | "Procedural"
   | "ProceduralPersonal"
-  | "ProceduralAccount";
+  | "ProceduralAccount"
 
 export type DrawFn = (
   context: CanvasRenderingContext2D, // | OffscreenCanvasRenderingContext2D,
-  seed: ProceduralSeed
-) => void;
+  seed: ProceduralSeed,
+) => void
 
 export interface SchemaMetadata {
-  artist: string;
-  kind: FamilyKind;
-  name: string;
+  artist: string
+  kind: FamilyKind
+  name: string
 }
 
 export interface Schema extends SchemaMetadata {
-  draw: DrawFn;
+  draw: DrawFn
 }

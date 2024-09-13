@@ -1,6 +1,6 @@
-import * as Comlink from "comlink";
-import { createWorker } from "entropretty-editor";
+import * as Comlink from "comlink"
+import { createWorker } from "entropretty-editor"
 
 Comlink.expose(
-  createWorker(import.meta.glob(["/schemas/*.js", "/schemas/*.ts"]))
-);
+  createWorker(import.meta.glob(["/schemas/*.js", "/schemas/*.ts"])),
+)

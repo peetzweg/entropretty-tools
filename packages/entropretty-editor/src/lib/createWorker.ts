@@ -1,76 +1,75 @@
-import { Schema, SchemaMetadata } from "@/types";
-import * as Comlink from "comlink";
+import { Schema, SchemaMetadata } from "@/types"
+import * as Comlink from "comlink"
 
 export const createWorker = (
-  dynamicImports: Record<string, () => Promise<unknown>>
+  dynamicImports: Record<string, () => Promise<unknown>>,
 ) => {
-  const _schemas = new Map<string, Schema>();
-  let _isInitialized = false;
+  const _schemas = new Map<string, Schema>()
+  let _isInitialized = false
   return {
     init: async () => {
-      const imported: SchemaMetadata[] = [];
+      const imported: SchemaMetadata[] = []
       await Promise.all(
         Object.values(dynamicImports).map(async (importPromise) => {
           try {
-            const result = await importPromise();
-            const module = (result as { schema: Schema }).schema as Schema;
+            const result = await importPromise()
+            const module = (result as { schema: Schema }).schema as Schema
 
-            _schemas.set(module.name, module);
+            _schemas.set(module.name, module)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            let { draw, ...rest } = module;
+            let { draw, ...rest } = module
             if (rest.kind === undefined) {
               console.warn(
-                `Schema kind for '${rest.name}' not defined, defaulting to 'Procedural'`
-              );
-              rest.kind = "Procedural";
+                `Schema kind for '${rest.name}' not defined, defaulting to 'Procedural'`,
+              )
+              rest.kind = "Procedural"
             }
-            imported.push(rest);
+            imported.push(rest)
           } catch (e) {
-            console.log({ e });
+            console.log({ e })
           }
-        })
-      );
+        }),
+      )
 
-      _isInitialized = true;
-      return Array.from(imported).sort((a, b) => a.name.localeCompare(b.name));
+      _isInitialized = true
+      return Array.from(imported).sort((a, b) => a.name.localeCompare(b.name))
     },
     isInitialized: () => {
-      return _isInitialized;
+      return _isInitialized
     },
     hasSchema: (name: string) => {
-      return _schemas.has(name);
+      return _schemas.has(name)
     },
     drawTransfer: async (name: string, seed: Uint8Array, size: number) => {
-      const canvas = new OffscreenCanvas(size, size);
-      const context = canvas.getContext("2d");
-      if (!context)
-        throw "Unable to get Context from OffscreenCanvas in Worker";
+      const canvas = new OffscreenCanvas(size, size)
+      const context = canvas.getContext("2d")
+      if (!context) throw "Unable to get Context from OffscreenCanvas in Worker"
 
-      const schema = _schemas.get(name);
+      const schema = _schemas.get(name)
       if (schema === undefined)
-        throw "Schema not loaded, try adding it before drawing";
+        throw "Schema not loaded, try adding it before drawing"
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.scale(canvas.width / 100, canvas.width / 100);
-      context.lineWidth = 1;
-      context.lineCap = "butt";
-      context.lineJoin = "miter";
-      context.strokeStyle = "black";
-      context.fillStyle = "black";
-      context.textAlign = "center";
-      context.textBaseline = "bottom";
+      context.clearRect(0, 0, canvas.width, canvas.height)
+      context.scale(canvas.width / 100, canvas.width / 100)
+      context.lineWidth = 1
+      context.lineCap = "butt"
+      context.lineJoin = "miter"
+      context.strokeStyle = "black"
+      context.fillStyle = "black"
+      context.textAlign = "center"
+      context.textBaseline = "bottom"
 
       try {
-        schema.draw(context as unknown as CanvasRenderingContext2D, seed);
+        schema.draw(context as unknown as CanvasRenderingContext2D, seed)
       } catch (e) {
-        console.error("Error drawing", name);
-        console.info(e);
+        console.error("Error drawing", name)
+        console.info(e)
       }
 
-      const bitmap = canvas.transferToImageBitmap();
-      return Comlink.transfer(bitmap, [bitmap]);
+      const bitmap = canvas.transferToImageBitmap()
+      return Comlink.transfer(bitmap, [bitmap])
     },
-  };
-};
+  }
+}
 
-export type EntroprettyEditorWorker = ReturnType<typeof createWorker>;
+export type EntroprettyEditorWorker = ReturnType<typeof createWorker>

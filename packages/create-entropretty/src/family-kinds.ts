@@ -1,12 +1,12 @@
-import pc from "picocolors";
+import pc from "picocolors"
 
-type ColorFunc = (str: string | number) => string;
+type ColorFunc = (str: string | number) => string
 
 export type FamilyKind = {
-  name: string;
-  display: string;
-  color: ColorFunc;
-};
+  name: string
+  display: string
+  color: ColorFunc
+}
 
 export const familyKinds: readonly FamilyKind[] = [
   {
@@ -24,4 +24,4 @@ export const familyKinds: readonly FamilyKind[] = [
     display: "Procedural Personal",
     color: pc.magenta,
   },
-];
+]

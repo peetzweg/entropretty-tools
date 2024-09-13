@@ -1,8 +1,8 @@
-import react from "@vitejs/plugin-react-swc";
-import path from "node:path";
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
+import react from "@vitejs/plugin-react-swc"
+import path from "node:path"
+import { resolve } from "path"
+import { defineConfig } from "vite"
+import dts from "vite-plugin-dts"
 
 export default defineConfig({
   plugins: [
@@ -38,4 +38,4 @@ export default defineConfig({
   define: {
     __SCRIPTS__: [],
   },
-});
+})

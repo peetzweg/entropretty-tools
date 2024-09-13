@@ -1,7 +1,7 @@
-import react from "@vitejs/plugin-react-swc";
-import fs from "node:fs/promises";
-import path from "node:path";
-import { createServer } from "vite";
+import react from "@vitejs/plugin-react-swc"
+import fs from "node:fs/promises"
+import path from "node:path"
+import { createServer } from "vite"
 
 const index_html = `<!doctype html>
 <html lang="en">
@@ -15,7 +15,7 @@ const index_html = `<!doctype html>
     <script type="module" src="/main.tsx"></script>
   </body>
 </html>
-`;
+`
 
 const main_tsx = `
 import "entropretty-editor/style.css";
@@ -34,24 +34,24 @@ function App() {
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
-`;
+`
 
 const worker_ts = `
 import * as Comlink from "comlink";
 import { createWorker } from "entropretty-editor";
 
 Comlink.expose(createWorker(import.meta.glob(["../src/*.js","../src/*.ts"])));
-`;
+`
 
 export default async function run() {
-  const __cwd = process.cwd();
-  const appPath = path.join(__cwd, ".entropretty");
+  const __cwd = process.cwd()
+  const appPath = path.join(__cwd, ".entropretty")
 
-  await fs.rm(appPath, { recursive: true, force: true });
-  await fs.mkdir(appPath);
-  await fs.writeFile(path.join(appPath, "index.html"), index_html);
-  await fs.writeFile(path.join(appPath, "main.tsx"), main_tsx);
-  await fs.writeFile(path.join(appPath, "worker.ts"), worker_ts);
+  await fs.rm(appPath, { recursive: true, force: true })
+  await fs.mkdir(appPath)
+  await fs.writeFile(path.join(appPath, "index.html"), index_html)
+  await fs.writeFile(path.join(appPath, "main.tsx"), main_tsx)
+  await fs.writeFile(path.join(appPath, "worker.ts"), worker_ts)
 
   const server = await createServer({
     plugins: [react()],
@@ -63,9 +63,9 @@ export default async function run() {
     worker: {
       format: "es",
     },
-  });
-  await server.listen();
+  })
+  await server.listen()
 
-  server.printUrls();
-  server.bindCLIShortcuts({ print: true });
+  server.printUrls()
+  server.bindCLIShortcuts({ print: true })
 }

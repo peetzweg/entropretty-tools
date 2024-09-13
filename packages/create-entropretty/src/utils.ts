@@ -1,8 +1,8 @@
-import * as fs from 'node:fs'
-import * as path from 'node:path'
+import * as fs from "node:fs"
+import * as path from "node:path"
 
 export function formatTargetDir(targetDir: string | undefined) {
-  return targetDir?.trim().replace(/\/+$/g, '')
+  return targetDir?.trim().replace(/\/+$/g, "")
 }
 
 export function copy(src: string, dest: string) {
@@ -30,28 +30,28 @@ export function toValidPackageName(projectName: string) {
   return projectName
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/^[._]/, '')
-    .replace(/[^a-z\d\-~]+/g, '-')
+    .replace(/\s+/g, "-")
+    .replace(/^[._]/, "")
+    .replace(/[^a-z\d\-~]+/g, "-")
 }
 
 export function isEmpty(path: string) {
   const files = fs.readdirSync(path)
-  return files.length === 0 || (files.length === 1 && files[0] === '.git')
+  return files.length === 0 || (files.length === 1 && files[0] === ".git")
 }
 
 export function emptyDir(dir: string) {
   if (!fs.existsSync(dir)) return
   for (const file of fs.readdirSync(dir)) {
-    if (file === '.git') continue
+    if (file === ".git") continue
     fs.rmSync(path.resolve(dir, file), { recursive: true, force: true })
   }
 }
 
 export function pkgFromUserAgent(userAgent: string | undefined) {
   if (!userAgent) return undefined
-  const pkgSpec = userAgent.split(' ')[0]!
-  const pkgSpecArr = pkgSpec.split('/')
+  const pkgSpec = userAgent.split(" ")[0]!
+  const pkgSpecArr = pkgSpec.split("/")
   return {
     name: pkgSpecArr[0],
     version: pkgSpecArr[1],

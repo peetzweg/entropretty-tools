@@ -1,37 +1,37 @@
 #!/usr/bin/env node
-import cac from "cac";
-import dev from "@/features/dev";
-import build from "@/features/build";
+import cac from "cac"
+import dev from "@/features/dev"
+import build from "@/features/build"
 
-const cli = cac("entropretty");
+const cli = cac("entropretty")
 
 cli.command("dev", "start entropretty editor in dev mode").action(async () => {
-  await dev();
-});
+  await dev()
+})
 
 cli
   .command("build [...files]", "bundle schemas for distribution")
   .action(async (files) => {
     for (const file of files) {
-      await build(file);
+      await build(file)
     }
-  });
+  })
 
 // Prints help if no command is provided
 cli.command("[...args]", "Print help").action(() => {
-  cli.outputHelp();
-});
+  cli.outputHelp()
+})
 
-cli.help();
+cli.help()
 
 try {
-  cli.parse(process.argv, { run: false });
-  await cli.runMatchedCommand();
+  cli.parse(process.argv, { run: false })
+  await cli.runMatchedCommand()
 } catch (error) {
-  if (error instanceof Error) console.error(error.message);
+  if (error instanceof Error) console.error(error.message)
   else {
-    console.error(error);
+    console.error(error)
   }
 
-  process.exit(1);
+  process.exit(1)
 }

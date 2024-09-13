@@ -9,7 +9,8 @@
     "build": "pnpm run --r --filter \"./packages/**\" build",
     "build:apps": "pnpm run --r --filter \"./apps/**\" build",
     "lint": "pnpm run --r --filter \"./packages/**\" lint",
-    "local-release": "changeset version && changeset publish"
+    "local-release": "changeset version && changeset publish",
+    "prettier": "prettier . --write"
   },
   "author": "",
   "license": "MIT",
@@ -19,6 +20,8 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "eslint-plugin-react": "^7.35.0",
     "eslint": "^9.9.0",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prettier": "3.3.2",
     "typescript": "^5.5.4"
   }
 }

@@ -1,50 +1,50 @@
-import { Button } from "@/components/ui/button";
-import { useApp } from "@/lib/state";
-import { cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { Button } from "@/components/ui/button"
+import { useApp } from "@/lib/state"
+import { cn } from "@/lib/utils"
+import { useEffect } from "react"
 
 export const Controls = () => {
-  const cycleMode = useApp((state) => state.cycleMode);
-  const mode = useApp((state) => state.mode);
-  const schema = useApp((state) => state.schema);
-  const showControls = useApp((state) => state.showControls);
-  const toggleControls = useApp((state) => state.toggleControls);
+  const cycleMode = useApp((state) => state.cycleMode)
+  const mode = useApp((state) => state.mode)
+  const schema = useApp((state) => state.schema)
+  const showControls = useApp((state) => state.showControls)
+  const toggleControls = useApp((state) => state.toggleControls)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "q") {
-        cycleMode();
+        cycleMode()
       }
       if (event.key === "w") {
-        toggleControls();
+        toggleControls()
       }
-    };
+    }
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown)
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [cycleMode, toggleControls]);
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [cycleMode, toggleControls])
 
-  if (!schema) return null;
+  if (!schema) return null
 
   return (
     <>
       <nav
         className={cn(
-          "fixed text-sm bottom-4 left-4 flex flex-row items-center justify-center rounded-md overflow-hidden border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/30 transition-all duration-300 ease-in-out pr-4",
-          { hidden: !showControls }
+          "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed bottom-4 left-4 flex flex-row items-center justify-center overflow-hidden rounded-md border pr-4 text-sm backdrop-blur transition-all duration-300 ease-in-out",
+          { hidden: !showControls },
         )}
       >
         <div
           className={cn(
-            "w-fit px-4 h-10 flex flex-row items-center justify-center rounded-r-md",
+            "flex h-10 w-fit flex-row items-center justify-center rounded-r-md px-4",
             {
               "bg-yellow-400": schema.kind === "Procedural",
               "bg-blue-400": schema.kind === "ProceduralAccount",
               "bg-red-400": schema.kind === "ProceduralPersonal",
-            }
+            },
           )}
         >
           {schema?.kind}
@@ -65,11 +65,11 @@ export const Controls = () => {
         <Button
           variant={"ghost"}
           onMouseDown={toggleControls}
-          className="fixed text-sm text-muted-foreground left-4 bottom-4 h-10"
+          className="text-muted-foreground fixed bottom-4 left-4 h-10 text-sm"
         >
           show
         </Button>
       )}
     </>
-  );
-};
+  )
+}

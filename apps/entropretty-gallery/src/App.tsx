@@ -1,11 +1,11 @@
-import { EntroprettyEditor, EntroprettyEditorWorker } from "entropretty-editor";
+import { EntroprettyEditor, EntroprettyEditorWorker } from "entropretty-editor"
 
-import Worker from "./worker?worker";
-import { Remote, wrap } from "comlink";
-import { useEffect, useState, useRef } from "react";
-const worker = new Worker();
+import Worker from "./worker?worker"
+import { Remote, wrap } from "comlink"
+import { useEffect, useState, useRef } from "react"
+const worker = new Worker()
 
-const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker);
+const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)
 
 function App() {
   return (
@@ -13,16 +13,16 @@ function App() {
       {false && <SchemaSelect />}
       <EntroprettyEditor worker={worker} />
     </main>
-  );
+  )
 }
 
 const SchemaSelect = () => {
-  const [schemas, setSchemas] = useState<string[]>([]);
+  const [schemas, setSchemas] = useState<string[]>([])
   useEffect(() => {
     wrappedWorker.init().then((schemas: string[]) => {
-      setSchemas(schemas.sort());
-    });
-  }, []);
+      setSchemas(schemas.sort())
+    })
+  }, [])
   return (
     <div
       style={{
@@ -53,27 +53,27 @@ const SchemaSelect = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 interface Props {
-  seed: Uint8Array;
-  schema: string;
-  size: number;
+  seed: Uint8Array
+  schema: string
+  size: number
 }
 
 export const DrawingBitmap: React.FC<Props> = ({ seed, schema, size }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (canvasRef.current === null) return;
+    if (canvasRef.current === null) return
 
     wrappedWorker.drawTransfer(schema, seed, size).then((bitmap) => {
-      const context = canvasRef.current!.getContext("2d")!;
-      context.clearRect(0, 0, size, size);
-      context.drawImage(bitmap, 0, 0, size, size);
-    });
-  }, [seed, schema, size]);
+      const context = canvasRef.current!.getContext("2d")!
+      context.clearRect(0, 0, size, size)
+      context.drawImage(bitmap, 0, 0, size, size)
+    })
+  }, [seed, schema, size])
 
   return (
     <>
@@ -85,7 +85,7 @@ export const DrawingBitmap: React.FC<Props> = ({ seed, schema, size }) => {
         style={{ width: size, height: size }}
       />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

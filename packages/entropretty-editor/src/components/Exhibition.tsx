@@ -1,48 +1,48 @@
-import { DrawingBitmap } from "@/components/DrawingBitmap";
-import { cn, getSeedFamily, seedToKey } from "@/lib/utils";
-import { useMemo } from "react";
-import { SchemaMetadata } from "@/types";
-import { useApp } from "@/lib/state";
+import { DrawingBitmap } from "@/components/DrawingBitmap"
+import { cn, getSeedFamily, seedToKey } from "@/lib/utils"
+import { useMemo } from "react"
+import { SchemaMetadata } from "@/types"
+import { useApp } from "@/lib/state"
 
 interface Props {
-  schema: SchemaMetadata;
+  schema: SchemaMetadata
 }
 
 function Exhibition({ schema }: Props) {
   const families = useMemo(() => {
     return Array(8)
       .fill(1)
-      .map(() => getSeedFamily(schema.kind));
-  }, [schema.kind]);
+      .map(() => getSeedFamily(schema.kind))
+  }, [schema.kind])
 
-  const mode = useApp((s) => s.mode);
+  const mode = useApp((s) => s.mode)
 
   const [focusSize, gridSize] = useMemo(() => {
-    const innerWidth = window.innerWidth || 1000;
-    const innerHeight = window.innerHeight || 1000;
+    const innerWidth = window.innerWidth || 1000
+    const innerHeight = window.innerHeight || 1000
 
     const focus = {
       horizontal: innerWidth / 2,
       vertical: innerHeight / 2,
       grid: 0,
       single: innerHeight < innerWidth ? innerHeight : innerWidth,
-    }[mode];
+    }[mode]
 
     const grid = {
       horizontal: innerWidth / 8,
       vertical: innerHeight / 8,
       grid: innerHeight < innerWidth ? innerHeight / 4 : innerWidth / 4,
       single: 0,
-    }[mode];
+    }[mode]
 
-    return [focus, grid];
-  }, [mode]);
+    return [focus, grid]
+  }, [mode])
 
   return (
     <div className="flex flex-col">
       {families[0] && (
         <div
-          className={cn("flex justify-start items-start", {
+          className={cn("flex items-start justify-start", {
             "flex-row": mode === "horizontal",
             "flex-col": mode === "vertical",
           })}
@@ -69,7 +69,7 @@ function Exhibition({ schema }: Props) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Exhibition;
+export default Exhibition
