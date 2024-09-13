@@ -1,11 +1,10 @@
-import NumberTicker from "@/components/magicui/number-ticker"
+import { Drawing } from "@/components/Drawing"
+import BlurFade from "@/components/magicui/blur-fade"
+import GridPattern from "@/components/magicui/grid-pattern"
 import Worker from "@/lib/worker?worker"
 import { Remote, wrap } from "comlink"
 import { EntroprettyEditorWorker, SchemaMetadata } from "entropretty-editor"
 import { useEffect, useState } from "react"
-import { Drawing } from "@/components/Drawing"
-import BlurFade from "@/components/magicui/blur-fade"
-import GridPattern from "@/components/magicui/grid-pattern"
 
 const worker = new Worker()
 const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)
