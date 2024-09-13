@@ -1,5 +1,5 @@
-import { DrawFn, Schema } from "entropretty-editor";
-
+import { DrawFn, Schema } from "entropretty-editor"
+import { numeric } from "entropretty-utils"
 /**
  * This is a draw function you need to fill.
  * It should draw a design based on the seed.
@@ -9,34 +9,16 @@ import { DrawFn, Schema } from "entropretty-editor";
  * the seed will be either 4, 8 or 32 bytes long.
  */
 const draw: DrawFn = (ctx, seed) => {
-  // Set up the canvas
-  ctx.translate(5, 5); // Add a small margin
-
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  const length = seed.length;
-  const grid = Math.ceil(Math.sqrt(length));
-  const cellSize = Math.floor(90 / grid); // 90 to leave space for margins
-  const fontSize = Math.max(8, Math.floor(cellSize * 0.4)); // Minimum font size of 8px
-  ctx.font = `${fontSize}px sans-serif`;
-
-  // Draw grid and numbers
-  seed.forEach((n, i) => {
-    const row = Math.floor(i / grid);
-    const col = i % grid;
-    const x = col * cellSize;
-    const y = row * cellSize;
-
-    // Draw cell border
-    ctx.strokeStyle = "#ccc";
-    ctx.strokeRect(x, y, cellSize, cellSize);
-
-    // Draw number
-    ctx.fillStyle = "#000";
-    ctx.fillText(n.toString(), x + cellSize / 2, y + cellSize / 2);
-  });
-};
+  const size = 90
+  const personalId = numeric(seed).toString()
+  ctx.strokeStyle = ""
+  ctx.fillStyle = "black"
+  ctx.textAlign = "center"
+  ctx.textBaseline = "bottom"
+  ctx.font = size / 3 + "px serif"
+  ctx.translate(0, size / 3)
+  ctx.fillText(personalId, size / 2, size / 3, size)
+}
 
 /**
  * This is the schema of your design. It informs the user of about metadata of the design.
@@ -47,7 +29,7 @@ const draw: DrawFn = (ctx, seed) => {
  */
 export const schema: Schema = {
   artist: "Your-Name",
-  name: "ProceduralPersonal-Design",
+  name: "final_v1",
   draw,
   kind: "ProceduralPersonal", // Try changing this to "Procedural" or "ProceduralAccount" to explore how the seed changes
-};
+}

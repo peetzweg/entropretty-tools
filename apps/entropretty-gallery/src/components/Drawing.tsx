@@ -23,14 +23,12 @@ export const Drawing: React.FC<Props> = ({ seed, schema, size, worker }) => {
   }, [seed, schema, size, worker])
 
   return (
-    <>
-      <canvas
-        title={schema.artist}
-        ref={canvasRef}
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-      />
-    </>
+    <canvas
+      title={schema.artist}
+      ref={canvasRef}
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+    />
   )
 }

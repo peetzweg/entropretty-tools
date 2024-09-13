@@ -62,9 +62,15 @@ importers:
       lucide-react:
         specifier: ^0.439.0
         version: 0.439.0(react@18.3.1)
+      prism-react-renderer:
+        specifier: ^2.4.0
+        version: 2.4.0(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
+      react-code-block:
+        specifier: ^1.0.0
+        version: 1.0.0(prism-react-renderer@2.4.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
@@ -100,8 +106,8 @@ importers:
         specifier: ^9.9.0
         version: 9.9.1(jiti@1.21.6)
       eslint-plugin-react-hooks:
-        specifier: ^5.1.0-rc.0
-        version: 5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1(jiti@1.21.6))
+        specifier: ^4.6.2
+        version: 4.6.2(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.9
         version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
@@ -256,8 +262,8 @@ importers:
         specifier: ^9.9.1
         version: 9.9.1(jiti@1.21.6)
       eslint-plugin-react-hooks:
-        specifier: ^5.1.0-rc.0
-        version: 5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1(jiti@1.21.6))
+        specifier: ^4.6.2
+        version: 4.6.2(eslint@9.9.1(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.9.1(jiti@1.21.6))
@@ -1255,6 +1261,9 @@ packages:
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
 
+  '@types/prismjs@1.26.4':
+    resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
+
   '@types/prompts@2.4.9':
     resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
 
@@ -1749,12 +1758,6 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-
-  eslint-plugin-react-hooks@5.1.0-rc-fb9a90fa48-20240614:
-    resolution: {integrity: sha512-xsiRwaDNF5wWNC4ZHLut+x/YcAxksUd9Rizt7LaEn3bV8VyYRpXnRJQlLOfYaVy9esk4DFP4zPPnoNVjq5Gc0w==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
 
   eslint-plugin-react-refresh@0.4.11:
     resolution: {integrity: sha512-wrAKxMbVr8qhXTtIKfXqAn5SAtRZt0aXxe5P23Fh4pUAdC6XEsybGLB8P0PI4j1yYqOgUEUlzKAGDfo7rJOjcw==}
@@ -2685,6 +2688,11 @@ packages:
     resolution: {integrity: sha512-o1piW0n3tgKIKCwk2vpM/vOV13zjJzvP37Ioze54YlTHE06m4tjEbzg9WsKkvTuyYln2DHjo5pY4qrZGI0otpw==}
     engines: {node: '>=18'}
 
+  prism-react-renderer@2.4.0:
+    resolution: {integrity: sha512-327BsVCD/unU4CNLZTWVHyUHKnsqcvj2qbPlQ8MiBE2eq2rgctjigPA1Gp9HLF83kZ20zNN6jgizHJeEsyFYOw==}
+    peerDependencies:
+      react: '>=16.0.0'
+
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
@@ -2701,6 +2709,13 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  react-code-block@1.0.0:
+    resolution: {integrity: sha512-/u9QspD0qhZNKbW1+Nek42//LwrekrFjHi4Fk1Dv7L8oz3X4FRXO/oUh119OrUlA0vybDjcXJPj3xJ1mZXV/rw==}
+    peerDependencies:
+      prism-react-renderer: ^2
+      react: ^18
+      react-dom: ^18
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -4148,6 +4163,8 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/prismjs@1.26.4': {}
+
   '@types/prompts@2.4.9':
     dependencies:
       '@types/node': 22.5.2
@@ -4802,10 +4819,6 @@ snapshots:
   escape-string-regexp@4.0.0: {}
 
   eslint-plugin-react-hooks@4.6.2(eslint@9.9.1(jiti@1.21.6)):
-    dependencies:
-      eslint: 9.9.1(jiti@1.21.6)
-
-  eslint-plugin-react-hooks@5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1(jiti@1.21.6)):
     dependencies:
       eslint: 9.9.1(jiti@1.21.6)
 
@@ -5665,6 +5678,12 @@ snapshots:
     dependencies:
       parse-ms: 4.0.0
 
+  prism-react-renderer@2.4.0(react@18.3.1):
+    dependencies:
+      '@types/prismjs': 1.26.4
+      clsx: 2.1.1
+      react: 18.3.1
+
   prompts@2.4.2:
     dependencies:
       kleur: 3.0.3
@@ -5681,6 +5700,12 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  react-code-block@1.0.0(prism-react-renderer@2.4.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      prism-react-renderer: 2.4.0(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:

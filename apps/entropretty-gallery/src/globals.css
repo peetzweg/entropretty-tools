@@ -63,11 +63,20 @@
   * {
     @apply border-border;
   }
+
+  html{
+    @apply scroll-smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
   }
 
   h2 {
-    @apply w-2/3 font-mono text-3xl font-bold uppercase text-black dark:text-white;
+    @apply w-2/3 font-mono text-4xl uppercase text-black dark:text-white;
+  }
+
+  p{
+    @apply leading-8;
   }
 }

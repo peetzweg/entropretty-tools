@@ -4,7 +4,10 @@ import GridPattern from "@/components/magicui/grid-pattern"
 import Worker from "@/lib/worker?worker"
 import { Remote, wrap } from "comlink"
 import { EntroprettyEditorWorker, SchemaMetadata } from "entropretty-editor"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import NumberTicker from "../components/magicui/number-ticker"
+import { Button } from "../components/ui/button"
+import { ArrowUpRight } from "lucide-react"
 
 const worker = new Worker()
 const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)
@@ -13,40 +16,77 @@ export const Gallery: React.FC = () => {
   const [schemas, setSchemas] = useState<SchemaMetadata[]>([])
   useEffect(() => {
     wrappedWorker.init().then((schemas: SchemaMetadata[]) => {
-      setSchemas(schemas.reverse())
+      setSchemas(schemas.sort(() => 0.5 - Math.random()))
     })
   }, [])
 
-  return (
-    <div id="gallery">
-      <h2>Gallery</h2>
+  const artists = useMemo(() => {
+    const uniqueArtists = new Set(schemas.map((schema) => schema.artist))
+    return uniqueArtists.size
+  }, [schemas])
 
-      <div className="relative grid grid-cols-2 gap-0">
-        {schemas.map((schema, idx) => (
-          <BlurFade
-            className="relative flex aspect-square items-center justify-center"
-            key={schema.name}
-            delay={0.25 + idx * 0.05}
-            inView
+  return (
+    <div
+      id="gallery"
+      className="flex w-full max-w-[960px] flex-col gap-10 self-center md:flex-row"
+    >
+      <h2>
+        {"× "}
+        {schemas.length ? <NumberTicker value={schemas.length} /> : ""}
+        {` Schema`}
+      </h2>
+
+      <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-1">
+          <p>
+            Following are submitted schemas. These schemas are viable to be
+            included to be used in the Proof of Ink process.
+          </p>
+          <p>
+            A total of <NumberTicker value={artists} /> individual artists
+            submitted <NumberTicker value={schemas.length} /> designs.
+          </p>
+          <a
+            href="https://github.com/peetzweg/entropretty-tools/issues/new"
+            target="_blank"
           >
-            <Drawing
-              schema={schema}
-              size={300}
-              worker={wrappedWorker}
-              seed={new Uint8Array([42, 32, 128, 3])}
-            />
-            <GridPattern
-              width={60}
-              height={60}
-              x={-30}
-              y={-30}
-              strokeDasharray={"4 2"}
-              // className={cn(
-              //   "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
-              // )}
-            />
-          </BlurFade>
-        ))}
+            <Button className="self-start p-0 text-base" variant="link">
+              Submit schema <ArrowUpRight className="ml-2 h-4 w-4" />
+            </Button>
+          </a>
+        </div>
+
+        <div className="relative flex flex-row flex-wrap items-center justify-center gap-4">
+          {schemas.map((schema, idx) => (
+            <BlurFade
+              className="group relative flex aspect-square items-center justify-center"
+              key={schema.name}
+              delay={0.25 + idx * 0.05}
+              inView
+            >
+              <GridPattern
+                width={40}
+                height={40}
+                x={-20}
+                y={-20}
+                strokeDasharray={"4 2"}
+              />
+              <a
+                href="https://github.com/peetzweg/entropretty-tools/tree/main/apps/entropretty-gallery/schemas"
+                target="_blank"
+                className="z-10"
+              >
+                <Drawing
+                  schema={schema}
+                  size={200}
+                  worker={wrappedWorker}
+                  seed={new Uint8Array([42, 32, 128, 3])}
+                />
+              </a>
+              <p className="text-secondary-foreground fixed bottom-0 left-0 right-0 z-10 rounded-sm bg-slate-200 p-1 text-sm opacity-0 transition-opacity ease-in-out group-hover:opacity-100">{`${schema.name} by ${schema.artist}`}</p>
+            </BlurFade>
+          ))}
+        </div>
       </div>
     </div>
   )
