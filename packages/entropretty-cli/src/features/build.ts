@@ -23,7 +23,6 @@ export default async function run(scriptPath: string) {
     });
     const endTime = Date.now();
     const time = endTime - startTime;
-
     console.log(pc.green(`created ${outFolder}/${outFile} in ${time}ms\n`));
   } catch (e) {
     console.error(pc.red(`failed to build ${scriptPath}`));

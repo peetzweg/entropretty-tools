@@ -47,8 +47,16 @@ export function getSeedFamily(kind: FamilyKind): Uint8Array[] {
 
   while (seedFamilyMap.size < 16) {
     const mutatedSeed = new Uint8Array(seed);
-    // mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed);
-    mutateBits(1)(mutatedSeed);
+    // Only mutated last few bytes for ProceduralPersonal to make get reasonable u32 results resembling a personal id
+    if (kind === "ProceduralPersonal") {
+      const noOfBytes = 4;
+      const lastBytes = seed.slice(-noOfBytes);
+      mutateBits(Math.floor(Math.random() * 3) + 1)(lastBytes);
+      mutatedSeed.set(lastBytes, mutatedSeed.length - noOfBytes);
+    } else {
+      mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed);
+    }
+
     if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
       seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed);
     }
