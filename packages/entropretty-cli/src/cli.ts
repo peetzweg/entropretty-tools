@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import cac from "cac"
-import dev from "@/features/dev"
 import build from "@/features/build"
+import dev from "@/features/dev"
+import test from "@/features/test"
+import cac from "cac"
 
 const cli = cac("entropretty")
 
@@ -14,6 +15,14 @@ cli
   .action(async (files) => {
     for (const file of files) {
       await build(file)
+    }
+  })
+
+cli
+  .command("test [...files]", "test bundled schemas for compliance")
+  .action(async (files) => {
+    for (const file of files) {
+      await test(file)
     }
   })
 
