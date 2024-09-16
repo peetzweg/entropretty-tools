@@ -19,7 +19,7 @@ export const EntroprettyEditor: React.FC<Props> = ({ worker }) => {
   }, [init, worker])
 
   if (!internalWorker) {
-    console.log("Worker not set")
+    console.info("Worker not set")
     return <div>Loading...</div>
   }
 

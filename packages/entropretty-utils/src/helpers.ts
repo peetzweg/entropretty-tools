@@ -10,7 +10,7 @@ export function contextPrelude(ctx: CanvasRenderingContext2D) {
 }
 
 export function split(seed: Uint8Array, parts: number) {
-  let r = []
+  let r: Array<number> = []
   let last = 0
   for (let i = 0; i < parts; ++i) {
     let next = Math.round(((i + 1) * 32) / parts)

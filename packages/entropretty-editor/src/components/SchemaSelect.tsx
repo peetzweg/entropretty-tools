@@ -15,18 +15,19 @@ export const SchemaSelect = () => {
         { hidden: !showControls },
       )}
     >
-      {schemas.map((schema) => (
-        <Button
-          className={cn({
-            underline: selectedSchema?.name === schema.name,
-          })}
-          key={schema.name}
-          variant={selectedSchema?.name === schema.name ? "link" : "ghost"}
-          onClick={() => setSchema(schema.name)}
-        >
-          {`${schema.name}`}
-        </Button>
-      ))}
+      {schemas.length > 1 &&
+        schemas.map((schema) => (
+          <Button
+            className={cn({
+              underline: selectedSchema?.name === schema.name,
+            })}
+            key={schema.name}
+            variant={selectedSchema?.name === schema.name ? "link" : "ghost"}
+            onClick={() => setSchema(schema.name)}
+          >
+            {`${schema.name}`}
+          </Button>
+        ))}
     </aside>
   )
 }

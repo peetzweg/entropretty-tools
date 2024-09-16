@@ -9,6 +9,8 @@ export const Controls = () => {
   const schema = useApp((state) => state.schema)
   const showControls = useApp((state) => state.showControls)
   const toggleControls = useApp((state) => state.toggleControls)
+  const refreshSeeds = useApp((state) => state.refreshSeeds)
+  const toggleDetails = useApp((state) => state.toggleDetails)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -18,6 +20,17 @@ export const Controls = () => {
       if (event.key === "w") {
         toggleControls()
       }
+      if (event.key === "e") {
+        refreshSeeds()
+      }
+      if (event.key === "r") {
+        location.reload()
+      }
+      if (event.key === "d") {
+        toggleDetails()
+      }
+
+      console.log(event.key)
     }
 
     document.addEventListener("keydown", handleKeyDown)
@@ -59,6 +72,9 @@ export const Controls = () => {
           </div>
           <div className="text-muted-foreground">(e) new seed</div>
           <div className="text-muted-foreground">(r) reload</div>
+          <div className="text-muted-foreground" onMouseDown={toggleDetails}>
+            (d) details
+          </div>
         </div>
       </nav>
       {!showControls && (
