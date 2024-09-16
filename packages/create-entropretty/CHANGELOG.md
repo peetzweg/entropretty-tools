@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.24
+
+### Patch Changes
+
+- b155cc7: fix missing typescript bug
+
 ## 1.0.23
 
 ### Patch Changes
