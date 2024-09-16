@@ -73,10 +73,26 @@
   }
 
   h2 {
-    @apply w-2/3 font-mono text-3xl sm:text-4xl uppercase text-black dark:text-white;
+    @apply w-2/3 font-mono text-3xl sm:text-4xl text-black dark:text-white;
   }
 
   p{
     @apply leading-8;
+  }
+
+  .keyword-sans {
+    @apply text-primary whitespace-nowrap font-sans italic;
+  }
+
+  .keyword-serif {
+    @apply text-primary whitespace-nowrap font-serif;
+  }
+
+  .keyword-code {
+    @apply text-primary rounded-sm bg-slate-200 p-1 whitespace-nowrap;
+  }
+
+  .keyword-highlight {
+    @apply text-primary rounded-sm bg-slate-100 p-1 whitespace-nowrap;
   }
 }

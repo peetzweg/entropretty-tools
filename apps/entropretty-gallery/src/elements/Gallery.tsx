@@ -30,7 +30,7 @@ export const Gallery: React.FC = () => {
       id="gallery"
       className="flex w-full max-w-[960px] flex-col gap-10 self-center md:flex-row"
     >
-      <h2>
+      <h2 className="keyword-serif whitespace-normal">
         {"× "}
         {schemas.length ? <NumberTicker value={schemas.length} /> : ""}
         {` Schema`}

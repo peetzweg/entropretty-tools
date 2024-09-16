@@ -43,9 +43,9 @@ export const ProceduralTattoos: React.FC = () => {
           <p className="">
             Every design schema needs to implement the following common
             interface,{" "}
-            <span className="rounded-sm bg-slate-200 p-1">{`const draw(context, seed) => {}`}</span>
+            <span className="keyword-code">{`const draw(context, seed) => {}`}</span>
             . And export a named schema object with the following properties,{" "}
-            <span className="rounded-sm bg-slate-200 p-1">{`export schema = {artist, kind, draw, name}`}</span>
+            <span className="keyword-code">{`export schema = {artist, kind, draw, name}`}</span>
             .
           </p>
           <p>
@@ -70,7 +70,8 @@ export const ProceduralTattoos: React.FC = () => {
             <span className="whitespace-nowrap rounded-sm bg-red-400 p-1">
               8 bytes
             </span>{" "}
-            representing a u32 citizen id or{" "}
+            representing a <span className="keyword-code">u64</span> citizen id
+            or{" "}
             <span className="whitespace-nowrap rounded-sm bg-blue-400 p-1">
               32 bytes
             </span>{" "}

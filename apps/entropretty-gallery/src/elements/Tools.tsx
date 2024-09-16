@@ -28,11 +28,9 @@ export const Tools: React.FC = () => {
 
         <p>
           You can create a entropretty workspace by running{" "}
-          <span className="whitespace-nowrap rounded-sm bg-slate-200 p-1 lowercase">
-            npm create entropretty
-          </span>
-          . The CLI will guide you through creating a workspace which is right
-          for you. If you are a{" "}
+          <span className="keyword-code">npm create entropretty</span>. The CLI
+          will guide you through creating a workspace which is right for you. If
+          you are a{" "}
           <span className="rounded-sm bg-yellow-400 p-1">Vanilla</span>{" "}
           Javascript or a{" "}
           <span className="rounded-sm bg-blue-400 p-1">TypeScript</span> user,
@@ -41,12 +39,19 @@ export const Tools: React.FC = () => {
 
         <CreateEntroprettyCTA className="self-center" />
 
+        <div className="relative">
+          <Safari
+            className="size-full"
+            // height={}
+            // width={1300}
+            url="https://localhost:4242"
+            src={EditorScreenshot}
+          />
+        </div>
+
         <p>
           These tools are heavily inspired by the initial version of{" "}
-          <span className="rounded-sm bg-slate-200 p-1 lowercase">
-            entropretty
-          </span>
-          , which is build by{" "}
+          <span className="keyword-code">entropretty</span>, which is build by{" "}
           <span className="whitespace-nowrap">Gavin Wood</span>. It is still in
           use and relevant. It can be accessed at:
         </p>
@@ -60,14 +65,6 @@ export const Tools: React.FC = () => {
             <ArrowUpRight className="ml-1 h-4 w-4" />
           </Button>
         </a>
-      </div>
-
-      <div className="relative">
-        <Safari
-          className="size-full"
-          url="https://localhost:4242"
-          src={EditorScreenshot}
-        />
       </div>
     </div>
   )
