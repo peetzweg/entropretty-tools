@@ -24,9 +24,7 @@ function App() {
       </div>
 
       <div className="flex min-h-[calc(100vh-100px)] flex-col items-center">
-        <div className="relative flex w-full flex-col gap-24 md:max-w-[720px]">
-          <Tools />
-        </div>
+        <Tools />
       </div>
 
       <Gallery />

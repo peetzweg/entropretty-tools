@@ -1,11 +1,15 @@
 import { ArrowUpRight } from "lucide-react"
-import { CreateEntroprettyCTA } from "../components/CreateEntroprettyCTA"
-import Safari from "../components/magicui/safari"
-import { Button } from "../components/ui/button"
-import EditorScreenshot from "./EntroprettyEditor.png"
+import { CreateEntroprettyCTA } from "@/components/CreateEntroprettyCTA"
+
+import { Button } from "@/components/ui/button"
+import Details from "./Details.png"
+import Families from "./Families.png"
+import Single from "./Single.png"
+import Horizontal from "./Horizontal.png"
+import Marquee from "@/components/magicui/marquee"
 export const Tools: React.FC = () => {
   return (
-    <div className="flex w-full flex-col gap-10 self-center">
+    <div className="flex w-full max-w-[720px] flex-col items-center justify-center gap-10 self-center">
       <h2 className="leading-tight">
         ×<span className="keyword-serif"> Designing with </span>
         <span className="rounded-lg bg-slate-200 p-1 lowercase">
@@ -13,7 +17,7 @@ export const Tools: React.FC = () => {
         </span>
       </h2>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col justify-center gap-3">
         <p>
           We created a set of tools to help you create your own schema for{" "}
           <span className="whitespace-nowrap font-sans font-semibold italic">
@@ -38,7 +42,7 @@ export const Tools: React.FC = () => {
 
         <CreateEntroprettyCTA className="self-center" />
 
-        <p className="mt-3">
+        <p className="mt-3 max-w-[720px] self-center">
           All templates set you up with the{" "}
           <span className="keyword-code">entropretty-cli</span>,{" "}
           <span className="keyword-code">entropretty-editor</span> and{" "}
@@ -62,12 +66,16 @@ export const Tools: React.FC = () => {
           compliance.
         </p>
 
-        <div className="relative mt-3">
-          <Safari
-            className="size-full"
-            url="https://localhost:4242"
-            src={EditorScreenshot}
-          />
+        <div className="bg-background relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border">
+          <Marquee pauseOnHover className="[--duration:40s]">
+            {[Details, Families, Single, Horizontal].map((image, index) => (
+              <img
+                key={"marquee-" + index}
+                src={image}
+                className="w-[720px] rounded-md ring-slate-500 hover:ring-1"
+              />
+            ))}
+          </Marquee>
         </div>
 
         <p>
