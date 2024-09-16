@@ -8,7 +8,7 @@
     "build": "entropretty build ./src/*.js"
   },
   "devDependencies": {
-    "entropretty-cli": "1.0.18",
+    "entropretty-cli": "1.0.19",
     "entropretty-editor": "1.0.18",
     "entropretty-utils": "1.0.17",
     "comlink": "^4.4.1",
