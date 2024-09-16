@@ -42,8 +42,6 @@ export const Tools: React.FC = () => {
         <div className="relative">
           <Safari
             className="size-full"
-            // height={}
-            // width={1300}
             url="https://localhost:4242"
             src={EditorScreenshot}
           />
