@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.23
+
+### Patch Changes
+
+- 3be1336: bump entropretty packages in templates
+
 ## 1.0.22
 
 ### Patch Changes
