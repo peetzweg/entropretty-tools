@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "entropretty dev",
-    "build": "entropretty build ./src/*.ts"
+    "build": "entropretty build ./src/*.js"
   },
   "devDependencies": {
     "entropretty-cli": "workspace:*",

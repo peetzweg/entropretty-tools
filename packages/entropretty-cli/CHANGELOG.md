@@ -1,5 +1,12 @@
 # entropretty-cli
 
+## 1.0.18
+
+### Patch Changes
+
+- bd7ce8b: release preperations
+- fd65182: adds `build` command
+
 ## 1.0.17
 
 ### Patch Changes

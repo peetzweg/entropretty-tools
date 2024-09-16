@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.22
+
+### Patch Changes
+
+- bd7ce8b: release preperations
+
 ## 1.0.21
 
 ### Patch Changes
