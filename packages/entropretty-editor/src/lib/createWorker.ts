@@ -51,6 +51,8 @@ export const createWorker = (
 
       context.clearRect(0, 0, canvas.width, canvas.height)
       context.scale(canvas.width / 100, canvas.width / 100)
+
+      // Prelude
       context.lineWidth = 1
       context.lineCap = "butt"
       context.lineJoin = "miter"

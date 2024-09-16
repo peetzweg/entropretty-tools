@@ -30,11 +30,11 @@ export function bytesToNibbles(bytes: Uint8Array) {
   return nibbles
 }
 
-export function bit(seed: Uint8Array, i: number) {
-  return (seed[Math.floor(i / 4) % 8] >> i % 4) & 1
+export function bit(seed: Uint8Array, i: number): number {
+  return (seed[Math.floor(i / 8) % seed.length] >> i % 8) & 1
 }
 
-export function bits(seed: Uint8Array, from = 0, to = 32) {
+export function bits(seed: Uint8Array, from = 0, to = 32): number {
   let r = 0
   for (let i = from; i < to; ++i) {
     r = ((r << 1) | bit(seed, i)) >>> 0

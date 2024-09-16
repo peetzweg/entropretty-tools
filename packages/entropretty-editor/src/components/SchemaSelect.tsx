@@ -12,22 +12,21 @@ export const SchemaSelect = () => {
     <aside
       className={cn(
         "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed left-4 top-4 flex h-10 flex-row items-center justify-center rounded-md border backdrop-blur transition-all duration-300 ease-in-out",
-        { hidden: !showControls },
+        { hidden: !showControls || schemas.length <= 1 },
       )}
     >
-      {schemas.length > 1 &&
-        schemas.map((schema) => (
-          <Button
-            className={cn({
-              underline: selectedSchema?.name === schema.name,
-            })}
-            key={schema.name}
-            variant={selectedSchema?.name === schema.name ? "link" : "ghost"}
-            onClick={() => setSchema(schema.name)}
-          >
-            {`${schema.name}`}
-          </Button>
-        ))}
+      {schemas.map((schema) => (
+        <Button
+          className={cn({
+            underline: selectedSchema?.name === schema.name,
+          })}
+          key={schema.name}
+          variant={selectedSchema?.name === schema.name ? "link" : "ghost"}
+          onClick={() => setSchema(schema.name)}
+        >
+          {`${schema.name}`}
+        </Button>
+      ))}
     </aside>
   )
 }
