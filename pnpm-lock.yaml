@@ -186,7 +186,10 @@ importers:
         version: 18.3.1(react@18.3.1)
       tsup:
         specifier: ^8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.6.2)(yaml@2.5.0)
+      typescript:
+        specifier: ^5.6.2
+        version: 5.6.2
       vite:
         specifier: ^5.4.4
         version: 5.4.4(@types/node@22.5.2)
@@ -302,7 +305,7 @@ importers:
         version: 6.0.1
       tsup:
         specifier: ^8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0)
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.6.2)(yaml@2.5.0)
 
   playgrounds/typescript-template:
     devDependencies:
@@ -3130,6 +3133,11 @@ packages:
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.6.2:
+    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -6158,7 +6166,7 @@ snapshots:
 
   tslib@2.7.0: {}
 
-  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.5.4)(yaml@2.5.0):
+  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.6.2)(yaml@2.5.0):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.1)
       cac: 6.7.14
@@ -6180,7 +6188,7 @@ snapshots:
       '@microsoft/api-extractor': 7.47.7(@types/node@22.5.2)
       '@swc/core': 1.7.22
       postcss: 8.4.44
-      typescript: 5.5.4
+      typescript: 5.6.2
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -6237,6 +6245,8 @@ snapshots:
   typescript@5.4.2: {}
 
   typescript@5.5.4: {}
+
+  typescript@5.6.2: {}
 
   ufo@1.5.4: {}
 
