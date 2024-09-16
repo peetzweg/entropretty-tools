@@ -44,8 +44,8 @@ function Exhibition({ schema }: Props) {
         families.map((family, f) => (
           <div
             key={family.toString()}
-            className={cn("border-b-4 border-b-transparent", {
-              "border-b-slate-200": familyIndex === f,
+            className={cn("mx-1 border-2 border-transparent", {
+              "border-slate-200": familyIndex === f,
             })}
           >
             <div className="grid-cols-16 grid gap-x-1">
