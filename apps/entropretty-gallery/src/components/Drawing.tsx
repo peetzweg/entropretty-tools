@@ -1,6 +1,6 @@
 import { EntroprettyEditorWorker, SchemaMetadata } from "entropretty-editor"
 import { Remote } from "comlink"
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 
 interface Props {
   seed: Uint8Array
@@ -11,14 +11,15 @@ interface Props {
 
 export const Drawing: React.FC<Props> = ({ seed, schema, size, worker }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasSize = useMemo(() => size * 2, [size])
 
   useEffect(() => {
     if (canvasRef.current === null) return
 
-    worker.drawTransfer(schema.name, seed, size).then((bitmap) => {
+    worker.drawTransfer(schema.name, seed, canvasSize).then((bitmap) => {
       const context = canvasRef.current!.getContext("2d")!
-      context.clearRect(0, 0, size, size)
-      context.drawImage(bitmap, 0, 0, size, size)
+      context.clearRect(0, 0, canvasSize, canvasSize)
+      context.drawImage(bitmap, 0, 0, canvasSize, canvasSize)
     })
   }, [seed, schema, size, worker])
 
@@ -26,8 +27,8 @@ export const Drawing: React.FC<Props> = ({ seed, schema, size, worker }) => {
     <canvas
       title={schema.artist}
       ref={canvasRef}
-      width={size}
-      height={size}
+      width={canvasSize}
+      height={canvasSize}
       style={{ width: size, height: size }}
     />
   )

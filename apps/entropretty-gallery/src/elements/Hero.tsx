@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
 
       <a href="https://github.com/peetzweg/entropretty-tools" target="_blank">
         <Button className="px-0 text-base" variant={"link"}>
-          Contribute <ArrowUpRight className="ml-1 h-4 w-4" />
+          Improve entropretty with us <ArrowUpRight className="ml-1 h-4 w-4" />
         </Button>
       </a>
     </div>

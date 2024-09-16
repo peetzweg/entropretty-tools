@@ -12,6 +12,14 @@ import { ArrowUpRight } from "lucide-react"
 const worker = new Worker()
 const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)
 
+const SHOWCASE_SEEDS = [
+  new Uint8Array([42, 32, 128, 3]),
+  new Uint8Array([200, 243, 80, 199]),
+  // new Uint8Array([254, 64, 1, 14]),
+  new Uint8Array([23, 65, 82, 4]),
+  // new Uint8Array([25, 34, 76, 14]),
+]
+
 export const Gallery: React.FC = () => {
   const [schemas, setSchemas] = useState<SchemaMetadata[]>([])
   useEffect(() => {
@@ -60,35 +68,37 @@ export const Gallery: React.FC = () => {
         </div>
 
         <div className="relative flex flex-row flex-wrap items-center justify-center gap-4">
-          {schemas.map((schema, idx) => (
-            <BlurFade
-              className="group relative flex aspect-square items-center justify-center"
-              key={schema.name}
-              delay={0.25 + idx * 0.05}
-              inView
-            >
-              <GridPattern
-                width={40}
-                height={40}
-                x={-20}
-                y={-20}
-                strokeDasharray={"4 2"}
-              />
-              <a
-                href="https://github.com/peetzweg/entropretty-tools/tree/main/apps/entropretty-gallery/schemas"
-                target="_blank"
-                className="z-10"
+          {schemas.map((schema, idx) =>
+            SHOWCASE_SEEDS.map((seed, seedIdx) => (
+              <BlurFade
+                className="group relative flex aspect-square items-center justify-center"
+                key={schema.name + seedIdx}
+                delay={0.25 + idx * 0.05}
+                inView
               >
-                <Drawing
-                  schema={schema}
-                  size={200}
-                  worker={wrappedWorker}
-                  seed={new Uint8Array([42, 32, 128, 3])}
+                <GridPattern
+                  width={40}
+                  height={40}
+                  x={-20}
+                  y={-20}
+                  strokeDasharray={"4 2"}
                 />
-              </a>
-              <p className="text-secondary-foreground fixed bottom-0 left-0 right-0 z-10 rounded-sm bg-slate-200 p-1 text-sm opacity-0 transition-opacity ease-in-out group-hover:opacity-100">{`${schema.name} by ${schema.artist}`}</p>
-            </BlurFade>
-          ))}
+                <a
+                  href="https://github.com/peetzweg/entropretty-tools/tree/main/apps/entropretty-gallery/schemas"
+                  target="_blank"
+                  className="z-10"
+                >
+                  <Drawing
+                    schema={schema}
+                    size={200}
+                    worker={wrappedWorker}
+                    seed={seed}
+                  />
+                </a>
+                <p className="text-secondary-foreground fixed bottom-0 left-0 right-0 z-10 rounded-sm bg-slate-200 p-1 text-sm opacity-0 transition-opacity ease-in-out group-hover:opacity-100">{`${schema.name} by ${schema.artist}`}</p>
+              </BlurFade>
+            )),
+          )}
         </div>
       </div>
     </div>
