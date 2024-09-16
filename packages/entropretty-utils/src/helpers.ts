@@ -63,9 +63,21 @@ export function strokeEach<E, T extends Array<E>>(
   ctx: CanvasRenderingContext2D,
 ) {
   array.forEach((element, index) => {
-    ctx.save()
+    ctx.beginPath()
     fn(element, index)
-    ctx.restore()
+    ctx.stroke()
+  })
+}
+
+export function fillEach<E, T extends Array<E>>(
+  array: T,
+  fn: (element: E, index: number) => void,
+  ctx: CanvasRenderingContext2D,
+) {
+  array.forEach((element, index) => {
+    ctx.beginPath()
+    fn(element, index)
+    ctx.fill()
   })
 }
 
