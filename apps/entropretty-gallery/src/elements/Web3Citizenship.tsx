@@ -18,10 +18,10 @@ export const Web3Citizenship: React.FC = () => {
           height="405"
           src="https://www.youtube-nocookie.com/embed/MrWioikibEI?si=WPziLWjrjIq2mfFI"
           title="YouTube video player"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          frameBorder={0}
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen={true}
         ></iframe>
       </div>
 
