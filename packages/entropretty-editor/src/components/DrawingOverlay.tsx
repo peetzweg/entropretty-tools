@@ -1,6 +1,5 @@
 import { useApp } from "@/lib/state"
 import { cn } from "@/lib/utils"
-import { CrossIcon } from "lucide-react"
 import { useCallback } from "react"
 
 interface Props {
