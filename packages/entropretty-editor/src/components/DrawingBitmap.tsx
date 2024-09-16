@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { useApp } from "../lib/state"
 
 interface Props {
+  id?: string
   seed: Uint8Array
   schema: string
   size: number
@@ -14,6 +15,7 @@ export const DrawingBitmap: React.FC<Props> = ({
   schema,
   size,
   scale = 2,
+  id,
 }) => {
   const [ready, setIsReady] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -33,14 +35,13 @@ export const DrawingBitmap: React.FC<Props> = ({
   }, [seed, schema, size, worker])
 
   return (
-    <>
-      <canvas
-        className={cn("cursor-pointer", { hidden: !ready })}
-        ref={canvasRef}
-        width={drawingSize}
-        height={drawingSize}
-        style={{ width: size, height: size }}
-      />
-    </>
+    <canvas
+      id={id}
+      className={cn("cursor-pointer", { hidden: !ready })}
+      ref={canvasRef}
+      width={drawingSize}
+      height={drawingSize}
+      style={{ width: size, height: size }}
+    />
   )
 }

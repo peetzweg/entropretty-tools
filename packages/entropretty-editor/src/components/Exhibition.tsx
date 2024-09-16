@@ -119,6 +119,7 @@ function FocusDrawing({
   return (
     <div className="relative overflow-hidden">
       <DrawingBitmap
+        id="focus-canvas"
         schema={schema.name}
         seed={families[familyIndex][focusIndex]}
         size={size}
