@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.19
+
+### Patch Changes
+
+- makes typescript an explicit requirement
+
 ## 1.0.18
 
 ### Patch Changes
