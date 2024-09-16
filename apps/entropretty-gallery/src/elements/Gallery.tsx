@@ -33,7 +33,7 @@ export const Gallery: React.FC = () => {
       <h2 className="keyword-serif whitespace-normal">
         {"× "}
         {schemas.length ? <NumberTicker value={schemas.length} /> : ""}
-        {` Schema`}
+        {` Schemas`}
       </h2>
 
       <div className="flex flex-col gap-10">
@@ -50,7 +50,10 @@ export const Gallery: React.FC = () => {
             href="https://github.com/peetzweg/entropretty-tools/issues/new"
             target="_blank"
           >
-            <Button className="self-start p-0 text-base" variant="link">
+            <Button
+              className="self-start p-0 text-base font-semibold"
+              variant="link"
+            >
               Submit schema <ArrowUpRight className="ml-2 h-4 w-4" />
             </Button>
           </a>

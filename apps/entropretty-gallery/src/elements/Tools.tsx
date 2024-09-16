@@ -7,7 +7,7 @@ export const Tools: React.FC = () => {
   return (
     <div className="flex w-full flex-col gap-10 self-center">
       <h2 className="leading-tight">
-        ×<br /> create a schema with{" "}
+        ×<span className="keyword-serif"> Designing with </span>
         <span className="rounded-lg bg-slate-200 p-1 lowercase">
           entropretty
         </span>
@@ -28,10 +28,9 @@ export const Tools: React.FC = () => {
 
         <p>
           You can create a entropretty workspace by running{" "}
-          <span className="keyword-code">npm create entropretty</span>. The CLI
-          will guide you through creating a workspace which is right for you. If
-          you are a{" "}
-          <span className="rounded-sm bg-yellow-400 p-1">Vanilla</span>{" "}
+          <span className="keyword-code">npm create entropretty</span>. We will
+          guide you through creating workspace which is right for you. If you
+          are a <span className="rounded-sm bg-yellow-400 p-1">Vanilla</span>{" "}
           Javascript or a{" "}
           <span className="rounded-sm bg-blue-400 p-1">TypeScript</span> user,
           the CLI has a template for you.
@@ -39,7 +38,31 @@ export const Tools: React.FC = () => {
 
         <CreateEntroprettyCTA className="self-center" />
 
-        <div className="relative">
+        <p className="mt-3">
+          All templates set you up with the{" "}
+          <span className="keyword-code">entropretty-cli</span>,{" "}
+          <span className="keyword-code">entropretty-editor</span> and{" "}
+          <span className="keyword-code">entropretty-utils</span>.
+        </p>
+        <p className="ml-10">
+          × <span className="keyword-code">entropretty-utils</span> is a
+          collection of helper functions making your live easier creating unique
+          designs for each given seed.
+        </p>
+        <p className="ml-10">
+          × The <span className="keyword-code">entropretty-editor</span> is a
+          web interface which renders your design for you for with different
+          seeds. So you can explore how your code behaves to different input.
+        </p>
+
+        <p className="ml-10">
+          × and the <span className="keyword-code">entropretty-cli</span> ties
+          it all together. Providing you with commands to run the editor on a
+          local machine, bundle your source code and test your design for
+          compliance.
+        </p>
+
+        <div className="relative mt-3">
           <Safari
             className="size-full"
             url="https://localhost:4242"
@@ -48,7 +71,7 @@ export const Tools: React.FC = () => {
         </div>
 
         <p>
-          These tools are heavily inspired by the initial version of{" "}
+          This suite of tools are heavily inspired by the initial version of{" "}
           <span className="keyword-code">entropretty</span>, which is build by{" "}
           <span className="whitespace-nowrap">Gavin Wood</span>. It is still in
           use and relevant. It can be accessed at:
