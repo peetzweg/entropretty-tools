@@ -1,4 +1,5 @@
-import { EntroprettyEditorWorker, SchemaMetadata } from "entropretty-editor"
+import { EntroprettyEditorWorker } from "entropretty-editor"
+import type { SchemaMetadata } from "entropretty-utils"
 import { Remote } from "comlink"
 import { useEffect, useMemo, useRef } from "react"
 

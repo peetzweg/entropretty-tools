@@ -1,7 +1,7 @@
 import { DrawingBitmap } from "@/components/DrawingBitmap"
 import { useApp } from "@/lib/state"
 import { cn, seedToKey } from "@/lib/utils"
-import { SchemaMetadata } from "@/types"
+import { SchemaMetadata } from "entropretty-utils"
 import { useMemo } from "react"
 import { DrawingOverlay } from "./DrawingOverlay"
 

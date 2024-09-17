@@ -1,13 +1,14 @@
 import { Drawing } from "@/components/Drawing"
 import BlurFade from "@/components/magicui/blur-fade"
 import GridPattern from "@/components/magicui/grid-pattern"
+import NumberTicker from "@/components/magicui/number-ticker"
+import { Button } from "@/components/ui/button"
 import Worker from "@/lib/worker?worker"
 import { Remote, wrap } from "comlink"
-import { EntroprettyEditorWorker, SchemaMetadata } from "entropretty-editor"
-import { useEffect, useMemo, useState } from "react"
-import NumberTicker from "../components/magicui/number-ticker"
-import { Button } from "../components/ui/button"
+import { EntroprettyEditorWorker } from "entropretty-editor"
+import type { SchemaMetadata } from "entropretty-utils"
 import { ArrowUpRight } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
 
 const worker = new Worker()
 const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)

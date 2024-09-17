@@ -1,4 +1,4 @@
-import { Schema } from "@/types"
+import type { Schema } from "entropretty-utils"
 import { numeric } from "entropretty-utils"
 
 function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {

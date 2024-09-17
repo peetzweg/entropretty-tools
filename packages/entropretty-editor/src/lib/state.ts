@@ -1,4 +1,4 @@
-import { FamilyKind, SchemaMetadata } from "@/types"
+import { FamilyKind, SchemaMetadata } from "entropretty-utils"
 import { Remote, wrap } from "comlink"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"

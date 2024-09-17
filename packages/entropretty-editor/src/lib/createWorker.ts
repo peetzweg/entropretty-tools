@@ -1,4 +1,4 @@
-import { Schema, SchemaMetadata } from "@/types"
+import { Schema, SchemaMetadata } from "entropretty-utils"
 import * as Comlink from "comlink"
 
 export const createWorker = (
