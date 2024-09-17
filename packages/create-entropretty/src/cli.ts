@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url"
 import pc from "picocolors"
 import prompts from "prompts"
 
-import { familyKinds } from "./family-kinds.js"
 import {
   copy,
   emptyDir,
@@ -54,7 +53,7 @@ async function init() {
   }
 
   let result: prompts.Answers<
-    "familyKind" | "overwrite" | "packageName" | "projectName" | "template"
+    "overwrite" | "packageName" | "projectName" | "template"
   >
   try {
     result = await prompts(
