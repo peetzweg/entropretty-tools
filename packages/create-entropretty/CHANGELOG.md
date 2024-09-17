@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.25
+
+### Patch Changes
+
+- 0b5424e: bump to new versions
+
 ## 1.0.24
 
 ### Patch Changes
