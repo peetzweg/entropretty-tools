@@ -16,8 +16,9 @@ export const createWorker = (
             const module = (result as { schema: Schema }).schema as Schema
 
             _schemas.set(module.name, module)
+
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            let { draw, ...rest } = module
+            const { draw, ...rest } = module
             if (rest.kind === undefined) {
               console.warn(
                 `Schema kind for '${rest.name}' not defined, defaulting to 'Procedural'`,
