@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.20
+
+### Patch Changes
+
+- ea3179a: update compiled code
+
 ## 1.0.19
 
 ### Patch Changes

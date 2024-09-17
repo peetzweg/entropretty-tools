@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.21
+
+### Patch Changes
+
+- ea3179a: update compiled code
+
 ## 1.0.20
 
 ### Patch Changes
