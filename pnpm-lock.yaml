@@ -307,6 +307,34 @@ importers:
         specifier: ^8.2.4
         version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.5.2))(@swc/core@1.7.22)(jiti@1.21.6)(postcss@8.4.44)(typescript@5.6.2)(yaml@2.5.0)
 
+  playgrounds/p5js:
+    dependencies:
+      '@types/p5':
+        specifier: ^1.7.6
+        version: 1.7.6
+      p5:
+        specifier: ^1.10.0
+        version: 1.10.0
+    devDependencies:
+      comlink:
+        specifier: ^4.4.1
+        version: 4.4.1
+      entropretty-cli:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-cli
+      entropretty-editor:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-editor
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-utils
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+
   playgrounds/typescript-template:
     devDependencies:
       comlink:
@@ -1304,6 +1332,9 @@ packages:
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
+
+  '@types/p5@1.7.6':
+    resolution: {integrity: sha512-6pLTOo0V3N5jZb5nTwjiv3lPHLK3Z/TjbhQUj8CTWXocUk1Z/f6OHTp3Pcwi1BhWnf5gqKUcyEb1gP0KIJuQgw==}
 
   '@types/prismjs@1.26.4':
     resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
@@ -2522,6 +2553,9 @@ packages:
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
+
+  p5@1.10.0:
+    resolution: {integrity: sha512-6cWYBFhnZz7jNC6p1VWvlt3QReMqrRSmO90bgECQIKB9oko2w/sKrOAVMyei5tjIzSYcSY0JHy+BRtSAWq24jQ==}
 
   package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
@@ -4255,6 +4289,8 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/p5@1.7.6': {}
+
   '@types/prismjs@1.26.4': {}
 
   '@types/prompts@2.4.9':
@@ -5652,6 +5688,8 @@ snapshots:
   p-map@2.1.0: {}
 
   p-try@2.2.0: {}
+
+  p5@1.10.0: {}
 
   package-json-from-dist@1.0.0: {}
 

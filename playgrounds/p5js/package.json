@@ -1,0 +1,22 @@
+{
+  "name": "playground-p5js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "entropretty dev",
+    "build": "entropretty build ./src/*.js"
+  },
+  "devDependencies": {
+    "comlink": "^4.4.1",
+    "entropretty-cli": "workspace:*",
+    "entropretty-editor": "workspace:*",
+    "entropretty-utils": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@types/p5": "^1.7.6",
+    "p5": "^1.10.0"
+  }
+}
