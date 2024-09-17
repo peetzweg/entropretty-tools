@@ -10,8 +10,8 @@ export type Template = {
 
 export const templates: readonly Template[] = [
   {
-    name: "vanilla",
-    display: "Vanilla",
+    name: "javascript",
+    display: "JavaScript",
     color: pc.yellow,
   },
   {

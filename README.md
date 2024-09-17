@@ -1,6 +1,13 @@
 
 ![Hero Image](hero.gif)
 
+Use entropretty:
+
+```sh
+npm create entropretty@latest
+```
+
+---
 
 This repository is a monorepository consisting of the following projects:
 
