@@ -1,5 +1,35 @@
 # create-entropretty
 
+## 1.0.26
+
+### Patch Changes
+
+- 9faa8c9: update bundled code
+
+## 1.0.25
+
+### Patch Changes
+
+- 0b5424e: bump to new versions
+
+## 1.0.24
+
+### Patch Changes
+
+- b155cc7: fix missing typescript bug
+
+## 1.0.23
+
+### Patch Changes
+
+- 3be1336: bump entropretty packages in templates
+
+## 1.0.22
+
+### Patch Changes
+
+- bd7ce8b: release preperations
+
 ## 1.0.21
 
 ### Patch Changes

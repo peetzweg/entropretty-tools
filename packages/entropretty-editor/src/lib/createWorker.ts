@@ -1,4 +1,4 @@
-import { Schema, SchemaMetadata } from "@/types"
+import { Schema, SchemaMetadata } from "entropretty-utils"
 import * as Comlink from "comlink"
 
 export const createWorker = (
@@ -16,8 +16,9 @@ export const createWorker = (
             const module = (result as { schema: Schema }).schema as Schema
 
             _schemas.set(module.name, module)
+
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            let { draw, ...rest } = module
+            const { draw, ...rest } = module
             if (rest.kind === undefined) {
               console.warn(
                 `Schema kind for '${rest.name}' not defined, defaulting to 'Procedural'`,
@@ -51,6 +52,8 @@ export const createWorker = (
 
       context.clearRect(0, 0, canvas.width, canvas.height)
       context.scale(canvas.width / 100, canvas.width / 100)
+
+      // Prelude
       context.lineWidth = 1
       context.lineCap = "butt"
       context.lineJoin = "miter"

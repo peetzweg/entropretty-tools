@@ -5,7 +5,5 @@ export default defineConfig({
   format: ["esm"],
   outDir: "dist",
   clean: true,
-  // experimentalDts: true,
   dts: true,
-  // external: ["prando"],
 })

@@ -1,20 +1,18 @@
 import { DrawingBitmap } from "@/components/DrawingBitmap"
-import { cn, getSeedFamily, seedToKey } from "@/lib/utils"
-import { useMemo } from "react"
-import { SchemaMetadata } from "@/types"
 import { useApp } from "@/lib/state"
+import { cn, seedToKey } from "@/lib/utils"
+import { SchemaMetadata } from "entropretty-utils"
+import { useMemo } from "react"
+import { DrawingOverlay } from "./DrawingOverlay"
+import { FamilyOverlay } from "./FamilyOverlay"
 
 interface Props {
   schema: SchemaMetadata
 }
 
 function Exhibition({ schema }: Props) {
-  const families = useMemo(() => {
-    return Array(8)
-      .fill(1)
-      .map(() => getSeedFamily(schema.kind))
-  }, [schema.kind])
-
+  const families = useApp((state) => state.seeds[schema.kind])
+  const [familyIndex] = useApp((state) => [state.familyIndex])
   const mode = useApp((s) => s.mode)
 
   const [focusSize, gridSize] = useMemo(() => {
@@ -26,6 +24,7 @@ function Exhibition({ schema }: Props) {
       vertical: innerHeight / 2,
       grid: 0,
       single: innerHeight < innerWidth ? innerHeight : innerWidth,
+      families: 0,
     }[mode]
 
     const grid = {
@@ -33,6 +32,7 @@ function Exhibition({ schema }: Props) {
       vertical: innerHeight / 8,
       grid: innerHeight < innerWidth ? innerHeight / 4 : innerWidth / 4,
       single: 0,
+      families: innerWidth / 16,
     }[mode]
 
     return [focus, grid]
@@ -40,34 +40,92 @@ function Exhibition({ schema }: Props) {
 
   return (
     <div className="flex flex-col">
-      {families[0] && (
+      {families &&
+        mode === "families" &&
+        families.map((family, f) => (
+          <div key={family.toString()}>
+            <div className="grid-cols-16 relative grid">
+              {family.map((seed, index) => (
+                <div
+                  key={seedToKey(seed)}
+                  className={"relative overflow-hidden"}
+                >
+                  <DrawingBitmap
+                    schema={schema.name}
+                    seed={seed}
+                    size={gridSize}
+                  />
+                  <DrawingOverlay
+                    familyIndex={f}
+                    seedIndex={index}
+                    seed={seed}
+                  />
+                </div>
+              ))}
+              <FamilyOverlay familyIndex={f} />
+            </div>
+          </div>
+        ))}
+
+      {families && mode !== "families" && (
         <div
           className={cn("flex items-start justify-start", {
             "flex-row": mode === "horizontal",
             "flex-col": mode === "vertical",
           })}
         >
-          <div className="overflow-hidden">
-            <DrawingBitmap
-              key={seedToKey(families[0][0])}
-              schema={schema.name}
-              seed={families[0][0]}
-              size={focusSize}
-            />
-          </div>
-          <div className="grid grid-cols-4">
-            {families[0].map((seed) => (
-              <div key={seedToKey(seed)} className="overflow-hidden">
-                <DrawingBitmap
-                  schema={schema.name}
-                  seed={seed}
-                  size={gridSize}
-                />
-              </div>
-            ))}
-          </div>
+          <FocusDrawing schema={schema} size={focusSize} />
+
+          {mode !== "single" && (
+            <div className="grid grid-cols-4">
+              {families[familyIndex].map((seed, index) => (
+                <div key={seedToKey(seed)} className="relative">
+                  <DrawingBitmap
+                    schema={schema.name}
+                    seed={seed}
+                    size={gridSize}
+                  />
+                  <DrawingOverlay
+                    familyIndex={familyIndex}
+                    seedIndex={index}
+                    seed={seed}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
+    </div>
+  )
+}
+
+function FocusDrawing({
+  schema,
+  size,
+}: {
+  schema: SchemaMetadata
+  size: number
+}) {
+  const families = useApp((state) => state.seeds[schema.kind])
+  const [familyIndex, focusIndex] = useApp((state) => [
+    state.familyIndex,
+    state.focusIndex,
+  ])
+
+  return (
+    <div className="relative overflow-hidden">
+      <DrawingBitmap
+        id="focus-canvas"
+        schema={schema.name}
+        seed={families[familyIndex][focusIndex]}
+        size={size}
+      />
+      <DrawingOverlay
+        familyIndex={familyIndex}
+        seedIndex={focusIndex}
+        seed={families[familyIndex][focusIndex]}
+      />
     </div>
   )
 }

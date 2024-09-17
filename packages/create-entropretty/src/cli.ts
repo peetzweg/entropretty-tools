@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url"
 import pc from "picocolors"
 import prompts from "prompts"
 
-import { familyKinds } from "./family-kinds.js"
 import {
   copy,
   emptyDir,
@@ -54,7 +53,7 @@ async function init() {
   }
 
   let result: prompts.Answers<
-    "familyKind" | "overwrite" | "packageName" | "projectName" | "template"
+    "overwrite" | "packageName" | "projectName" | "template"
   >
   try {
     result = await prompts(
@@ -104,19 +103,20 @@ async function init() {
             return isValidPackageName(dir) || "Invalid package.json name"
           },
         },
-        {
-          type: "select",
-          name: "familyKind",
-          message: pc.reset("Select a kind of tattoo family:"),
-          initial: 0,
-          choices: familyKinds.map((kind) => {
-            const color = kind.color
-            return {
-              title: color(kind.display),
-              value: kind,
-            }
-          }),
-        },
+        // Not used yet
+        // {
+        //   type: "select",
+        //   name: "familyKind",
+        //   message: pc.reset("Select a kind of tattoo family:"),
+        //   initial: 0,
+        //   choices: familyKinds.map((kind) => {
+        //     const color = kind.color
+        //     return {
+        //       title: color(kind.display),
+        //       value: kind,
+        //     }
+        //   }),
+        // },
         {
           type: "select",
           name: "template",

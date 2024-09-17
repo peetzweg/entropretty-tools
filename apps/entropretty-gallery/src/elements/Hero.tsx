@@ -9,10 +9,7 @@ export const Hero: React.FC = () => {
       <div className="flex flex-col items-baseline">
         <div className="w-2/3 font-serif text-4xl text-black sm:text-5xl dark:text-white">
           Contribute to{" "}
-          <span className="whitespace-nowrap font-sans font-semibold italic">
-            Proof of Ink
-          </span>{" "}
-          with
+          <span className="keyword-sans font-semibold">Proof of Ink</span> with
         </div>
 
         <HyperText
@@ -43,7 +40,7 @@ export const Hero: React.FC = () => {
 
       <a href="https://github.com/peetzweg/entropretty-tools" target="_blank">
         <Button className="px-0 text-base" variant={"link"}>
-          This project is open source <ArrowUpRight className="ml-1 h-4 w-4" />
+          Improve entropretty with us <ArrowUpRight className="ml-1 h-4 w-4" />
         </Button>
       </a>
     </div>

@@ -1,6 +1,6 @@
 {
   "name": "entropretty-cli",
-  "version": "1.0.17",
+  "version": "1.0.21",
   "type": "module",
   "bin": {
     "entropretty": "./dist/cli.js"
@@ -42,6 +42,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsup": "^8.2.4",
+    "typescript": "^5.6.2",
     "vite": "^5.4.4"
   }
 }

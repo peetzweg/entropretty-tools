@@ -1,5 +1,19 @@
 # entropretty-gallery
 
+## 0.0.6
+
+### Patch Changes
+
+- bd7ce8b: release preperations
+- Updated dependencies [162e126]
+- Updated dependencies [4cbc3f9]
+- Updated dependencies [bd7ce8b]
+- Updated dependencies [cfa8ee8]
+- Updated dependencies [03ece1d]
+- Updated dependencies [1c398b3]
+  - entropretty-utils@1.0.17
+  - entropretty-editor@1.0.18
+
 ## 0.0.5
 
 ### Patch Changes

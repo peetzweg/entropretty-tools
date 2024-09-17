@@ -6,6 +6,12 @@ export default {
   content: [path.resolve(__dirname, "./src/**/*.{js,ts,jsx,tsx}")],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        16: "repeat(16, minmax(0, 1fr))",
+      },
+      gridTemplateRows: {
+        16: "repeat(16, minmax(0, 1fr))",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

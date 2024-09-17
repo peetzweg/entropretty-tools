@@ -1,5 +1,25 @@
 # entropretty-editor
 
+## 1.0.20
+
+### Patch Changes
+
+- ea3179a: update compiled code
+
+## 1.0.19
+
+### Patch Changes
+
+- d00d88b: fixes and features
+
+## 1.0.18
+
+### Patch Changes
+
+- bd7ce8b: release preperations
+- cfa8ee8: new features: detail overlay, focus selection, family refresh
+- 03ece1d: feeding more reasonable seeds for ProceduralPersonal designs
+
 ## 1.0.17
 
 ### Patch Changes

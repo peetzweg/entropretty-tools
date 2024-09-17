@@ -12,7 +12,7 @@ export const SchemaSelect = () => {
     <aside
       className={cn(
         "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed left-4 top-4 flex h-10 flex-row items-center justify-center rounded-md border backdrop-blur transition-all duration-300 ease-in-out",
-        { hidden: !showControls },
+        { hidden: !showControls || schemas.length <= 1 },
       )}
     >
       {schemas.map((schema) => (

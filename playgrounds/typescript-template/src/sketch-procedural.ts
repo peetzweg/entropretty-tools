@@ -1,4 +1,4 @@
-import { DrawFn, Schema } from "entropretty-editor"
+import type { DrawFn, Schema } from "entropretty-utils"
 
 /**
  * This is a draw function you need to fill.

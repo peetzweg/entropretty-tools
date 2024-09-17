@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { useApp } from "@/lib/state"
 import { cn } from "@/lib/utils"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
 export const Controls = () => {
   const cycleMode = useApp((state) => state.cycleMode)
@@ -9,6 +9,18 @@ export const Controls = () => {
   const schema = useApp((state) => state.schema)
   const showControls = useApp((state) => state.showControls)
   const toggleControls = useApp((state) => state.toggleControls)
+  const refreshSeeds = useApp((state) => state.refreshSeeds)
+  const toggleDetails = useApp((state) => state.toggleDetails)
+
+  const download = useCallback(() => {
+    const canvas = document.getElementById("focus-canvas") as HTMLCanvasElement
+    if (!canvas) return
+
+    const link = document.createElement("a")
+    link.href = canvas.toDataURL("image/png")
+    link.download = (schema?.name || "entropretty") + ".png"
+    link.click()
+  }, [schema?.name])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -18,6 +30,12 @@ export const Controls = () => {
       if (event.key === "w") {
         toggleControls()
       }
+      if (event.key === "r") {
+        location.reload()
+      }
+      if (event.key === "d") {
+        toggleDetails()
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown)
@@ -25,7 +43,7 @@ export const Controls = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [cycleMode, toggleControls])
+  }, [cycleMode, toggleControls, toggleDetails])
 
   if (!schema) return null
 
@@ -33,7 +51,7 @@ export const Controls = () => {
     <>
       <nav
         className={cn(
-          "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed bottom-4 left-4 flex flex-row items-center justify-center overflow-hidden rounded-md border pr-4 text-sm backdrop-blur transition-all duration-300 ease-in-out",
+          "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed bottom-4 left-4 flex flex-row items-center justify-center overflow-hidden rounded-md border text-sm backdrop-blur transition-all duration-300 ease-in-out",
           { hidden: !showControls },
         )}
       >
@@ -50,15 +68,30 @@ export const Controls = () => {
           {schema?.kind}
         </div>
 
-        <Button variant={"ghost"} onClick={cycleMode}>
-          {`(q) ${mode}`}
-        </Button>
-        <div className="flex flex-row gap-2">
-          <div onClick={toggleControls} className="text-muted-foreground">
+        <div className="flex flex-row px-[2px]">
+          <Button variant={"ghost"} className="w-36" onClick={cycleMode}>
+            {`(q) ${mode}`}
+          </Button>
+
+          <Button variant={"ghost"} onClick={toggleControls}>
             (w) hide
-          </div>
-          <div className="text-muted-foreground">(e) new seed</div>
-          <div className="text-muted-foreground">(r) reload</div>
+          </Button>
+
+          <Button variant={"ghost"}>(r) reload</Button>
+          <Button variant={"ghost"} onMouseDown={toggleDetails}>
+            (d) details
+          </Button>
+          <Button variant={"ghost"} onMouseDown={refreshSeeds}>
+            new seeds
+          </Button>
+
+          <Button
+            disabled={["families", "grid"].includes(mode)}
+            variant={"ghost"}
+            onMouseDown={download}
+          >
+            download
+          </Button>
         </div>
       </nav>
       {!showControls && (

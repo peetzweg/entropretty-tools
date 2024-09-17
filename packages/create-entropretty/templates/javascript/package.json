@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "entropretty dev",
-    "build": "echo TODO entropretty build ./sketch.ts"
+    "build": "entropretty build ./src/*.js"
   },
   "devDependencies": {
-    "entropretty-cli": "1.0.17",
-    "entropretty-editor": "1.0.17",
-    "entropretty-utils": "1.0.16",
+    "entropretty-cli": "1.0.21",
+    "entropretty-editor": "1.0.20",
+    "entropretty-utils": "1.0.19",
     "comlink": "^4.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

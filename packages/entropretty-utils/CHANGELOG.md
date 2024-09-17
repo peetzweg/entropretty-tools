@@ -1,5 +1,26 @@
 # entropretty-utils
 
+## 1.0.19
+
+### Patch Changes
+
+- ea3179a: update compiled code
+
+## 1.0.18
+
+### Patch Changes
+
+- d00d88b: fixes and features
+
+## 1.0.17
+
+### Patch Changes
+
+- 162e126: fixes randomGenerator function, now working with prando
+- 4cbc3f9: fix strokeEach, fillEach
+- bd7ce8b: release preperations
+- 1c398b3: fixes bit helper function
+
 ## 1.0.16
 
 ### Patch Changes
