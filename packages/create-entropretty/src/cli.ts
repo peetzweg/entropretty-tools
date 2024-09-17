@@ -104,19 +104,20 @@ async function init() {
             return isValidPackageName(dir) || "Invalid package.json name"
           },
         },
-        {
-          type: "select",
-          name: "familyKind",
-          message: pc.reset("Select a kind of tattoo family:"),
-          initial: 0,
-          choices: familyKinds.map((kind) => {
-            const color = kind.color
-            return {
-              title: color(kind.display),
-              value: kind,
-            }
-          }),
-        },
+        // Not used yet
+        // {
+        //   type: "select",
+        //   name: "familyKind",
+        //   message: pc.reset("Select a kind of tattoo family:"),
+        //   initial: 0,
+        //   choices: familyKinds.map((kind) => {
+        //     const color = kind.color
+        //     return {
+        //       title: color(kind.display),
+        //       value: kind,
+        //     }
+        //   }),
+        // },
         {
           type: "select",
           name: "template",
