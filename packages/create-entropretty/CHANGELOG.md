@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.26
+
+### Patch Changes
+
+- 9faa8c9: update bundled code
+
 ## 1.0.25
 
 ### Patch Changes
