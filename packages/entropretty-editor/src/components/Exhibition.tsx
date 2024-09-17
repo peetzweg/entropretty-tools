@@ -4,6 +4,7 @@ import { cn, seedToKey } from "@/lib/utils"
 import { SchemaMetadata } from "entropretty-utils"
 import { useMemo } from "react"
 import { DrawingOverlay } from "./DrawingOverlay"
+import { FamilyOverlay } from "./FamilyOverlay"
 
 interface Props {
   schema: SchemaMetadata
@@ -42,13 +43,8 @@ function Exhibition({ schema }: Props) {
       {families &&
         mode === "families" &&
         families.map((family, f) => (
-          <div
-            key={family.toString()}
-            className={cn("mx-1 border-2 border-transparent", {
-              "border-slate-200": familyIndex === f,
-            })}
-          >
-            <div className="grid-cols-16 grid gap-x-1">
+          <div key={family.toString()}>
+            <div className="grid-cols-16 relative grid">
               {family.map((seed, index) => (
                 <div
                   key={seedToKey(seed)}
@@ -66,6 +62,7 @@ function Exhibition({ schema }: Props) {
                   />
                 </div>
               ))}
+              <FamilyOverlay familyIndex={f} />
             </div>
           </div>
         ))}

@@ -51,7 +51,7 @@ export const Controls = () => {
     <>
       <nav
         className={cn(
-          "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed bottom-4 left-4 flex flex-row items-center justify-center overflow-hidden rounded-md border pr-4 text-sm backdrop-blur transition-all duration-300 ease-in-out",
+          "bg-background/95 supports-[backdrop-filter]:bg-background/30 fixed bottom-4 left-4 flex flex-row items-center justify-center overflow-hidden rounded-md border text-sm backdrop-blur transition-all duration-300 ease-in-out",
           { hidden: !showControls },
         )}
       >
@@ -68,29 +68,31 @@ export const Controls = () => {
           {schema?.kind}
         </div>
 
-        <Button variant={"ghost"} className="w-36" onClick={cycleMode}>
-          {`(q) ${mode}`}
-        </Button>
+        <div className="flex flex-row px-[2px]">
+          <Button variant={"ghost"} className="w-36" onClick={cycleMode}>
+            {`(q) ${mode}`}
+          </Button>
 
-        <Button variant={"ghost"} onClick={toggleControls}>
-          (w) hide
-        </Button>
+          <Button variant={"ghost"} onClick={toggleControls}>
+            (w) hide
+          </Button>
 
-        <Button variant={"ghost"}>(r) reload</Button>
-        <Button variant={"ghost"} onMouseDown={toggleDetails}>
-          (d) details
-        </Button>
-        <Button variant={"ghost"} onMouseDown={refreshSeeds}>
-          new seeds
-        </Button>
+          <Button variant={"ghost"}>(r) reload</Button>
+          <Button variant={"ghost"} onMouseDown={toggleDetails}>
+            (d) details
+          </Button>
+          <Button variant={"ghost"} onMouseDown={refreshSeeds}>
+            new seeds
+          </Button>
 
-        <Button
-          disabled={["families", "grid"].includes(mode)}
-          variant={"ghost"}
-          onMouseDown={download}
-        >
-          download
-        </Button>
+          <Button
+            disabled={["families", "grid"].includes(mode)}
+            variant={"ghost"}
+            onMouseDown={download}
+          >
+            download
+          </Button>
+        </div>
       </nav>
       {!showControls && (
         <Button
