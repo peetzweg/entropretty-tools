@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.20
+
+### Patch Changes
+
+- d00d88b: fixes and features
+
 ## 1.0.19
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # entropretty-editor
 
+## 1.0.19
+
+### Patch Changes
+
+- d00d88b: fixes and features
+
 ## 1.0.18
 
 ### Patch Changes

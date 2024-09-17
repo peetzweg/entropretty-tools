@@ -1,5 +1,11 @@
 # entropretty-utils
 
+## 1.0.18
+
+### Patch Changes
+
+- d00d88b: fixes and features
+
 ## 1.0.17
 
 ### Patch Changes
