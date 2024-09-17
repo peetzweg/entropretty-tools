@@ -9,7 +9,7 @@ export const CreateEntroprettyCTA: React.FC<{ className?: string }> = ({
 }) => {
   const [, copy] = useCopyToClipboard()
   const [isCopied, setIsCopied] = useState(false)
-  const copyText = useMemo(() => "pnpm create entropretty@latest", [])
+  const copyText = useMemo(() => "npm create entropretty@latest", [])
   const handleCopy = useCallback(() => {
     copy(copyText).then(() => {
       setIsCopied(true)

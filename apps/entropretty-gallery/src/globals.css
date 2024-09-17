@@ -64,7 +64,7 @@
     @apply border-border;
   }
 
-  html{
+  html {
     @apply scroll-smooth;
   }
 
@@ -73,10 +73,10 @@
   }
 
   h2 {
-    @apply w-2/3 font-mono text-3xl sm:text-4xl text-black dark:text-white;
+    @apply font-mono text-3xl text-black sm:text-4xl dark:text-white;
   }
 
-  p{
+  p {
     @apply leading-8;
   }
 
@@ -89,10 +89,10 @@
   }
 
   .keyword-code {
-    @apply text-primary rounded-sm bg-slate-200 p-1 whitespace-nowrap;
+    @apply text-primary whitespace-nowrap rounded-sm bg-slate-200 p-1;
   }
 
   .keyword-highlight {
-    @apply text-primary rounded-sm bg-slate-100 p-1 whitespace-nowrap;
+    @apply text-primary whitespace-nowrap rounded-sm bg-slate-100 p-1;
   }
 }

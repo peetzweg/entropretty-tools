@@ -17,7 +17,7 @@ export const Web3Citizenship: React.FC = () => {
           width="720"
           height="405"
           src="https://www.youtube-nocookie.com/embed/MrWioikibEI?si=WPziLWjrjIq2mfFI"
-          title="YouTube video player"
+          title="Web3 Citizenship at web3summit"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           frameBorder={0}
           referrerPolicy="strict-origin-when-cross-origin"

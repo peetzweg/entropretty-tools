@@ -9,12 +9,9 @@ import Horizontal from "./Horizontal.png"
 import Marquee from "@/components/magicui/marquee"
 export const Tools: React.FC = () => {
   return (
-    <div className="flex w-full max-w-[720px] flex-col items-center justify-center gap-10 self-center">
-      <h2 className="leading-tight">
-        ×<span className="keyword-serif"> Designing with </span>
-        <span className="rounded-lg bg-slate-200 p-1 lowercase">
-          entropretty
-        </span>
+    <div className="flex w-full max-w-[720px] flex-col items-center justify-center gap-10">
+      <h2>
+        × <span className="keyword-code">entropretty</span>
       </h2>
 
       <div className="flex flex-col justify-center gap-3">
@@ -34,8 +31,8 @@ export const Tools: React.FC = () => {
           You can create a entropretty workspace by running{" "}
           <span className="keyword-code">npm create entropretty</span>. We will
           guide you through creating workspace which is right for you. If you
-          are a <span className="rounded-sm bg-yellow-400 p-1">Vanilla</span>{" "}
-          Javascript or a{" "}
+          vanilla are a{" "}
+          <span className="rounded-sm bg-yellow-400 p-1">Javascript</span> or a{" "}
           <span className="rounded-sm bg-blue-400 p-1">TypeScript</span> user,
           the CLI has a template for you.
         </p>

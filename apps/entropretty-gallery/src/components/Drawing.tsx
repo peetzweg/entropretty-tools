@@ -26,7 +26,6 @@ export const Drawing: React.FC<Props> = ({ seed, schema, size, worker }) => {
 
   return (
     <canvas
-      title={schema.artist}
       ref={canvasRef}
       width={canvasSize}
       height={canvasSize}
