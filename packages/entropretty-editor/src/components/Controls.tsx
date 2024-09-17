@@ -20,7 +20,7 @@ export const Controls = () => {
     link.href = canvas.toDataURL("image/png")
     link.download = (schema?.name || "entropretty") + ".png"
     link.click()
-  }, [])
+  }, [schema?.name])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +43,7 @@ export const Controls = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [cycleMode, toggleControls])
+  }, [cycleMode, toggleControls, toggleDetails])
 
   if (!schema) return null
 

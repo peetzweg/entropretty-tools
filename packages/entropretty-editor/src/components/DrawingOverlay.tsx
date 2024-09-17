@@ -22,7 +22,7 @@ export const DrawingOverlay: React.FC<Props> = ({
   const showDetails = useApp((state) => state.showDetails)
   const focus = useCallback(() => {
     setFocus(familyIndex, seedIndex)
-  }, [familyIndex, seedIndex])
+  }, [familyIndex, seedIndex, setFocus])
 
   return (
     <>

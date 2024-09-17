@@ -32,7 +32,7 @@ export const DrawingBitmap: React.FC<Props> = ({
       context.drawImage(bitmap, 0, 0, drawingSize, drawingSize)
       setIsReady(true)
     })
-  }, [seed, schema, size, worker])
+  }, [seed, schema, size, worker, drawingSize])
 
   return (
     <canvas
