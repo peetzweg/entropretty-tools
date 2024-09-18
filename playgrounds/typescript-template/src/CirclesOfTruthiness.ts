@@ -29,4 +29,9 @@ const draw = (ctx, seed) => {
   )
 }
 
-export const schema = { draw, artist: "LLM" }
+export const schema = {
+  draw,
+  artist: "LLM",
+  name: "Circles of Truthiness",
+  kind: "Procedural",
+}
