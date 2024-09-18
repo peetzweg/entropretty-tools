@@ -1,5 +1,12 @@
 # entropretty-cli
 
+## 1.0.22
+
+### Patch Changes
+
+- 39c957b: add entropretty test command for basic tests
+- 0daa317: adds basic test capabilities
+
 ## 1.0.21
 
 ### Patch Changes
