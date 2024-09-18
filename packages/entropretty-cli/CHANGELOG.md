@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.23
+
+### Patch Changes
+
+- 132ad6f: change distribution of tests folder
+
 ## 1.0.22
 
 ### Patch Changes
