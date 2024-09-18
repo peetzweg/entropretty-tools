@@ -22,7 +22,8 @@
     "url": "git+https://github.com/peetzweg/entropretty-tools.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "tests"
   ],
   "scripts": {
     "watch": "tsup-node --watch",
