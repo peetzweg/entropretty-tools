@@ -19,12 +19,15 @@ describe.each(scriptPaths)("%s", (scriptPath) => {
       await drawer?.deinit()
     })
 
-    test("draws", async () => {
-      const base64 = await drawer!.draw(
-        new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-      )
-      expect(base64).toBeDefined()
-      console.log("base64", base64)
+    test("is deterministic", async () => {
+      const seeds = [
+        new Uint8Array([11, 22, 33, 44, 55, 66, 77, 88]),
+        new Uint8Array([99, 100, 101, 102, 103, 104, 105, 106]),
+      ]
+
+      const firstRun = await drawer!.draw(seeds[0])
+      const secondRun = await drawer!.draw(seeds[0])
+      expect(firstRun).toEqual(secondRun)
     })
   })
 })

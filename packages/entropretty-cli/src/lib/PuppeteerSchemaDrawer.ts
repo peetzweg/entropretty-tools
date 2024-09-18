@@ -4,6 +4,13 @@ import puppeteer, { Browser, Page } from "puppeteer"
 export type SchemaDrawerInitOptions = {
   size: number
 }
+
+declare global {
+  interface Window {
+    drawSeed: (seed: number[]) => string
+    canvasAsBase64png: () => string
+  }
+}
 export abstract class SchemaDrawer {
   abstract init(
     scriptFilePath: string,
@@ -25,9 +32,9 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
       throw new Error("PuppeteerSchemaDrawer not initialized")
     }
 
-    return await this._page.evaluate(
+    const base64 = await this._page.evaluate(
       (seed) => {
-        console.log("drawing seed in browser", seed.join(", "))
+        // console.log("drawing seed in browser", seed.join(", "))
         if (typeof window.drawSeed === "function") {
           window.drawSeed(seed)
           return window.canvasAsBase64png()
@@ -37,6 +44,8 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
       },
       [...seed],
     )
+    if (!base64) throw new Error("Failed to draw seed")
+    return base64
   }
 
   async init(
@@ -47,14 +56,14 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
     const page = await browser.newPage()
     await page.setViewport({ width: 500, height: 500 })
 
-    page.on("console", (message) =>
-      console.log(
-        `Browser Console: ${message.type().padEnd(9)}: ${message.text()}`,
-      ),
-    )
-    page.on("pageerror", (error) =>
-      console.log(`Browser Page Error: ${error.toString()}`),
-    )
+    // page.on("console", (message) =>
+    //   console.log(
+    //     `Browser Console: ${message.type().padEnd(9)}: ${message.text()}`,
+    //   ),
+    // )
+    // page.on("pageerror", (error) =>
+    //   console.log(`Browser Page Error: ${error.toString()}`),
+    // )
 
     const scriptContent = await fs.readFile(scriptFilePath, "utf8")
     const scriptDataUrl = `data:text/javascript;base64,${Buffer.from(scriptContent).toString("base64")}`
@@ -66,7 +75,6 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
             <script type="module">
               import { schema } from '${scriptDataUrl}';
 
-              console.log('Module loaded. Schema:', schema);
               if (typeof schema === 'undefined') {
                 console.error('Schema is not defined. Available global variables:', Object.keys(window));
               }
