@@ -1,5 +1,11 @@
 # entropretty-cli
 
+## 1.0.24
+
+### Patch Changes
+
+- 6a29189: adds first drawing test to check if design is deterministic
+
 ## 1.0.23
 
 ### Patch Changes
