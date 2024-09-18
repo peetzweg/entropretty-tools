@@ -21,9 +21,7 @@ cli
 cli
   .command("test [...files]", "test bundled schemas for compliance")
   .action(async (files) => {
-    for (const file of files) {
-      await test(file)
-    }
+    await test(files)
   })
 
 // Prints help if no command is provided

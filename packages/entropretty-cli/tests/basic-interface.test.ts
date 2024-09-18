@@ -1,44 +1,44 @@
 import { describe, expect, test } from "vitest"
 
-describe.skipIf(!process.env.VITEST_SCRIPT_NAME)(
-  "Correct Interface: " + process.env.VITEST_SCRIPT_NAME!,
-  () => {
-    test("schema is named export", async () => {
-      const module = await import(process.env.VITEST_SCRIPT_PATH!)
-      expect(module.schema).toBeDefined()
-    })
+const scriptPaths: string[] = process.env.VITEST_SCRIPT_PATH!.split(",")
 
-    test("schema has correct shape", async () => {
-      const { schema } = await import(process.env.VITEST_SCRIPT_PATH!)
+describe.each(scriptPaths)("Correct Interface: %s", (scriptPath) => {
+  test("schema is a named export", async () => {
+    const module = await import(scriptPath)
+    expect(module.schema).toBeDefined()
+  })
 
-      expect(schema).toBeDefined()
-      expect(schema.name).toBeDefined()
-      expect(typeof schema.name).toBe("string")
+  test("schema has correct shape", async () => {
+    const { schema } = await import(scriptPath)
 
-      expect(schema.kind).toBeDefined()
-      expect(typeof schema.kind).toBe("string")
-      expect(schema.kind).oneOf([
-        "Procedural",
-        "ProceduralAccount",
-        "ProceduralPersonal",
-      ])
+    expect(schema).toBeDefined()
+    expect(schema.name).toBeDefined()
 
-      expect(schema.artist).toBeDefined()
-      expect(typeof schema.artist).toBe("string")
+    expect(typeof schema.name).toBe("string")
 
-      expect(schema.draw).toBeDefined()
-      expect(typeof schema.draw).toBe("function")
-    })
+    expect(schema.kind).toBeDefined()
+    expect(typeof schema.kind).toBe("string")
+    expect(schema.kind).oneOf([
+      "Procedural",
+      "ProceduralAccount",
+      "ProceduralPersonal",
+    ])
 
-    test("schema draw function is valid", async () => {
-      const { schema } = await import(process.env.VITEST_SCRIPT_PATH!)
+    expect(schema.artist).toBeDefined()
+    expect(typeof schema.artist).toBe("string")
 
-      expect(schema.draw).toBeDefined()
-      expect(typeof schema.draw).toBe("function")
+    expect(schema.draw).toBeDefined()
+    expect(typeof schema.draw).toBe("function")
+  })
 
-      const drawArgs = schema.draw.toString().match(/\(([^)]*)\)/)?.[1]
-      expect(drawArgs).toBeDefined()
-      expect(drawArgs?.split(",").map((arg) => arg.trim()).length).toBe(2)
-    })
-  },
-)
+  test("schema draw function is valid", async () => {
+    const { schema } = await import(scriptPath)
+
+    expect(schema.draw).toBeDefined()
+    expect(typeof schema.draw).toBe("function")
+
+    const drawArgs = schema.draw.toString().match(/\(([^)]*)\)/)?.[1]
+    expect(drawArgs).toBeDefined()
+    expect(drawArgs?.split(",").map((arg) => arg.trim()).length).toBe(2)
+  })
+})
