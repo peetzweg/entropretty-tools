@@ -1,5 +1,12 @@
 # entropretty-cli
 
+## 1.0.26
+
+### Patch Changes
+
+- 0c8bc57: new drawing tests, not empty, not identical for different seeds
+- 0c8bc57: bundles missing testing library
+
 ## 1.0.25
 
 ### Patch Changes
