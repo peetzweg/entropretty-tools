@@ -22,7 +22,7 @@ Compile your source code to a single js bundle ready for distribution:
 npm run build
 ```
 
-Finally, you should run `test` on your distribution bundle to ensure it complies to the testable requirements:
+Finally, you should run `test` on your now bundled script to ensure it complies to testable requirements for Proof of Ink tattoos:
 
 ```sh
 npm run test

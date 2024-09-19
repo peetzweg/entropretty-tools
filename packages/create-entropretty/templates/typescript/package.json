@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "entropretty dev",
-    "build": "entropretty build ./src/*.ts"
+    "build": "entropretty build ./src/*.ts",
+    "test": "entropretty build ./src/*.js"
   },
   "devDependencies": {
-    "entropretty-cli": "1.0.21",
+    "entropretty-cli": "1.0.26",
     "entropretty-editor": "1.0.20",
     "entropretty-utils": "1.0.19",
     "comlink": "^4.4.1",
