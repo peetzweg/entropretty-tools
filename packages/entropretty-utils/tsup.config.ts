@@ -6,4 +6,5 @@ export default defineConfig({
   outDir: "dist",
   clean: true,
   dts: true,
+  name: "entropretty-utils",
 })

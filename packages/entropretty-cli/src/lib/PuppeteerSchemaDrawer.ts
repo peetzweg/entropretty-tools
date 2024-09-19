@@ -1,5 +1,5 @@
 import fs from "node:fs/promises"
-import puppeteer, { Browser, Page } from "puppeteer"
+import puppeteer, { Browser, JSHandle, Page } from "puppeteer"
 
 export type SchemaDrawerInitOptions = {
   size: number
@@ -9,6 +9,7 @@ declare global {
   interface Window {
     drawSeed: (seed: number[]) => string
     canvasAsBase64png: () => string
+    canvasAsSRGBPixels: () => Uint8ClampedArray
   }
 }
 export abstract class SchemaDrawer {
@@ -17,7 +18,9 @@ export abstract class SchemaDrawer {
     options: SchemaDrawerInitOptions,
   ): Promise<void>
   abstract deinit(): Promise<void>
-  abstract draw(seed: Uint8Array): Promise<string>
+  abstract draw(seed: Uint8Array): Promise<void>
+  abstract getImageAsBase64(): Promise<string>
+  abstract getImagePixels(): Promise<Uint8ClampedArray>
 }
 
 export class PuppeteerSchemaDrawer extends SchemaDrawer {
@@ -27,25 +30,55 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
     super()
   }
 
-  async draw(seed: Uint8Array): Promise<string> {
+  async draw(seed: Uint8Array): Promise<void> {
     if (!this._page) {
       throw new Error("PuppeteerSchemaDrawer not initialized")
     }
 
-    const base64 = await this._page.evaluate(
+    await this._page.evaluate(
       (seed) => {
         // console.log("drawing seed in browser", seed.join(", "))
         if (typeof window.drawSeed === "function") {
           window.drawSeed(seed)
-          return window.canvasAsBase64png()
         } else {
-          console.error("drawOnCanvas function not defined")
+          throw Error("drawOnCanvas function not defined")
         }
       },
       [...seed],
     )
-    if (!base64) throw new Error("Failed to draw seed")
+  }
+
+  async getImageAsBase64(): Promise<string> {
+    if (!this._page) {
+      throw Error("PuppeteerSchemaDrawer not initialized")
+    }
+
+    const base64: string = await this._page.evaluate(() => {
+      if (typeof window.canvasAsBase64png === "function") {
+        return window.canvasAsBase64png()
+      } else {
+        throw Error("canvasAsBase64png function not defined")
+      }
+    })
+
     return base64
+  }
+
+  async getImagePixels(): Promise<Uint8ClampedArray> {
+    if (!this._page) {
+      throw Error("PuppeteerSchemaDrawer not initialized")
+    }
+    const data: JSHandle<Uint8ClampedArray> = await this._page.evaluateHandle(
+      () => {
+        if (typeof window.canvasAsSRGBPixels === "function") {
+          return window.canvasAsSRGBPixels()
+        } else {
+          throw Error("canvasAsSRGBPixels function not defined")
+        }
+      },
+    )
+    const pixels: Record<number, number> = await data.jsonValue()
+    return Uint8ClampedArray.from(Object.values(pixels))
   }
 
   async init(
@@ -80,9 +113,9 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
               }
 
               const canvas = document.getElementById("canvas");
+              const ctx = canvas.getContext('2d');
 
               window.drawSeed = (seed) => {
-                const ctx = canvas.getContext('2d');
                 ctx.save();
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -101,6 +134,10 @@ export class PuppeteerSchemaDrawer extends SchemaDrawer {
 
               window.canvasAsBase64png = () => {
                 return canvas.toDataURL('image/png').split(",")[1];
+              }
+
+              window.canvasAsSRGBPixels = () => {
+                return ctx.getImageData(0,0, canvas.width, canvas.height, { colorSpace: "srgb" }).data;
               }
             </script>
             </script>
