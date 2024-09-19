@@ -16,15 +16,15 @@ export const Tools: React.FC = () => {
 
       <div className="flex flex-col justify-center gap-3">
         <p>
-          We created a set of tools to help you create your own schema for{" "}
+          We created entropretty to help you{" "}
+          <span className="keyword-code-inverse">design</span>,{" "}
+          <span className="keyword-code-inverse">test</span> &{" "}
+          <span className="keyword-code-inverse">bundle</span> your own schema
+          for specifically for{" "}
           <span className="whitespace-nowrap font-sans font-semibold italic">
             Proof of Ink
           </span>
-          , called{" "}
-          <span className="rounded-sm bg-slate-200 p-1 lowercase">
-            entropretty
-          </span>
-          .{" "}
+          .
         </p>
 
         <p>

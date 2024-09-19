@@ -1,7 +1,7 @@
 import { CreateEntroprettyCTA } from "@/components/CreateEntroprettyCTA"
 import HyperText from "@/components/magicui/hyper-text"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowDown, ArrowUpRight } from "lucide-react"
 
 export const Hero: React.FC = () => {
   return (
@@ -20,16 +20,16 @@ export const Hero: React.FC = () => {
       </div>
 
       <p>
-        The new solution,{" "}
-        <span className="keyword-sans font-semibold">Proof of Ink</span>, will
-        enable users to prove their digital individuality in a
-        privacy-preserving manner through a unique tattoo serving as proof.
+        <span className="keyword-sans font-semibold">Proof of Ink</span> will
+        enable humans to prove their individuality in a privacy-preserving
+        manner through a unique tattoo serving as proof to become a{" "}
+        <span className="keyword-serif font-semibold">Web3 Citizen</span>.
       </p>
 
       <div className="flex w-fit flex-row flex-wrap-reverse justify-start gap-x-4 gap-y-2">
         <a href="#gallery">
           <Button size={"lg"} variant={"outline"}>
-            EXPLORE
+            Go to Gallery <ArrowDown className="ml-2 h-4 w-4" />
           </Button>
         </a>
         <CreateEntroprettyCTA />

@@ -14,8 +14,7 @@ export const Web3Citizenship: React.FC = () => {
 
       <div className="relative flex justify-center">
         <iframe
-          width="720"
-          height="405"
+          className="aspect-video w-full"
           src="https://www.youtube-nocookie.com/embed/MrWioikibEI?si=WPziLWjrjIq2mfFI"
           title="Web3 Citizenship at web3summit"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

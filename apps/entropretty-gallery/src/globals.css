@@ -92,6 +92,10 @@
     @apply text-primary whitespace-nowrap rounded-sm bg-slate-200 p-1;
   }
 
+  .keyword-code-inverse {
+    @apply text-background whitespace-nowrap rounded-sm bg-primary p-1;
+  }
+
   .keyword-highlight {
     @apply text-primary whitespace-nowrap rounded-sm bg-slate-100 p-1;
   }

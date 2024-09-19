@@ -1,29 +1,34 @@
-import { Gallery } from "@/elements/Gallery"
-import { Hero } from "@/elements/Hero"
-import { Tools } from "@/elements/Tools"
-import { ProceduralTattoos } from "@/elements/ProceduralTattoos"
-import { Web3Citizenship } from "./elements/Web3Citizenship"
+import { Gallery } from "@/sections/Gallery"
+import { Hero } from "@/sections/Hero"
+import { Tools } from "@/sections/Tools"
+import { ProceduralTattoos } from "@/sections/ProceduralTattoos"
+import { Web3Citizenship } from "@/sections/Web3Citizenship"
+import { Guidelines } from "@/sections/Guidelines"
 
 function App() {
   return (
     <main className="m-4 flex flex-col gap-24">
-      <div className="flex min-h-[calc(100vh-100px)] flex-col items-center justify-center">
+      <div className="flex min-h-[80vh] flex-col items-center justify-center">
         <div className="relative flex w-full flex-col gap-24 md:max-w-[720px]">
           <Hero />
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-100px)] flex-col items-center">
+      <div className="flex min-h-[80vh] flex-col items-center">
         <div className="relative flex w-full flex-col gap-24 md:max-w-[720px]">
           <Web3Citizenship />
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-100px)] flex-col items-center">
+      <div className="flex min-h-[80vh] flex-col items-center">
         <ProceduralTattoos />
       </div>
 
-      <div className="flex min-h-[calc(100vh-100px)] flex-col items-center">
+      <div className="flex min-h-[80vh] flex-col items-center">
+        <Guidelines />
+      </div>
+
+      <div className="flex min-h-[80vh] flex-col items-center">
         <Tools />
       </div>
 
