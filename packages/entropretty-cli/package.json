@@ -1,6 +1,6 @@
 {
   "name": "entropretty-cli",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "type": "module",
   "bin": {
     "entropretty": "./dist/cli.js"
