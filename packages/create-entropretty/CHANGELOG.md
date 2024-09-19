@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.28
+
+### Patch Changes
+
+- cfbc955: fix broken test command, which was using build in the template
+
 ## 1.0.27
 
 ### Patch Changes
