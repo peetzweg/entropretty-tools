@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "entropretty dev",
     "build": "entropretty build ./src/*.ts",
-    "test": "entropretty build ./src/*.js"
+    "test": "entropretty test ./dist/*.js"
   },
   "devDependencies": {
     "entropretty-cli": "1.0.26",
