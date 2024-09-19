@@ -1,8 +1,9 @@
 import { defineConfig } from "tsup"
 
 export default defineConfig({
-  clean: true,
-  entryPoints: ["./src/cli.ts"],
+  entryPoints: { cli: "./src/cli.ts" },
+  tsconfig: "./tsconfig.lib.json",
   format: ["esm"],
   outDir: "dist",
+  name: "entropretty-cli",
 })

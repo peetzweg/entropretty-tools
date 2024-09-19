@@ -1,8 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
-import {
-  PuppeteerSchemaDrawer,
-  SchemaDrawer,
-} from "../src/lib/PuppeteerSchemaDrawer"
+import { PuppeteerSchemaDrawer, SchemaDrawer } from "entropretty-cli"
 
 const scriptPaths: string[] = process.env.VITEST_SCRIPT_PATH!.split(",")
 
