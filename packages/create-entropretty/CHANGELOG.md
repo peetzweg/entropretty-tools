@@ -1,5 +1,11 @@
 # create-entropretty
 
+## 1.0.27
+
+### Patch Changes
+
+- a0bb566: update templates to use latest entropretty-cli which supports now the test command
+
 ## 1.0.26
 
 ### Patch Changes
