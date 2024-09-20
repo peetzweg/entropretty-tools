@@ -1,7 +1,8 @@
 import { CreateEntroprettyCTA } from "@/components/CreateEntroprettyCTA"
 import HyperText from "@/components/magicui/hyper-text"
 import { Button } from "@/components/ui/button"
-import { ArrowDown, ArrowUpRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export const Hero: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ export const Hero: React.FC = () => {
         </div>
 
         <HyperText
-          duration={4000}
+          duration={3000}
           className="p-0 font-mono text-4xl font-bold text-black sm:text-5xl dark:text-white"
           text="× ENTROPRETTY "
         />
@@ -27,11 +28,12 @@ export const Hero: React.FC = () => {
       </p>
 
       <div className="flex w-fit flex-row flex-wrap-reverse justify-start gap-x-4 gap-y-2">
-        <a href="#gallery">
-          <Button size={"lg"} variant={"outline"}>
-            Go to Gallery <ArrowDown className="ml-2 h-4 w-4" />
+        <Link to="/explore">
+          <Button className="text-base font-semibold" size={"lg"}>
+            Get inspired <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>
-        </a>
+        </Link>
+
         <CreateEntroprettyCTA />
       </div>
 

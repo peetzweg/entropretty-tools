@@ -1,7 +1,22 @@
-import "entropretty-editor/style.css"
+import "./globals.css"
 
 import { createRoot } from "react-dom/client"
-import "./globals.css"
-import App from "./App.tsx"
+import Explore from "./routes/Explore.tsx"
+import LandingPage from "./routes/LandingPage.tsx"
 
-createRoot(document.getElementById("root")!).render(<App />)
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/explore",
+    element: <Explore />,
+  },
+])
+
+createRoot(document.getElementById("root")!).render(
+  <RouterProvider router={router} />,
+)

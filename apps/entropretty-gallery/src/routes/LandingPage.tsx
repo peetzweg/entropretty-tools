@@ -1,11 +1,10 @@
-import { Gallery } from "@/sections/Gallery"
-import { Hero } from "@/sections/Hero"
-import { Tools } from "@/sections/Tools"
-import { ProceduralTattoos } from "@/sections/ProceduralTattoos"
-import { Web3Citizenship } from "@/sections/Web3Citizenship"
 import { Guidelines } from "@/sections/Guidelines"
+import { Hero } from "@/sections/Hero"
+import { ProceduralTattoos } from "@/sections/ProceduralTattoos"
+import { Tools } from "@/sections/Tools"
+import { Web3Citizenship } from "@/sections/Web3Citizenship"
 
-function App() {
+function LandingPage() {
   return (
     <main className="m-4 flex flex-col gap-24">
       <div className="flex min-h-[80vh] flex-col items-center justify-center">
@@ -31,10 +30,8 @@ function App() {
       <div className="flex min-h-[80vh] flex-col items-center">
         <Tools />
       </div>
-
-      <Gallery />
     </main>
   )
 }
 
-export default App
+export default LandingPage

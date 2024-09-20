@@ -9,25 +9,50 @@ import { EntroprettyEditorWorker } from "entropretty-editor"
 import type { SchemaMetadata } from "entropretty-utils"
 import { ArrowUpRight } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
+import { useOnScrollLeft } from "../hooks/useOnScrollLeft"
+import { Link } from "react-router-dom"
 
 const worker = new Worker()
 const wrappedWorker: Remote<EntroprettyEditorWorker> = wrap(worker)
 
-const SHOWCASE_SEEDS = [
-  new Uint8Array([42, 32, 128, 3]),
-  new Uint8Array([200, 243, 80, 199]),
-  // new Uint8Array([254, 64, 1, 14]),
-  new Uint8Array([23, 65, 82, 4]),
-  // new Uint8Array([25, 34, 76, 14]),
-]
-
 export const Gallery: React.FC = () => {
   const [schemas, setSchemas] = useState<SchemaMetadata[]>([])
+  const [designs, setDesigns] = useState<
+    {
+      seed: Uint8Array
+      schema: SchemaMetadata
+    }[]
+  >([])
   useEffect(() => {
     wrappedWorker.init().then((schemas: SchemaMetadata[]) => {
       setSchemas(schemas.sort(() => 0.5 - Math.random()))
     })
   }, [])
+
+  useEffect(() => {
+    if (schemas.length === 0) return
+    const initialSet = Array.from({ length: 75 }).map(() => {
+      const randomSchema = schemas[Math.floor(Math.random() * schemas.length)]
+      const randomSeed = new Uint8Array(4)
+      crypto.getRandomValues(randomSeed)
+      return { seed: randomSeed, schema: randomSchema }
+    })
+
+    setDesigns(initialSet)
+  }, [schemas])
+
+  useOnScrollLeft(
+    () => {
+      const newSet = Array.from({ length: 25 }).map(() => {
+        const randomSchema = schemas[Math.floor(Math.random() * schemas.length)]
+        const randomSeed = new Uint8Array(4)
+        crypto.getRandomValues(randomSeed)
+        return { seed: randomSeed, schema: randomSchema }
+      })
+      setDesigns((prev) => [...prev, ...newSet])
+    },
+    { scrollLeft: 125 },
+  )
 
   const artists = useMemo(() => {
     const uniqueArtists = new Set(schemas.map((schema) => schema.artist))
@@ -35,72 +60,59 @@ export const Gallery: React.FC = () => {
   }, [schemas])
 
   return (
-    <div
-      id="gallery"
-      className="flex w-full max-w-[960px] flex-col gap-10 self-center md:flex-row"
-    >
-      <h2 className="keyword-serif whitespace-normal">
-        {"× "}
-        {schemas.length ? <NumberTicker value={schemas.length} /> : ""}
-        {` Schemas`}
-      </h2>
+    <div className="relative">
+      <div className="fixed bottom-0 right-0 z-10 m-4 flex w-[calc(100vw-32px)] flex-col rounded-md border bg-white p-4 text-sm md:w-1/2 lg:w-1/3">
+        <h2 className="keyword-serif whitespace-normal">
+          {"× "}
+          {schemas.length ? <NumberTicker value={schemas.length} /> : ""}
+          {` Schemas`}
+        </h2>
 
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-1">
-          <p>
-            Following are submitted schemas. These schemas are viable to be
-            included to be used in the Proof of Ink process.
-          </p>
-          <p>
-            A total of <NumberTicker value={artists} /> individual artists
-            submitted <NumberTicker value={schemas.length} /> designs.
-          </p>
-          <a
-            href="https://github.com/peetzweg/entropretty-tools/issues/new"
-            target="_blank"
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-1">
+            <p>
+              A total of <NumberTicker value={artists} /> individual artists
+              submitted <NumberTicker value={schemas.length} /> designs.
+            </p>
+            <Link to="/">
+              <Button className="text-base font-semibold">
+                Add yours <ArrowUpRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative flex h-full w-full flex-row flex-wrap items-center justify-center gap-4">
+        {designs.map(({ seed, schema }, designIndex) => (
+          <BlurFade
+            className="group relative flex aspect-square items-center justify-center"
+            key={schema.name + designIndex}
+            // delay={0.25 + designIndex * 0.05}
+            inView
           >
-            <Button
-              className="self-start p-0 text-base font-semibold"
-              variant="link"
+            <GridPattern
+              width={40}
+              height={40}
+              x={-20}
+              y={-20}
+              strokeDasharray={"4 2"}
+            />
+            <a
+              href="https://github.com/peetzweg/entropretty-tools/tree/main/apps/entropretty-gallery/schemas"
+              target="_blank"
+              className="z-10"
             >
-              Submit schema <ArrowUpRight className="ml-2 h-4 w-4" />
-            </Button>
-          </a>
-        </div>
-
-        <div className="relative flex flex-row flex-wrap items-center justify-center gap-4">
-          {schemas.map((schema, idx) =>
-            SHOWCASE_SEEDS.map((seed, seedIdx) => (
-              <BlurFade
-                className="group relative flex aspect-square items-center justify-center"
-                key={schema.name + seedIdx}
-                delay={0.25 + idx * 0.05}
-                inView
-              >
-                <GridPattern
-                  width={40}
-                  height={40}
-                  x={-20}
-                  y={-20}
-                  strokeDasharray={"4 2"}
-                />
-                <a
-                  href="https://github.com/peetzweg/entropretty-tools/tree/main/apps/entropretty-gallery/schemas"
-                  target="_blank"
-                  className="z-10"
-                >
-                  <Drawing
-                    schema={schema}
-                    size={200}
-                    worker={wrappedWorker}
-                    seed={seed}
-                  />
-                </a>
-                <p className="text-secondary-foreground fixed bottom-0 left-0 right-0 z-10 rounded-sm bg-slate-200 p-1 text-sm opacity-0 transition-opacity ease-in-out group-hover:opacity-100">{`${schema.name} by ${schema.artist}`}</p>
-              </BlurFade>
-            )),
-          )}
-        </div>
+              <Drawing
+                schema={schema}
+                size={125}
+                worker={wrappedWorker}
+                seed={seed}
+              />
+            </a>
+            <p className="text-secondary-foreground fixed bottom-0 left-0 right-0 z-10 rounded-sm bg-slate-200 p-1 text-sm opacity-0 transition-opacity ease-in-out group-hover:opacity-100">{`${schema.name} by ${schema.artist}`}</p>
+          </BlurFade>
+        ))}
       </div>
     </div>
   )
