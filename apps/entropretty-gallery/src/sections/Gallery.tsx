@@ -68,18 +68,27 @@ export const Gallery: React.FC = () => {
           {` Schemas`}
         </h2>
 
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <p>
               A total of <NumberTicker value={artists} /> individual artists
               submitted <NumberTicker value={schemas.length} /> designs.
+              Contribute your Design to{" "}
+              <a
+                href="https://www.youtube.com/watch?v=MrWioikibEI"
+                target="_blank"
+                className="keyword-code underline"
+              >
+                Proof of Ink
+              </a>
+              .
             </p>
-            <Link to="/">
-              <Button className="text-base font-semibold">
-                Add yours <ArrowUpRight className="ml-1 h-4 w-4" />
-              </Button>
-            </Link>
           </div>
+          <Link to="/tools">
+            <Button className="text-base font-semibold">
+              Learn how <ArrowUpRight className="ml-1 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </div>
 

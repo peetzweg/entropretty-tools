@@ -9,11 +9,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: <Explore />,
   },
   {
-    path: "/explore",
-    element: <Explore />,
+    path: "/tools",
+    element: <LandingPage />,
   },
 ])
 

@@ -14,7 +14,7 @@ export const Hero: React.FC = () => {
         </div>
 
         <HyperText
-          duration={3000}
+          duration={2000}
           className="p-0 font-mono text-4xl font-bold text-black sm:text-5xl dark:text-white"
           text="× ENTROPRETTY "
         />
@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
       </p>
 
       <div className="flex w-fit flex-row flex-wrap-reverse justify-start gap-x-4 gap-y-2">
-        <Link to="/explore">
+        <Link to="/">
           <Button className="text-base font-semibold" size={"lg"}>
             Get inspired <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>
