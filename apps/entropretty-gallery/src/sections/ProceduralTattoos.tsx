@@ -38,7 +38,7 @@ export const schema = {
   draw,
   artist: "LLM",
   name: "Circles of Truthiness",
-  kind: "Procedural",
+  seed: "Entropy",
 }
 `
 
@@ -79,31 +79,25 @@ export const ProceduralTattoos: React.FC = () => {
           <p className="ml-10">
             × export a named <span className="keyword-code">schema</span> object
             with the following properties{" "}
-            <span className="keyword-code">{`export const schema = { draw, name, artist, kind }`}</span>
+            <span className="keyword-code">{`export const schema = { draw, name, artist, seed  }`}</span>
           </p>
           <p className="ml-10">
-            × There are 3 different <span className="keyword-code">kinds</span>{" "}
-            of seeds:
+            × There are 3 different kinds of{" "}
+            <span className="keyword-code">seeds</span>:
           </p>
           <p className="ml-14">
-            <span className="w-fit rounded-sm bg-yellow-400 p-1">
-              Procedural
-            </span>
-            : 4 bytes of <span className="keyword-code">entropy</span>,
+            <span className="w-fit rounded-sm bg-yellow-400 p-1">Entropy</span>:
+            4 bytes of <span className="keyword-code">entropy</span>,
           </p>
           <p className="ml-14">
-            <span className="rounded-sm bg-red-400 p-1">
-              ProceduralPersonal
-            </span>
-            : 8 bytes representing a <span className="keyword-code">u64</span>{" "}
-            citizen id,
+            <span className="rounded-sm bg-red-400 p-1">Personal</span>: 8 bytes
+            representing a <span className="keyword-code">u64</span> personal
+            id, basically a unique integer number for each citizen,
           </p>
 
           <p className="ml-14">
-            <span className="rounded-sm bg-blue-400 p-1">
-              ProceduralAccount
-            </span>
-            : 32 bytes representing a{" "}
+            <span className="rounded-sm bg-blue-400 p-1">Account</span>: 32
+            bytes representing a{" "}
             <span className="keyword-code">public key</span>.
           </p>
         </div>
