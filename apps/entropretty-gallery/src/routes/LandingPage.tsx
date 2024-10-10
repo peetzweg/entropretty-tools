@@ -6,7 +6,7 @@ import { Web3Citizenship } from "@/sections/Web3Citizenship"
 
 function LandingPage() {
   return (
-    <main className="m-4 flex flex-col gap-24">
+    <main className="m-4 flex flex-col gap-24 pb-24">
       <div className="flex min-h-[80vh] flex-col items-center justify-center">
         <div className="relative flex w-full flex-col gap-24 md:max-w-[720px]">
           <Hero />
