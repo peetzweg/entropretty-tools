@@ -10,6 +10,9 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom"
+import Login from "./routes/Login.tsx"
+import AuthCallback from "./routes/AuthCallback.tsx"
+import Submit from "./routes/Submit.tsx"
 
 function Root() {
   return (
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "/tools",
         element: <LandingPage />,
+      },
+      {
+        path: "/submit",
+        element: <Submit />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/auth-callback",
+        element: <AuthCallback />,
       },
     ],
   },
