@@ -1,5 +1,6 @@
 import Editor from "@monaco-editor/react"
 import { useDebounceCallback } from "usehooks-ts"
+import Account from "../components/Account"
 function Submit() {
   const evalCode = useDebounceCallback(
     (value) => {
@@ -12,6 +13,7 @@ function Submit() {
   )
   return (
     <main className="relative flex flex-row">
+      <Account />
       <div className="h-full w-1/2 resize">
         <Editor
           height="100vh"

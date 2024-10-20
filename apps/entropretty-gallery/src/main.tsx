@@ -10,17 +10,19 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom"
-import Login from "./routes/Login.tsx"
+import Login from "./components/Account.tsx"
 import AuthCallback from "./routes/AuthCallback.tsx"
 import Submit from "./routes/Submit.tsx"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+const queryClient = new QueryClient()
 
 function Root() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Outlet />
 
       <ScrollRestoration />
-    </>
+    </QueryClientProvider>
   )
 }
 
@@ -40,10 +42,6 @@ const router = createBrowserRouter([
       {
         path: "/submit",
         element: <Submit />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
       },
       {
         path: "/auth-callback",
