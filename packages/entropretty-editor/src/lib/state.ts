@@ -1,9 +1,9 @@
-import { FamilyKind, SchemaMetadata } from "entropretty-utils"
 import { Remote, wrap } from "comlink"
+import type { FamilyKind, SchemaMetadata } from "entropretty-utils"
+import { getSeedFamily } from "entropretty-utils"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import { EntroprettyEditorWorker } from "./createWorker"
-import { getSeedFamily } from "./utils"
 
 export const MODES = [
   "horizontal",
