@@ -3,6 +3,11 @@ import type { NextConfig } from "next"
 const nextConfig: NextConfig = {
   /* config options here */
   webpack: (config, { isServer }) => {
+    config.module.rules.push({
+      test: /\.worker\.(ts|js)$/,
+      use: { loader: "worker-loader" },
+    })
+
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       config.resolve.fallback = {

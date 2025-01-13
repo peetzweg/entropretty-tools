@@ -1,14 +1,18 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
 })
+
 import { Button } from "@/components/ui/button"
 import { useCodeEvaluation } from "@/hooks/useCodeEvaluation"
 import OutputDisplay from "./OutputDisplay"
 import { useMonaco } from "@monaco-editor/react"
+import { CompWorker } from "../lib/createWorker"
+import * as Comlink from "comlink"
+import Worker from "../lib/worker.worker.ts"
 
 const CodeEditor = () => {
   const [code, setCode] = useState<string | undefined>(
@@ -32,6 +36,17 @@ const CodeEditor = () => {
   const handleEditorChange = (value: string | undefined) => {
     setCode(value)
   }
+
+  const workerRef = useRef<Worker | null>(null)
+
+  useEffect(() => {
+    const workerInstance = new Worker()
+
+    const workerProxy = Comlink.wrap(workerInstance)
+
+    console.log({ workerProxy })
+    return () => {}
+  }, [])
 
   const handleRunCode = () => {
     if (code) {
@@ -59,6 +74,14 @@ const CodeEditor = () => {
       </div>
       <div>
         <OutputDisplay output={output} error={error} />
+      </div>
+      <div>
+        {/* <DrawingBitmap
+          seed={seed}
+          algorithmId={algorithmId}
+          size={size}
+          worker={worker}
+        /> */}
       </div>
     </div>
   )
