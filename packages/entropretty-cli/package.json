@@ -39,20 +39,20 @@
     "lint": "tsc && eslint ."
   },
   "devDependencies": {
-    "@types/node": "^22.5.1",
-    "eslint": "^9.9.1"
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0"
   },
   "dependencies": {
-    "@vitejs/plugin-react-swc": "^3.7.0",
+    "@vitejs/plugin-react-swc": "^3.7.2",
     "cac": "^6.7.14",
-    "comlink": "^4.4.1",
-    "picocolors": "^1.0.1",
-    "puppeteer": "^23.3.0",
+    "comlink": "^4.4.2",
+    "picocolors": "^1.1.1",
+    "puppeteer": "^23.11.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsup": "^8.2.4",
-    "typescript": "^5.6.2",
-    "vite": "^5.4.4",
-    "vitest": "^2.1.1"
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
   }
 }
