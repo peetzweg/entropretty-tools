@@ -10,7 +10,8 @@
     "build:apps": "pnpm run --r --filter \"./apps/**\" build",
     "lint": "pnpm run --r --filter \"./packages/**\" lint",
     "local-release": "pnpm build && changeset version && changeset publish",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "supabase": "supabase login"
   },
   "author": "",
   "license": "MIT",

@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from "react"
 import { useDebounceCallback } from "usehooks-ts"
 import Worker from "@/lib/worker?worker"
 import { Remote, wrap } from "comlink"
-import { CompWorker } from "../lib/createWorker"
+import { CompWorker } from "../../lib/createWorker"
 import { DrawingBitmap } from "./DrawingBitmap"
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import initialCode from "./initialCode"
+import { CreateActions } from "./CreateActions"
 
 const seed = new Uint8Array([1, 2, 3, 4])
 
@@ -95,42 +97,9 @@ const CodeEditor = () => {
           />
         </ResizablePanel>
       </ResizablePanelGroup>
-      <div className="bg-green absolute bottom-2 left-2 right-2 flex w-full flex-row items-center justify-center p-2">
-        <div className="flex flex-row gap-2 rounded-md bg-white p-2 shadow-lg">
-          <Input placeholder="Algorithm Name" />
-          <Button>Post</Button>
-        </div>
-      </div>
+      <CreateActions />
     </>
   )
 }
 
 export default CodeEditor
-
-const initialCode = `ctx.strokeRect(0,0, 100, 100)
-ctx.translate(5, 5)
-ctx.textAlign = "center"
-ctx.textBaseline = "middle"
-
-const length = seed.length
-const grid = Math.ceil(Math.sqrt(length))
-const cellSize = Math.floor(90 / grid) // 90 to leave space for margins
-const fontSize = Math.max(8, Math.floor(cellSize * 0.4)) // Minimum font size of 8px
-ctx.font = \`\${fontSize}px sans-serif\`
-
-// Draw grid and numbers
-seed.forEach((n, i) => {
-  const row = Math.floor(i / grid)
-  const col = i % grid
-  const x = col * cellSize
-  const y = row * cellSize
-
-  // Draw cell border
-  ctx.strokeStyle = "#ccc"
-  ctx.strokeRect(x, y, cellSize, cellSize)
-
-  // Draw number
-  ctx.fillStyle = "#000"
-  ctx.fillText(n.toString(), x + cellSize / 2, y + cellSize / 2)
-})
-`

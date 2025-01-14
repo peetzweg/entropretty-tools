@@ -1,4 +1,4 @@
-import CodeEditor from "../features/CodeEditor"
+import CodeEditor from "../features/create/CodeEditor"
 
 function Create() {
   return (
