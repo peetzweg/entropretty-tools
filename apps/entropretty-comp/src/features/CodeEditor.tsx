@@ -58,49 +58,50 @@ const CodeEditor = () => {
   }
 
   return (
-    <ResizablePanelGroup
-      direction="horizontal"
-      className="h-screen w-screen"
-      autoSave="editor-layout"
-      autoSaveId="editor-layout-id"
-    >
-      <ResizablePanel defaultSize={50}>
-        <div className="flex h-full flex-row flex-wrap">
-          {workerRef.current && (
-            <>
-              <DrawingBitmap
-                key={key}
-                seed={seed}
-                algorithmId={"editor"}
-                size={480}
-                worker={workerRef.current}
-              />
-            </>
-          )}
-        </div>
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={50} minSize={10} className="flex flex-col">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 border-b border-gray-200 px-2">
-            <Input placeholder="Algorithm Name" className="border-none" />
-
-            <Button>Save</Button>
+    <>
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="h-screen w-screen"
+        autoSave="editor-layout"
+        autoSaveId="editor-layout-id"
+      >
+        <ResizablePanel defaultSize={50}>
+          <div className="flex h-full flex-row flex-wrap">
+            {workerRef.current && (
+              <>
+                <DrawingBitmap
+                  key={key}
+                  seed={seed}
+                  algorithmId={"editor"}
+                  size={480}
+                  worker={workerRef.current}
+                />
+              </>
+            )}
           </div>
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel defaultSize={50} minSize={10} className="flex flex-col">
+          <Editor
+            height="100%"
+            defaultLanguage="javascript"
+            defaultValue={code}
+            onChange={handleEditorChange}
+            options={{
+              minimap: { enabled: false },
+              lineNumbers: "on",
+              fontSize: 12,
+            }}
+          />
+        </ResizablePanel>
+      </ResizablePanelGroup>
+      <div className="bg-green absolute bottom-2 left-2 right-2 flex w-full flex-row items-center justify-center p-2">
+        <div className="flex flex-row gap-2 rounded-md bg-white p-2 shadow-lg">
+          <Input placeholder="Algorithm Name" />
+          <Button>Post</Button>
         </div>
-        <Editor
-          height="100%"
-          defaultLanguage="javascript"
-          defaultValue={code}
-          onChange={handleEditorChange}
-          options={{
-            minimap: { enabled: false },
-            lineNumbers: "on",
-            fontSize: 12,
-          }}
-        />
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </div>
+    </>
   )
 }
 
