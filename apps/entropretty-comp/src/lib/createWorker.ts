@@ -3,6 +3,10 @@ import * as Comlink from "comlink"
 export const createWorker = () => {
   const _algorithms = new Map<string, string>()
   let _isInitialized = false
+  let _subscribers = new Map<
+    string,
+    Map<string, (bitmap: ImageBitmap) => void>
+  >()
 
   return {
     init: async () => {
@@ -16,6 +20,14 @@ export const createWorker = () => {
     },
     updateAlgorithm: (algorithmId: string, algorithm: string) => {
       _algorithms.set(algorithmId, algorithm)
+    },
+    subscribe: (
+      algorithmId: string,
+      seed: Uint8Array,
+      size: number,
+      callback: (bitmap: ImageBitmap) => void,
+    ) => {
+      // _algorithms.set(algorithmId, callback)
     },
     drawTransfer: async (
       algorithmId: string,

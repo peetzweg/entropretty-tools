@@ -22,7 +22,7 @@ export const Drawing: React.FC<Props> = ({ seed, schema, size, worker }) => {
       context.clearRect(0, 0, canvasSize, canvasSize)
       context.drawImage(bitmap, 0, 0, canvasSize, canvasSize)
     })
-  }, [seed, schema, size, worker])
+  }, [seed, schema, size, worker, canvasSize])
 
   return (
     <canvas
