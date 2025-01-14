@@ -33,6 +33,7 @@
     "react-code-block": "^1.1.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.x.x",
+    "react-intersection-observer": "^9.15.0",
     "react-resizable-panels": "^2.1.7",
     "react-router": "^7.1.1",
     "tailwind-merge": "^2.6.0",

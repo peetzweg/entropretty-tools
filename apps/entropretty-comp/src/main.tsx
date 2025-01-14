@@ -27,7 +27,7 @@ createRoot(document.getElementById("root")!).render(
           <Route element={<HeaderLayout />}>
             <Route path="/" element={<ExplorePage />} />
             <Route path="/create" element={<Create />} />
-            <Route path="/algo/:algorithmId" element={<InspectPage />} />
+            <Route path="/a/:algorithmId" element={<InspectPage />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
