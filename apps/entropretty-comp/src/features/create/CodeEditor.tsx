@@ -1,29 +1,21 @@
-import Editor, { useMonaco } from "@monaco-editor/react"
-import { useEffect, useRef, useState } from "react"
-import { useDebounceCallback } from "usehooks-ts"
-import Worker from "@/lib/worker?worker"
-import { Remote, wrap } from "comlink"
-import { CompWorker } from "../../lib/createWorker"
-import { DrawingBitmap } from "./DrawingBitmap"
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import initialCode from "./initialCode"
+import Editor, { useMonaco } from "@monaco-editor/react"
+import { useAtom } from "jotai"
+import { useEffect } from "react"
+import { editorCodeAtom, scriptErrorAtom } from "./atoms"
 import { CreateActions } from "./CreateActions"
-
-const seed = new Uint8Array([1, 2, 3, 4])
+import initialCode from "./initialCode"
+import CodeEditorPreview from "./CodeEditorPreview"
 
 const CodeEditor = () => {
-  const [code, setCode] = useState<string | undefined>(initialCode)
-  const [key, setKey] = useState<number>(new Date().getTime())
-  const debouncedSetKey = useDebounceCallback(setKey, 500)
+  const [, setEditorCode] = useAtom(editorCodeAtom)
+  const [scriptError] = useAtom(scriptErrorAtom)
 
   const monaco = useMonaco()
-  const workerRef = useRef<Remote<CompWorker> | null>(null)
 
   useEffect(() => {
     if (monaco) {
@@ -32,31 +24,13 @@ const CodeEditor = () => {
         declare const seed: number[];
         declare function bits(): void;
       `)
+      setEditorCode(initialCode)
     }
-  }, [monaco])
+  }, [monaco, setEditorCode])
 
-  useEffect(() => {
-    const worker = new Worker()
-    const wrappedWorker: Remote<CompWorker> = wrap(worker)
-    workerRef.current = wrappedWorker
-    workerRef.current
-      .updateAlgorithm("editor", `console.log("Hello, World!")`)
-      .then(() => {
-        setKey(new Date().getTime())
-      })
-
-    return () => {
-      workerRef.current = null
-      worker.terminate()
-    }
-  }, [])
-
-  const handleEditorChange = (value: string | undefined) => {
-    setCode(value)
+  const handleEditorChange = async (value: string | undefined) => {
     if (!value) return
-    workerRef.current?.updateAlgorithm("editor", value).then(() => {
-      debouncedSetKey(new Date().getTime())
-    })
+    setEditorCode(value)
   }
 
   return (
@@ -68,26 +42,31 @@ const CodeEditor = () => {
         autoSaveId="editor-layout-id"
       >
         <ResizablePanel defaultSize={50}>
-          <div className="flex h-full flex-row flex-wrap">
-            {workerRef.current && (
-              <>
-                <DrawingBitmap
-                  key={key}
-                  seed={seed}
-                  algorithmId={"editor"}
-                  size={480}
-                  worker={workerRef.current}
-                />
-              </>
-            )}
-          </div>
+          <ResizablePanelGroup direction="vertical">
+            <ResizablePanel defaultSize={95}>
+              <CodeEditorPreview />
+            </ResizablePanel>
+
+            <ResizableHandle />
+            <ResizablePanel defaultSize={10}>
+              <div className="text-destructive h-full w-full whitespace-pre-wrap p-1">
+                {scriptError || null}
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </ResizablePanel>
+
         <ResizableHandle />
-        <ResizablePanel defaultSize={50} minSize={10} className="flex flex-col">
+
+        <ResizablePanel
+          defaultSize={50}
+          minSize={10}
+          className="relative flex flex-col"
+        >
           <Editor
             height="100%"
             defaultLanguage="javascript"
-            defaultValue={code}
+            defaultValue={initialCode}
             onChange={handleEditorChange}
             options={{
               minimap: { enabled: false },
@@ -95,9 +74,9 @@ const CodeEditor = () => {
               fontSize: 12,
             }}
           />
+          <CreateActions />
         </ResizablePanel>
       </ResizablePanelGroup>
-      <CreateActions />
     </>
   )
 }

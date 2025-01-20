@@ -27,6 +27,7 @@
     "entropretty-editor": "workspace:*",
     "entropretty-utils": "workspace:*",
     "framer-motion": "^11.17.0",
+    "jotai": "^2.11.1",
     "lucide-react": "^0.471.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",

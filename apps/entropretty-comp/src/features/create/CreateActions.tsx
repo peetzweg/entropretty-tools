@@ -8,9 +8,11 @@ import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
 import { useNavigate } from "react-router"
+import { useAtom } from "jotai"
+import { editorCodeAtom } from "./atoms"
 
 const createFormSchema = z.object({
-  name: z.string().min(1).regex(/^\S*$/, "Name cannot contain whitespace"),
+  name: z.string().min(1).max(50, "Name must be 50 characters or less"),
 })
 
 type CreateFormValues = z.infer<typeof createFormSchema>
@@ -18,6 +20,7 @@ type CreateFormValues = z.infer<typeof createFormSchema>
 export const CreateActions = () => {
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
+  const [editorCode] = useAtom(editorCodeAtom)
 
   const {
     register,
@@ -42,7 +45,8 @@ export const CreateActions = () => {
       const { data: insertedAlgorithm, error: insertError } = await supabase
         .from("algorithms")
         .insert({
-          content: data.name,
+          content: editorCode,
+          name: data.name,
           user_id: user.id,
         })
         .select()
@@ -57,7 +61,7 @@ export const CreateActions = () => {
     onSuccess: (data) => {
       reset()
       setError(null)
-      navigate(`/algo/${data.id}`)
+      navigate(`/a/${data.id}`)
     },
     onError: (error: Error) => {
       setError(error.message)
@@ -69,7 +73,7 @@ export const CreateActions = () => {
   }
 
   return (
-    <div className="bg-green absolute bottom-2 left-2 right-2 flex w-full flex-row items-center justify-center p-2">
+    <div className="absolute bottom-2 left-2 right-2 flex w-full flex-row items-center justify-center p-2">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-lg"
