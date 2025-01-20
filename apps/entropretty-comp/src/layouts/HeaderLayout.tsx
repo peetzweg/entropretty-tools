@@ -12,13 +12,13 @@ export default function HeaderLayout() {
       <aside className="flex flex-row items-center justify-between gap-2 border-b border-gray-200 p-2">
         <Button asChild variant={"link"}>
           <Link to="/" className="flex items-center gap-1">
-            Explore
+            EXPLORE
           </Link>
         </Button>
         <div className="flex flex-row items-center justify-center gap-2">
           {!user && (
             <Button asChild>
-              <Link to="/login">Login</Link>
+              <Link to="/login">LOGIN</Link>
             </Button>
           )}
           {user && (
@@ -26,7 +26,7 @@ export default function HeaderLayout() {
               <Button asChild>
                 <Link to="/create" className="flex items-center gap-1">
                   <PlusIcon className="h-4 w-4" />
-                  New Algorithm
+                  NEW
                 </Link>
               </Button>
               <div className="px-4">{user.email}</div>
@@ -42,7 +42,7 @@ export default function HeaderLayout() {
                     })
                 }}
               >
-                Logout
+                LOGOUT
               </Button>
             </>
           )}

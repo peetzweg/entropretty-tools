@@ -35,13 +35,15 @@ const CodeEditorPreview = ({ size = 512, scale = 2 }) => {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        className={cn("cursor-pointer", { hidden: !ready })}
-        ref={canvasRef}
-        width={drawingSize}
-        height={drawingSize}
-        style={{ width: size, height: size }}
-      />
+      <div className="border border-dashed">
+        <canvas
+          className={cn("cursor-pointer", { hidden: !ready })}
+          ref={canvasRef}
+          width={drawingSize}
+          height={drawingSize}
+          style={{ width: size, height: size }}
+        />
+      </div>
     </div>
   )
 }

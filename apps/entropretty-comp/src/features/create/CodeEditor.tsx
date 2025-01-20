@@ -6,7 +6,7 @@ import {
 import Editor, { useMonaco } from "@monaco-editor/react"
 import { useAtom } from "jotai"
 import { useEffect } from "react"
-import { editorCodeAtom, scriptErrorAtom } from "./atoms"
+import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
 import { CreateActions } from "./CreateActions"
 import initialCode from "./initialCode"
 import CodeEditorPreview from "./CodeEditorPreview"
@@ -14,6 +14,7 @@ import CodeEditorPreview from "./CodeEditorPreview"
 const CodeEditor = () => {
   const [, setEditorCode] = useAtom(editorCodeAtom)
   const [scriptError] = useAtom(scriptErrorAtom)
+  const [remix] = useAtom(remixAtom)
 
   const monaco = useMonaco()
 
@@ -24,9 +25,9 @@ const CodeEditor = () => {
         declare const seed: number[];
         declare function bits(): void;
       `)
-      setEditorCode(initialCode)
+      setEditorCode(remix?.content || initialCode)
     }
-  }, [monaco, setEditorCode])
+  }, [monaco, setEditorCode, remix?.content])
 
   const handleEditorChange = async (value: string | undefined) => {
     if (!value) return
@@ -66,7 +67,7 @@ const CodeEditor = () => {
           <Editor
             height="100%"
             defaultLanguage="javascript"
-            defaultValue={initialCode}
+            defaultValue={remix?.content || initialCode}
             onChange={handleEditorChange}
             options={{
               minimap: { enabled: false },

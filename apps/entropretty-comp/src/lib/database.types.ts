@@ -15,6 +15,7 @@ export type Database = {
           created_at: string | null
           id: number
           name: string
+          remix_of: number | null
           updated_at: string | null
           user_id: string
         }
@@ -23,6 +24,7 @@ export type Database = {
           created_at?: string | null
           id?: number
           name: string
+          remix_of?: number | null
           updated_at?: string | null
           user_id: string
         }
@@ -31,10 +33,26 @@ export type Database = {
           created_at?: string | null
           id?: number
           name?: string
+          remix_of?: number | null
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "algorithms_remix_of_fkey"
+            columns: ["remix_of"]
+            isOneToOne: false
+            referencedRelation: "algorithms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "algorithms_remix_of_fkey"
+            columns: ["remix_of"]
+            isOneToOne: false
+            referencedRelation: "algorithms_with_user_info"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -45,10 +63,26 @@ export type Database = {
           email: string | null
           id: number | null
           name: string | null
+          remix_of: number | null
           updated_at: string | null
           user_id: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "algorithms_remix_of_fkey"
+            columns: ["remix_of"]
+            isOneToOne: false
+            referencedRelation: "algorithms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "algorithms_remix_of_fkey"
+            columns: ["remix_of"]
+            isOneToOne: false
+            referencedRelation: "algorithms_with_user_info"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {
