@@ -17,7 +17,7 @@ export default function HeaderLayout() {
         </Button>
         <div className="flex flex-row items-center justify-center gap-2">
           {!user && (
-            <Button>
+            <Button asChild>
               <Link to="/login">Login</Link>
             </Button>
           )}
@@ -32,7 +32,7 @@ export default function HeaderLayout() {
               <div className="px-4">{user.email}</div>
               <Button
                 variant={"ghost"}
-                onClick={() => {
+                onMouseDown={() => {
                   signOut()
                     .then(() => {
                       navigate("/")
