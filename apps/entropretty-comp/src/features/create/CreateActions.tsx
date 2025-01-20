@@ -83,7 +83,6 @@ export const CreateActions = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-lg"
       >
-        {remix && <div className="text-sm">{`is remix of ${remix.id}`}</div>}
         <div className="flex flex-row gap-2">
           <div>
             <Input {...register("name")} placeholder="Algorithm Name" />
@@ -105,6 +104,11 @@ export const CreateActions = () => {
             )}
           </Button>
         </div>
+        {remix && (
+          <div className="px-1">
+            <div className="text-xs">{`* Will be marked as remix of ${remix.id}`}</div>
+          </div>
+        )}
         {error && <div className="text-xs text-red-500">{error}</div>}
       </form>
     </div>

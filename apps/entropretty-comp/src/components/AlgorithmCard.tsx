@@ -24,7 +24,15 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 p-4 text-sm text-gray-600">
         <div className="flex flex-col">
-          <div>{`${algorithm.name || "Untitled"}${algorithm.remix_of ? ` (Remix of ${algorithm.remix_of})` : ""}`}</div>
+          <div>
+            <span>{`${algorithm.name || "Untitled"}`} </span>
+            {algorithm.remix_of && (
+              <Link
+                className="underline"
+                to={`/a/${algorithm.remix_of}`}
+              >{`remix of ${algorithm.remix_of}`}</Link>
+            )}
+          </div>
           <div>{`by ${algorithm.email || "Anonymous"}`}</div>
         </div>
         <div className="flex flex-row gap-2">
