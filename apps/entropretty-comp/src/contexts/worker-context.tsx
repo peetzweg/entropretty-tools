@@ -16,13 +16,17 @@ export const WorkerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   if (!workerRef.current) {
     const workerInstance = new Worker()
-    workerRef.current = wrap(workerInstance)
+    workerRef.current = wrap<Remote<ArtistWorker>>(workerInstance)
   }
   const value = useMemo(() => {
     return { artist: workerRef.current }
   }, [workerRef])
 
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  return (
+    <Context.Provider value={value! as WorkerContextType}>
+      {children}
+    </Context.Provider>
+  )
 }
 
 export const useWorker = () => {

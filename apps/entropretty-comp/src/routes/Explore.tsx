@@ -20,7 +20,7 @@ export default function ExplorePage() {
       queryKey: ["latest-algorithms"],
       initialPageParam: 0,
       queryFn: async ({ pageParam }) => {
-        const from = pageParam * PAGE_SIZE
+        const from = (pageParam as number) * PAGE_SIZE
         const to = from + PAGE_SIZE - 1
 
         const { data, error } = await supabase
