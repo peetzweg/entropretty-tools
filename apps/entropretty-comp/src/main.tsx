@@ -11,6 +11,7 @@ import Login from "@/routes/Login.tsx"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router"
+import RequireUser from "./layouts/RequireUser"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,9 @@ createRoot(document.getElementById("root")!).render(
             <Route element={<HeaderLayout />}>
               <Route path="/" element={<ExplorePage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
-              <Route path="/create" element={<Create />} />
+              <Route element={<RequireUser />}>
+                <Route path="/create" element={<Create />} />
+              </Route>
             </Route>
             <Route path="/login" element={<Login />} />
           </Routes>

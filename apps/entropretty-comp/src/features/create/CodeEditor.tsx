@@ -8,11 +8,12 @@ import { useAtom } from "jotai"
 import { useEffect } from "react"
 import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
 import { CreateActions } from "./CreateActions"
-import initialCode from "./initialCode"
+
 import CodeEditorPreview from "./CodeEditorPreview"
+import initialCode from "./initialCode"
 
 const CodeEditor = () => {
-  const [, setEditorCode] = useAtom(editorCodeAtom)
+  const [editorCode, setEditorCode] = useAtom(editorCodeAtom)
   const [scriptError] = useAtom(scriptErrorAtom)
   const [remix] = useAtom(remixAtom)
 
@@ -25,9 +26,9 @@ const CodeEditor = () => {
         declare const seed: number[];
         declare function bits(): void;
       `)
-      setEditorCode(remix?.content || initialCode)
     }
-  }, [monaco, setEditorCode, remix?.content])
+    setEditorCode(remix?.content || initialCode)
+  }, [monaco, setEditorCode, remix])
 
   const handleEditorChange = async (value: string | undefined) => {
     if (!value) return
@@ -44,13 +45,13 @@ const CodeEditor = () => {
       >
         <ResizablePanel defaultSize={50}>
           <ResizablePanelGroup direction="vertical">
-            <ResizablePanel defaultSize={95}>
+            <ResizablePanel defaultSize={90}>
               <CodeEditorPreview />
             </ResizablePanel>
 
             <ResizableHandle />
             <ResizablePanel defaultSize={10}>
-              <div className="text-destructive h-full w-full whitespace-pre-wrap p-1">
+              <div className="text-destructive h-full w-full whitespace-pre-wrap bg-gray-800/10 p-1">
                 {scriptError || null}
               </div>
             </ResizablePanel>
@@ -69,6 +70,7 @@ const CodeEditor = () => {
             defaultLanguage="javascript"
             defaultValue={remix?.content || initialCode}
             onChange={handleEditorChange}
+            value={editorCode}
             options={{
               minimap: { enabled: false },
               lineNumbers: "on",

@@ -15,7 +15,7 @@ export default function HeaderLayout() {
             EXPLORE
           </Link>
         </Button>
-        <div className="flex flex-row items-center justify-center gap-2">
+        <div className="flex flex-row items-center justify-center gap-2 px-4">
           {!user && (
             <Button asChild>
               <Link to="/login">LOGIN</Link>

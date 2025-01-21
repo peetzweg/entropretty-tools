@@ -2,20 +2,18 @@ import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useAtom } from "jotai"
 import { useEffect } from "react"
-import { useNavigate, useSearchParams } from "react-router"
-import { useAuth } from "../contexts/auth-context"
+import { useSearchParams } from "react-router"
 import { remixAtom } from "../features/create/atoms"
 import CodeEditor from "../features/create/CodeEditor"
 import { AlgorithmView } from "../lib/helper.types"
 
 function Create() {
-  const { user } = useAuth()
-  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const remixId = searchParams.get("remix")
   const [, setRemix] = useAtom(remixAtom)
+  console.log({ remixId })
 
-  const { isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["algorithm", remixId],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -25,27 +23,20 @@ function Create() {
         .single()
 
       if (error) throw error
+
       if (!data) return
-      setRemix(data as AlgorithmView)
+      return data as AlgorithmView
     },
-    enabled: !!remixId,
+    enabled: remixId !== null,
   })
 
   useEffect(() => {
-    return () => setRemix(null)
-  }, [setRemix])
-  useEffect(() => {
-    if (!remixId) {
+    if (!data) {
       setRemix(null)
+    } else {
+      setRemix(data as AlgorithmView)
     }
-  }, [remixId, setRemix])
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login")
-    }
-  }, [navigate, user])
-
+  }, [data, setRemix])
   return <>{!isLoading && <CodeEditor />}</>
 }
 
