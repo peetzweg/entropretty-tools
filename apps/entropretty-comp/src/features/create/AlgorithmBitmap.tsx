@@ -5,7 +5,7 @@ import { AlgorithmId } from "@/workers/artist"
 
 interface Props {
   algorithmId: AlgorithmId
-  seed: Uint8Array
+  seed: number[]
   size: number
   scale?: number
 }

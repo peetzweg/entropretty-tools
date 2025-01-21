@@ -3,24 +3,36 @@ import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { Link } from "react-router"
 import { AlgorithmView } from "../lib/helper.types"
 import { useAuth } from "../contexts/auth-context"
-
+import { useCallback, useState } from "react"
+import { DicesIcon } from "lucide-react"
+import { getSeed } from "entropretty-utils"
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
 }
 
 export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   const { user } = useAuth()
+  const [seed, setSeed] = useState<number[]>([...getSeed("Procedural")])
+  const requestNewSeed = useCallback(() => {
+    setSeed([...getSeed("Procedural")])
+  }, [])
+
   if (!algorithm.id) return null
 
   return (
     <div className="flex w-full flex-col border border-gray-200 bg-white">
-      <div className="flex aspect-square h-full w-full items-center justify-center">
+      <div className="relative flex aspect-square h-full w-full items-center justify-center">
         <AlgorithmBitmap
           algorithmId={algorithm.id}
-          seed={new Uint8Array([1, 2, 3, 4, 5, 6, 89])}
+          seed={seed}
           size={512}
           scale={2}
         />
+        <div className="absolute bottom-2 right-2">
+          <Button variant={"ghost"} size={"icon"} onClick={requestNewSeed}>
+            <DicesIcon className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       <div className="flex items-center justify-between border-t border-gray-200 p-4 text-sm text-gray-600">
         <div className="flex flex-col">
