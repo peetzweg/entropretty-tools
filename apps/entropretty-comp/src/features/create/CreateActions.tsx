@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { supabase } from "@/lib/supabase"
-import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
+import { useAtom, useSetAtom } from "jotai"
 import { Loader2 } from "lucide-react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
-import { useAtom } from "jotai"
-import { editorCodeAtom, remixAtom } from "./atoms"
+import { z } from "zod"
+import { editorCodeAtom, generateNewSeedAtom, remixAtom } from "./atoms"
 
 const createFormSchema = z.object({
   name: z
@@ -25,6 +25,7 @@ export const CreateActions = () => {
   const [error, setError] = useState<string | null>(null)
   const [editorCode] = useAtom(editorCodeAtom)
   const [remix] = useAtom(remixAtom)
+  const generateNewSeed = useSetAtom(generateNewSeedAtom)
 
   const {
     register,
@@ -79,11 +80,9 @@ export const CreateActions = () => {
 
   return (
     <div className="absolute bottom-2 left-2 right-2 flex w-full flex-row items-center justify-center p-2">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-lg"
-      >
-        <div className="flex flex-row gap-2">
+      <div className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-lg">
+        {" "}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row gap-2">
           <div>
             <Input {...register("name")} placeholder="Algorithm Name" />
             {errors.name && (
@@ -103,14 +102,14 @@ export const CreateActions = () => {
               "POST"
             )}
           </Button>
-        </div>
+        </form>
         {remix && (
           <div className="px-1">
             <div className="text-xs">{`* Will be marked as remix of ${remix.id}`}</div>
           </div>
         )}
         {error && <div className="text-xs text-red-500">{error}</div>}
-      </form>
+      </div>
     </div>
   )
 }

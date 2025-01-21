@@ -4,19 +4,26 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import Editor, { useMonaco } from "@monaco-editor/react"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { useEffect } from "react"
-import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
+import {
+  editorCodeAtom,
+  generateNewSeedAtom,
+  remixAtom,
+  scriptErrorAtom,
+} from "./atoms"
 import { CreateActions } from "./CreateActions"
 
 import CodeEditorPreview from "./CodeEditorPreview"
 import initialCode from "./initialCode"
+import { Button } from "../../components/ui/button"
+import { DicesIcon } from "lucide-react"
 
 const CodeEditor = () => {
   const [editorCode, setEditorCode] = useAtom(editorCodeAtom)
   const [scriptError] = useAtom(scriptErrorAtom)
   const [remix] = useAtom(remixAtom)
-
+  const generateNewSeed = useSetAtom(generateNewSeedAtom)
   const monaco = useMonaco()
 
   useEffect(() => {
@@ -45,8 +52,18 @@ const CodeEditor = () => {
       >
         <ResizablePanel defaultSize={50}>
           <ResizablePanelGroup direction="vertical">
-            <ResizablePanel defaultSize={90}>
-              <CodeEditorPreview />
+            <ResizablePanel defaultSize={90} className="h-full w-full">
+              <div className="relative h-full w-full">
+                <CodeEditorPreview />
+                <Button
+                  variant="outline"
+                  className="absolute bottom-2 right-2"
+                  size="icon"
+                  onClick={generateNewSeed}
+                >
+                  <DicesIcon className="h-4 w-4" />
+                </Button>
+              </div>
             </ResizablePanel>
 
             <ResizableHandle />
