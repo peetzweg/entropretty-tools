@@ -3,13 +3,13 @@ import { Input } from "@/components/ui/input"
 import { supabase } from "@/lib/supabase"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import { useAtom, useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import { z } from "zod"
-import { editorCodeAtom, generateNewSeedAtom, remixAtom } from "./atoms"
+import { editorCodeAtom, remixAtom } from "./atoms"
 
 const createFormSchema = z.object({
   name: z
@@ -25,7 +25,6 @@ export const CreateActions = () => {
   const [error, setError] = useState<string | null>(null)
   const [editorCode] = useAtom(editorCodeAtom)
   const [remix] = useAtom(remixAtom)
-  const generateNewSeed = useSetAtom(generateNewSeedAtom)
 
   const {
     register,
