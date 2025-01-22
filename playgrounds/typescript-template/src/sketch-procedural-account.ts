@@ -28,8 +28,8 @@ const draw: DrawFn = (ctx, seed) => {
  * ProceduralAccount: The seed is a 32 bytes public key.
  */
 export const schema: Schema = {
-  artist: "Author-Name",
-  name: "Algorithm-Name",
+  artist: "Your-Name",
+  name: "final_v1",
   draw,
-  kind: "ProceduralPersonal", // Try changing this to "Procedural" or "ProceduralAccount" to explore how the seed changes
+  kind: "ProceduralAccount", // Try changing this to "Procedural" or "ProceduralAccount" to explore how the seed changes
 }
