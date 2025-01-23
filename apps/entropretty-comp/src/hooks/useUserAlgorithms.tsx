@@ -9,7 +9,7 @@ export function useUserAlgorithms(userId: string | undefined) {
   const { artist } = useWorker()
 
   return useInfiniteQuery<AlgorithmView[]>({
-    queryKey: ["user-algorithms", userId],
+    queryKey: ["algorithms", "user", userId],
     enabled: !!userId,
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {

@@ -10,7 +10,7 @@ export function useLatestAlgorithms() {
   const { artist } = useWorker()
 
   return useInfiniteQuery<AlgorithmView[]>({
-    queryKey: ["latest-algorithms"],
+    queryKey: ["algorithms", "latest"],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
       const from = (pageParam as number) * PAGE_SIZE

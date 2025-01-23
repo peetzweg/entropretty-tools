@@ -16,8 +16,6 @@ export function useUsersLikes() {
         .select("*")
         .eq("user_id", user.id)
 
-      console.log("likes:", { data, user: user.id })
-
       if (error) throw error
       return data.map((like) => like.algorithm_id) as AlgorithmView["id"][]
     },
