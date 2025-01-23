@@ -32,8 +32,8 @@ createRoot(document.getElementById("root")!).render(
           <Toaster />
           <Routes>
             <Route element={<HeaderLayout />}>
-              <Route path="/" element={<BestPage />} />
-              <Route path="/latest" element={<LatestPage />} />
+              <Route path="/" element={<LatestPage />} />
+              <Route path="/best" element={<BestPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:userId" element={<UserPage />} />
               <Route element={<RequireUser />}>

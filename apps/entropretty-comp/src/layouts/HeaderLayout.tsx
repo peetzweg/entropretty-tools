@@ -19,15 +19,17 @@ export default function HeaderLayout() {
             variant={"link"}
             className={cn(location.pathname === "/" && "underline")}
           >
-            <Link to="/">BEST</Link>
+            <Link to="/">LATEST</Link>
           </Button>
+
           <Button
             asChild
             variant={"link"}
-            className={cn(location.pathname === "/latest" && "underline")}
+            className={cn(location.pathname === "/best" && "underline")}
           >
-            <Link to="/latest">LATEST</Link>
+            <Link to="/best">BEST</Link>
           </Button>
+
           {user && (
             <Button
               asChild

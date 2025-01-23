@@ -68,7 +68,12 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-2">
       {totalLikes > 0 && <div>{totalLikes}</div>}
-      <Button variant={"ghost"} size={"icon"} onClick={toggleLike}>
+      <Button
+        disabled={!user || isLoading}
+        variant={"ghost"}
+        size={"icon"}
+        onClick={toggleLike}
+      >
         <Star
           className={`h-4 w-4 ${isLiked ? "fill-yellow-500 stroke-yellow-500" : ""}`}
         />

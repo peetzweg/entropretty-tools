@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { supabase } from "@/lib/supabase"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useAtom } from "jotai"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
@@ -22,6 +22,7 @@ type CreateFormValues = z.infer<typeof createFormSchema>
 
 export const CreateActions = () => {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [error, setError] = useState<string | null>(null)
   const [editorCode] = useAtom(editorCodeAtom)
   const [remix] = useAtom(remixAtom)
@@ -65,9 +66,11 @@ export const CreateActions = () => {
       return insertedAlgorithm
     },
     onSuccess: (data) => {
+      console.info("Successfully created algorithm", data)
       reset()
       setError(null)
-      navigate(`/a/${data.id}`)
+      queryClient.invalidateQueries({ queryKey: ["algorithms", "latest"] })
+      navigate(`/`)
     },
     onError: (error: Error) => {
       setError(error.message)
