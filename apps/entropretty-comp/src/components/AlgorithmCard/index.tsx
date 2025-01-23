@@ -2,35 +2,68 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
-import { getSeed } from "entropretty-utils"
+import { getSeedFamily, seedToKey } from "entropretty-utils"
 import { DicesIcon } from "lucide-react"
 import { useCallback, useState } from "react"
 import { Link } from "react-router"
 import { DeleteButton } from "./DeleteButton"
 import { LikeButton } from "./LikeButton"
+
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
 }
 
 export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   const { user } = useAuth()
-
-  const [seed, setSeed] = useState<number[]>([...getSeed("Procedural")])
+  const [isHovered, setIsHovered] = useState(false)
+  const [seedFamily, setSeedFamily] = useState<number[][]>([
+    ...getSeedFamily("Procedural").map((s) => [...s]),
+  ])
   const requestNewSeed = useCallback(() => {
-    setSeed([...getSeed("Procedural")])
+    setSeedFamily([...getSeedFamily("Procedural").map((s) => [...s])])
   }, [])
 
   if (!algorithm.id) return null
 
   return (
-    <div className="flex w-full flex-col border border-gray-200 bg-white">
-      <div className="relative flex aspect-square h-full w-full items-center justify-center">
-        <AlgorithmBitmap
-          algorithmId={algorithm.id}
-          seed={seed}
-          size={512}
-          scale={2}
-        />
+    <div
+      className="flex w-full flex-col border border-gray-200 bg-white"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      // onClick={() => setIsHovered(!isHovered)}
+    >
+      <div
+        id="image-container"
+        className="relative flex aspect-square h-full w-full items-center justify-center"
+      >
+        <div
+          id="single"
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`}
+        >
+          <AlgorithmBitmap
+            algorithmId={algorithm.id}
+            seed={seedFamily[0]}
+            size={512}
+            scale={2}
+          />
+        </div>
+
+        <div
+          id="grid"
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+        >
+          <div className="grid grid-cols-3 items-center justify-center gap-4">
+            {seedFamily.slice(0, 9).map((seed) => (
+              <AlgorithmBitmap
+                key={seedToKey(new Uint8Array(seed))}
+                algorithmId={algorithm.id!}
+                seed={seed}
+                size={164}
+                scale={2}
+              />
+            ))}
+          </div>
+        </div>
         <div className="absolute bottom-2 right-2 flex flex-row">
           <DeleteButton algorithm={algorithm} />
           <LikeButton algorithm={algorithm} />

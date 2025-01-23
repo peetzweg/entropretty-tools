@@ -88,7 +88,7 @@ async function processQueue() {
   }
 
   try {
-    console.log("drawing", { algorithmId, size, seed })
+    // console.info("drawing", { algorithmId, size, seed })
 
     // Prelude
     // ctx.clearRect(0, 0, canvas.width, canvas.height)
