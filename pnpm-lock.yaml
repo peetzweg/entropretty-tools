@@ -446,6 +446,19 @@ importers:
         specifier: ^8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.49.1(@types/node@22.10.5))(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.3)(yaml@2.5.0)
 
+  playgrounds/bun-playground:
+    dependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.7.3
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.2.0
+      entropretty-utils:
+        specifier: workspace:*
+        version: link:../../packages/entropretty-utils
+
   playgrounds/typescript-template:
     devDependencies:
       comlink:
@@ -1560,6 +1573,9 @@ packages:
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
 
+  '@types/bun@1.2.0':
+    resolution: {integrity: sha512-5N1JqdahfpBlAv4wy6svEYcd/YfO2GNrbL95JOmFx8nkE6dbK4R0oSE5SpBA4vBRqgrOUAXF8Dpiz+gi7r80SA==}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -1920,6 +1936,9 @@ packages:
 
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
+
+  bun-types@1.2.0:
+    resolution: {integrity: sha512-KEaJxyZfbV/c4eyG0vyehDpYmBGreNiQbZIqvVHJwZ4BmeuWlNZ7EAzMN2Zcd7ailmS/tGVW0BgYbGf+lGEpWw==}
 
   bundle-require@5.0.0:
     resolution: {integrity: sha512-GuziW3fSSmopcx4KRymQEJVbZUfqlCqcq7dvs6TYwKRZiegK/2buMxQTPs6MGlNv50wms1699qYO54R8XfRX4w==}
@@ -5053,6 +5072,10 @@ snapshots:
 
   '@types/argparse@1.0.38': {}
 
+  '@types/bun@1.2.0':
+    dependencies:
+      bun-types: 1.2.0
+
   '@types/cookie@0.6.0': {}
 
   '@types/cross-spawn@6.0.6':
@@ -5126,7 +5149,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.16.5
+      '@types/node': 22.10.5
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.19.1(@typescript-eslint/parser@8.19.1(eslint@9.18.0(jiti@1.21.6))(typescript@5.7.3))(eslint@9.18.0(jiti@1.21.6))(typescript@5.7.3)':
@@ -5472,6 +5495,11 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+
+  bun-types@1.2.0:
+    dependencies:
+      '@types/node': 22.10.5
+      '@types/ws': 8.5.13
 
   bundle-require@5.0.0(esbuild@0.24.2):
     dependencies:

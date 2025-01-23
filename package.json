@@ -6,6 +6,7 @@
     "dev:entropretty-gallery": "pnpm --filter entropretty-gallery dev",
     "dev:entropretty-comp": "pnpm --filter entropretty-comp dev",
     "dev:create-entropretty": "pnpm --filter create-entropretty dev",
+    "playground": "pnpm --filter playground-typescript dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",
     "build": "pnpm run --r --filter \"./packages/**\" build",
     "build:apps": "pnpm run --r --filter \"./apps/**\" build",
