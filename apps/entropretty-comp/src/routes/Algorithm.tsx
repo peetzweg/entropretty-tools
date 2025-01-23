@@ -1,9 +1,10 @@
-import { AlgorithmCard } from "@/components/AlgorithmCard"
+import { AlgorithmCard } from "@/components/AlgorithmCard/index"
 import { useWorker } from "@/contexts/worker-context"
 import { Database } from "@/lib/database.types"
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
+import { Skeleton } from "../components/ui/skeleton"
 
 type AlgorithmView =
   Database["public"]["Views"]["algorithms_with_user_info"]["Row"]
@@ -31,11 +32,19 @@ export default function AlgorithmPage() {
   })
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="mx-auto my-4 max-w-xl">
+        <Skeleton className="flex aspect-square w-full rounded-none" />
+      </div>
+    )
   }
 
   if (!algorithm) {
-    return <div>Algorithm not found</div>
+    return (
+      <div className="mx-auto my-4 max-w-xl">
+        Algorithm does not exist or was deleted
+      </div>
+    )
   }
 
   return (

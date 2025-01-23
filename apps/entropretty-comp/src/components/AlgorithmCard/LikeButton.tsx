@@ -3,10 +3,10 @@ import { useAuth } from "@/contexts/auth-context"
 import { useUsersLikes } from "@/hooks/useUsersLikes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { supabase } from "@/lib/supabase"
-import { Star, ThumbsUp } from "lucide-react"
+import { useQueryClient } from "@tanstack/react-query"
+import { Star } from "lucide-react"
 import { useCallback, useMemo } from "react"
 import { toast } from "sonner"
-import { useQueryClient } from "@tanstack/react-query"
 
 interface LikeButtonProps {
   algorithm: AlgorithmView
