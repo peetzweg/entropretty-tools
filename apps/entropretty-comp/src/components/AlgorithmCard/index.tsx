@@ -1,21 +1,40 @@
 import { Button } from "@/components/ui/button"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { Link } from "react-router"
-import { AlgorithmView } from "../lib/helper.types"
-import { useAuth } from "../contexts/auth-context"
+import { AlgorithmView } from "@/lib/helper.types"
+import { useAuth } from "@/contexts/auth-context"
 import { useCallback, useState } from "react"
-import { DicesIcon } from "lucide-react"
+import { DicesIcon, ThumbsUp } from "lucide-react"
 import { getSeed } from "entropretty-utils"
+import { supabase } from "@/lib/supabase"
+import { toast } from "sonner"
+import { useUsersLikes } from "@/hooks/useUsersLikes"
+import { LikeButton } from "./LikeButton"
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
 }
 
 export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   const { user } = useAuth()
+  const { data: likesOfUser } = useUsersLikes()
+  console.log(likesOfUser)
   const [seed, setSeed] = useState<number[]>([...getSeed("Procedural")])
   const requestNewSeed = useCallback(() => {
     setSeed([...getSeed("Procedural")])
   }, [])
+
+  const like = useCallback(async () => {
+    if (!user) return
+
+    const { error } = await supabase
+      .from("likes")
+      .insert([{ algorithm_id: algorithm.id, user_id: user.id }])
+
+    if (error) {
+      console.error("Error inserting like:", error)
+      toast.error("Error Liking Algorithm: " + error.message)
+    }
+  }, [algorithm.id, user])
 
   if (!algorithm.id) return null
 
@@ -28,7 +47,8 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
           size={512}
           scale={2}
         />
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute bottom-2 right-2 flex flex-row">
+          <LikeButton algorithm={algorithm} />
           <Button variant={"ghost"} size={"icon"} onClick={requestNewSeed}>
             <DicesIcon className="h-4 w-4" />
           </Button>

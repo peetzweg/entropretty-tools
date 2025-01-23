@@ -19,6 +19,7 @@ export function useBestAlgorithms() {
         .from("algorithms_with_user_info")
         .select()
         .order("like_count", { ascending: false })
+        .gt("like_count", 0)
         .range(from, to)
 
       if (data) {

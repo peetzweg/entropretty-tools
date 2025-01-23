@@ -34,7 +34,7 @@ export default function BestPage() {
           ) : hasNextPage ? (
             <div>Load more</div>
           ) : (
-            <div>No more algorithms</div>
+            <div>No more rated algorithms</div>
           )}
         </div>
       </div>
