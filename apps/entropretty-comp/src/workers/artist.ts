@@ -17,9 +17,15 @@ let isRendering = false
 
 const workerAPI = {
   updateAlgorithm(algorithmId: AlgorithmId, algorithm: string) {
-    algorithms.set(algorithmId, algorithm)
-    if (algorithmId !== 0) {
-      console.info("Updated algo", algorithmId)
+    if (algorithmId === 0) {
+      algorithms.set(algorithmId, algorithm)
+    } else {
+      if (algorithms.has(algorithmId)) {
+        console.info("Not Updated algo", algorithmId)
+      } else {
+        algorithms.set(algorithmId, algorithm)
+        console.info("Updated algo", algorithmId)
+      }
     }
   },
 
