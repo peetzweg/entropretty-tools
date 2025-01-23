@@ -63,6 +63,23 @@ export default function LoginPage() {
               ? "Enter your email below to create your account"
               : "Enter your email below to login to your account"}
           </CardDescription>
+          {isSignUp && (
+            <CardDescription className="text-background mt-2 rounded bg-sky-500 p-4">
+              We are not sending out any confirmation mail as of yet. So you can
+              sign up with any email.
+            </CardDescription>
+          )}
+          {!isSignUp && (
+            <CardDescription className="text-background mt-2 rounded bg-sky-500 p-4">
+              If you don't want to sign up you can use <br />
+              username: <code className="font-bold">
+                example@example.com
+              </code>{" "}
+              and
+              <br /> password: <code className="font-bold">example</code> for
+              now.
+            </CardDescription>
+          )}
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
