@@ -5,14 +5,16 @@ import { WorkerProvider } from "@/contexts/worker-context.tsx"
 import HeaderLayout from "@/layouts/HeaderLayout.tsx"
 import AlgorithmPage from "@/routes/Algorithm.tsx"
 import Create from "@/routes/Create.tsx"
-import ExplorePage from "@/routes/Explore.tsx"
+import LatestPage from "@/routes/Latest.tsx"
 import Login from "@/routes/Login.tsx"
+import UserPage from "@/routes/User.tsx"
 
+import { Toaster } from "@/components/ui/sonner"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router"
 import RequireUser from "./layouts/RequireUser"
-
+import BestPage from "./routes/Best"
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,10 +29,13 @@ createRoot(document.getElementById("root")!).render(
     <WorkerProvider>
       <AuthProvider>
         <BrowserRouter>
+          <Toaster />
           <Routes>
             <Route element={<HeaderLayout />}>
-              <Route path="/" element={<ExplorePage />} />
+              <Route path="/" element={<BestPage />} />
+              <Route path="/latest" element={<LatestPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
+              <Route path="/u/:userId" element={<UserPage />} />
               <Route element={<RequireUser />}>
                 <Route path="/create" element={<Create />} />
               </Route>

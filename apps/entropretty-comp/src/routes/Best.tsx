@@ -11,13 +11,13 @@ type AlgorithmView =
 
 const PAGE_SIZE = 2
 
-export default function ExplorePage() {
+export default function BestPage() {
   // Set up intersection observer to detect when we reach bottom of the list
   const { ref, inView } = useInView()
   const { artist } = useWorker()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<AlgorithmView[]>({
-      queryKey: ["latest-algorithms"],
+      queryKey: ["best-algorithms"],
       initialPageParam: 0,
       queryFn: async ({ pageParam }) => {
         const from = (pageParam as number) * PAGE_SIZE
@@ -26,8 +26,10 @@ export default function ExplorePage() {
         const { data, error } = await supabase
           .from("algorithms_with_user_info")
           .select()
-          .order("created_at", { ascending: false })
+          .order("like_count", { ascending: false })
           .range(from, to)
+
+        console.log(data)
 
         if (data) {
           for (const algorithm of data) {

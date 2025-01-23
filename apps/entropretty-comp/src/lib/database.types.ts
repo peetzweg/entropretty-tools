@@ -13,7 +13,9 @@ export type Database = {
         Row: {
           content: string
           created_at: string | null
+          family_kind: Database["public"]["Enums"]["family_kind"]
           id: number
+          like_count: number | null
           name: string
           remix_of: number | null
           updated_at: string | null
@@ -22,7 +24,9 @@ export type Database = {
         Insert: {
           content: string
           created_at?: string | null
+          family_kind?: Database["public"]["Enums"]["family_kind"]
           id?: number
+          like_count?: number | null
           name: string
           remix_of?: number | null
           updated_at?: string | null
@@ -31,7 +35,9 @@ export type Database = {
         Update: {
           content?: string
           created_at?: string | null
+          family_kind?: Database["public"]["Enums"]["family_kind"]
           id?: number
+          like_count?: number | null
           name?: string
           remix_of?: number | null
           updated_at?: string | null
@@ -54,6 +60,39 @@ export type Database = {
           },
         ]
       }
+      likes: {
+        Row: {
+          algorithm_id: number
+          created_at: string | null
+          user_id: string
+        }
+        Insert: {
+          algorithm_id: number
+          created_at?: string | null
+          user_id: string
+        }
+        Update: {
+          algorithm_id?: number
+          created_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_algorithm_id_fkey"
+            columns: ["algorithm_id"]
+            isOneToOne: false
+            referencedRelation: "algorithms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_algorithm_id_fkey"
+            columns: ["algorithm_id"]
+            isOneToOne: false
+            referencedRelation: "algorithms_with_user_info"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       algorithms_with_user_info: {
@@ -61,7 +100,9 @@ export type Database = {
           content: string | null
           created_at: string | null
           email: string | null
+          family_kind: Database["public"]["Enums"]["family_kind"] | null
           id: number | null
+          like_count: number | null
           name: string | null
           remix_of: number | null
           updated_at: string | null
@@ -89,7 +130,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      family_kind: "Procedural" | "ProceduralAccount" | "ProceduralPersonal"
     }
     CompositeTypes: {
       [_ in never]: never
