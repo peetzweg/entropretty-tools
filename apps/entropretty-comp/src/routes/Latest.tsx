@@ -1,7 +1,8 @@
+import { AlgorithmCard } from "@/components/AlgorithmCard"
+import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
+import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { AlgorithmCard } from "../components/AlgorithmCard"
-import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 
 export default function LatestPage() {
   const { ref, inView } = useInView()
@@ -15,7 +16,14 @@ export default function LatestPage() {
   }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="mx-auto my-4 max-w-xl">
+        <div className="space-y-4">
+          <AlgorithmCardSkeleton />
+          <AlgorithmCardSkeleton />
+        </div>
+      </div>
+    )
   }
 
   return (

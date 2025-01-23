@@ -1,10 +1,10 @@
 import { AlgorithmCard } from "@/components/AlgorithmCard/index"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useWorker } from "@/contexts/worker-context"
 import { Database } from "@/lib/database.types"
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
-import { Skeleton } from "../components/ui/skeleton"
 
 type AlgorithmView =
   Database["public"]["Views"]["algorithms_with_user_info"]["Row"]

@@ -1,8 +1,9 @@
+import { AlgorithmCard } from "@/components/AlgorithmCard"
+import { useUserAlgorithms } from "@/hooks/useUserAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { useParams } from "react-router"
-import { AlgorithmCard } from "@/components/AlgorithmCard"
-import { useUserAlgorithms } from "@/hooks/useUserAlgorithms"
+import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
 
 export default function UserPage() {
   const { userId } = useParams()
@@ -22,9 +23,15 @@ export default function UserPage() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="mx-auto my-4 max-w-xl">
+        <div className="space-y-4">
+          <AlgorithmCardSkeleton />
+          <AlgorithmCardSkeleton />
+        </div>
+      </div>
+    )
   }
-
   return (
     <div className="mx-auto my-4 max-w-xl">
       <div className="space-y-4">
