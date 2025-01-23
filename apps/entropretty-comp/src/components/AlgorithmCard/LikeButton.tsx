@@ -18,10 +18,8 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
   const queryClient = useQueryClient()
   const isLiked = likesOfUser?.includes(algorithm.id)
   const totalLikes = useMemo(() => {
-    const likes = algorithm.like_count ?? 0
-    if (!isLiked) return likes
-    return likes + 1
-  }, [algorithm, isLiked])
+    return algorithm.like_count ?? 0
+  }, [algorithm])
 
   const toggleLike = useCallback(async () => {
     if (!user) return
