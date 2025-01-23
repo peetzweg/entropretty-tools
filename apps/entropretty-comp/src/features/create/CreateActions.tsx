@@ -53,6 +53,7 @@ export const CreateActions = () => {
           name: data.name,
           user_id: user.id,
           remix_of: remix?.id || undefined,
+          like_count: 0,
         })
         .select()
         .single()
