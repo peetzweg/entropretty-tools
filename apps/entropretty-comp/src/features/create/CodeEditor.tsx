@@ -8,6 +8,7 @@ import { useAtom, useSetAtom } from "jotai"
 import { useEffect } from "react"
 import {
   editorCodeAtom,
+  editorSeedAtom,
   generateNewSeedAtom,
   remixAtom,
   scriptErrorAtom,
@@ -18,12 +19,14 @@ import CodeEditorPreview from "./CodeEditorPreview"
 import initialCode from "./initialCode"
 import { Button } from "../../components/ui/button"
 import { DicesIcon } from "lucide-react"
+import { seedToKey } from "entropretty-utils"
 
 const CodeEditor = () => {
   const [editorCode, setEditorCode] = useAtom(editorCodeAtom)
   const [scriptError] = useAtom(scriptErrorAtom)
   const [remix] = useAtom(remixAtom)
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
+  const [seed] = useAtom(editorSeedAtom)
   const monaco = useMonaco()
 
   useEffect(() => {
@@ -55,14 +58,18 @@ const CodeEditor = () => {
             <ResizablePanel defaultSize={90} className="h-full w-full">
               <div className="relative h-full w-full">
                 <CodeEditorPreview />
-                <Button
-                  variant="outline"
-                  className="absolute bottom-2 right-2"
-                  size="icon"
-                  onClick={generateNewSeed}
-                >
-                  <DicesIcon className="h-4 w-4" />
-                </Button>
+                <div className="absolute bottom-2 right-2">
+                  <div className="flex flex-row items-center justify-center gap-2">
+                    <div>{seedToKey(new Uint8Array(seed))}</div>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={generateNewSeed}
+                    >
+                      <DicesIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </ResizablePanel>
 
