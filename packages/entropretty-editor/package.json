@@ -10,7 +10,7 @@
       "import": "./dist/entropretty-editor.js",
       "require": "./dist/entropretty-editor.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./entropretty-editor.css": "./dist/entropretty-editor.css"
   },
   "description": "Web Editor for Entropretty Scripts",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss": "^3.4.17",
-    "zustand": "^5.0.3"
+    "zustand": "^4.5.5"
   },
   "peerDependencies": {
     "react": "18",
@@ -63,7 +63,6 @@
     "@types/react-dom": "^18.3.5",
     "@types/react": "^18.3.18",
     "autoprefixer": "^10.4.20",
-
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "eslint": "^9.18.0",

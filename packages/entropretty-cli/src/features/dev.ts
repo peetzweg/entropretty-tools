@@ -18,7 +18,7 @@ const index_html = `<!doctype html>
 `
 
 const main_tsx = `
-import "entropretty-editor/style.css";
+import "entropretty-editor/entropretty-editor.css";
 import { EntroprettyEditor } from "entropretty-editor";
 import { createRoot } from "react-dom/client";
 import Worker from "./worker?worker";
