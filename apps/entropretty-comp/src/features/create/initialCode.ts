@@ -1,4 +1,4 @@
-export default `ctx.strokeRect(0,0, 100, 100)
+export default `
 ctx.translate(5, 5)
 ctx.textAlign = "center"
 ctx.textBaseline = "middle"
