@@ -4,6 +4,15 @@
 
 @layer base {
   :root {
+    /* Custom Additions */
+    --single-algorithm: 210px; /* Mobile default */
+    --grid-algorithm: 100px; /* Mobile default */
+
+    @media (min-width: 768px) {
+      --single-algorithm: 300px; /* Desktop size */
+      --grid-algorithm: 100px; /* Desktop size */
+    }
+    /* Init Values */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -29,6 +38,10 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --procedural: 27 87% 67%;
+    --procedural-account: 173 58% 39%;
+    --procedural-personal: 12 76% 61%;
   }
 
   .dark {
@@ -93,7 +106,7 @@
   }
 
   .keyword-code-inverse {
-    @apply text-background whitespace-nowrap rounded-sm bg-primary p-1;
+    @apply text-background bg-primary whitespace-nowrap rounded-sm p-1;
   }
 
   .keyword-highlight {

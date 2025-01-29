@@ -8,6 +8,7 @@ import { useCallback, useState } from "react"
 import { Link } from "react-router"
 import { DeleteButton } from "./DeleteButton"
 import { LikeButton } from "./LikeButton"
+import { useDisplaySizes } from "../../hooks/useDisplaySizes"
 
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
@@ -15,7 +16,8 @@ interface AlgorithmCardProps {
 
 export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   const { user } = useAuth()
-  const [isHovered, setIsHovered] = useState(false)
+  const { single, grid } = useDisplaySizes()
+
   const [seedFamily, setSeedFamily] = useState<number[][]>([
     ...getSeedFamily("Procedural").map((s) => [...s]),
   ])
@@ -26,44 +28,31 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   if (!algorithm.id) return null
 
   return (
-    <div
-      className="flex w-full flex-col border border-gray-200 bg-white"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      // onClick={() => setIsHovered(!isHovered)}
-    >
-      <div
-        id="image-container"
-        className="relative flex aspect-square h-full w-full items-center justify-center"
-      >
-        <div
-          id="single"
-          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`}
-        >
+    <div className="flex w-full flex-col border border-gray-200 bg-white">
+      <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
+        <div className={`flex aspect-square items-center justify-center`}>
           <AlgorithmBitmap
             algorithmId={algorithm.id}
             seed={seedFamily[0]}
-            size={512}
+            size={single}
             scale={2}
           />
         </div>
 
-        <div
-          id="grid"
-          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
-        >
+        <div className={`flex h-full w-full items-center justify-center`}>
           <div className="grid grid-cols-3 items-center justify-center gap-4">
             {seedFamily.slice(0, 9).map((seed) => (
               <AlgorithmBitmap
                 key={seedToKey(new Uint8Array(seed))}
                 algorithmId={algorithm.id!}
                 seed={seed}
-                size={164}
+                size={grid}
                 scale={2}
               />
             ))}
           </div>
         </div>
+
         <div className="absolute bottom-2 right-2 flex flex-row">
           <DeleteButton algorithm={algorithm} />
           <LikeButton algorithm={algorithm} />
@@ -72,6 +61,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
           </Button>
         </div>
       </div>
+
       <div className="flex items-center justify-between border-t border-gray-200 p-4 text-sm text-gray-600">
         <div className="flex flex-col">
           <div>

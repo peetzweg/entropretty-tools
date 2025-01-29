@@ -13,7 +13,8 @@ export default function HeaderLayout() {
     <div className="flex h-screen w-screen flex-col">
       <nav className="flex flex-row items-center justify-between gap-2 border-b border-gray-200 px-6 py-2">
         <div className="flex flex-row items-center justify-center gap-2">
-          <div className="text-xl font-bold">ENTROPRETTY</div>
+          <div className="hidden text-xl font-bold md:block">ENTROPRETTY</div>
+          <div className="text-xl font-bold md:hidden">E..Y</div>
           <Button
             asChild
             variant={"link"}
@@ -73,7 +74,7 @@ export default function HeaderLayout() {
           )}
         </div>
       </nav>
-      <main className="h-full w-full">
+      <main className="flex h-full w-full flex-col items-center">
         <Outlet />
       </main>
     </div>

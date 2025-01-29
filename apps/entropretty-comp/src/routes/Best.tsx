@@ -17,7 +17,7 @@ export default function BestPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto my-4 max-w-xl">
+      <div className="mx-auto my-4">
         <div className="space-y-4">
           <AlgorithmCardSkeleton />
           <AlgorithmCardSkeleton />
@@ -27,7 +27,7 @@ export default function BestPage() {
   }
 
   return (
-    <div className="mx-auto my-4 max-w-xl">
+    <div className="mx-auto my-4">
       <div className="space-y-4">
         {data?.pages.map((page) =>
           page.map((algorithm) => (

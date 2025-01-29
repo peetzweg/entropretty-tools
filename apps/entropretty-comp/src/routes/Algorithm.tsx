@@ -33,7 +33,7 @@ export default function AlgorithmPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto my-4 max-w-xl">
+      <div className="mx-auto my-4">
         <Skeleton className="flex aspect-square w-full rounded-none" />
       </div>
     )
@@ -41,14 +41,14 @@ export default function AlgorithmPage() {
 
   if (!algorithm) {
     return (
-      <div className="mx-auto my-4 max-w-xl">
+      <div className="mx-auto my-4">
         Algorithm does not exist or was deleted
       </div>
     )
   }
 
   return (
-    <div className="mx-auto my-4 max-w-xl">
+    <div className="mx-auto my-4">
       <AlgorithmCard algorithm={algorithm} />
     </div>
   )
