@@ -4,10 +4,10 @@ import { AuthProvider } from "@/contexts/auth-context.tsx"
 import { WorkerProvider } from "@/contexts/worker-context.tsx"
 import HeaderLayout from "@/layouts/HeaderLayout.tsx"
 import AlgorithmPage from "@/routes/Algorithm.tsx"
-import Create from "@/routes/Create.tsx"
 import LatestPage from "@/routes/Latest.tsx"
 import Login from "@/routes/Login.tsx"
 import UserPage from "@/routes/User.tsx"
+import { Suspense, lazy } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -15,6 +15,9 @@ import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router"
 import RequireUser from "./layouts/RequireUser"
 import BestPage from "./routes/Best"
+
+const Create = lazy(() => import("@/routes/Create"))
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,7 +40,16 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:userId" element={<UserPage />} />
               <Route element={<RequireUser />}>
-                <Route path="/create" element={<Create />} />
+                <Route
+                  path="/create"
+                  element={
+                    <Suspense
+                      fallback={<div className="p-8">Loading editor...</div>}
+                    >
+                      <Create />
+                    </Suspense>
+                  }
+                />
               </Route>
             </Route>
             <Route path="/login" element={<Login />} />

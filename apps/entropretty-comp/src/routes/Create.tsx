@@ -1,11 +1,12 @@
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useAtom } from "jotai"
-import { useEffect } from "react"
+import { Suspense, lazy, useEffect } from "react"
 import { useSearchParams } from "react-router"
 import { remixAtom } from "../features/create/atoms"
-import CodeEditor from "../features/create/CodeEditor"
 import { AlgorithmView } from "../lib/helper.types"
+
+const CodeEditor = lazy(() => import("../features/create/CodeEditor"))
 
 function Create() {
   const [searchParams] = useSearchParams()
@@ -37,7 +38,16 @@ function Create() {
       setRemix(data as AlgorithmView)
     }
   }, [data, setRemix])
-  return <>{!isLoading && <CodeEditor />}</>
+
+  return (
+    <>
+      {!isLoading && (
+        <Suspense fallback={<div className="p-8">Loading code editor...</div>}>
+          <CodeEditor />
+        </Suspense>
+      )}
+    </>
+  )
 }
 
 export default Create

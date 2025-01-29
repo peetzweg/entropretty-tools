@@ -3,9 +3,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import Editor, { useMonaco } from "@monaco-editor/react"
+import { Button } from "@/components/ui/button"
 import { useAtom, useSetAtom } from "jotai"
-import { useEffect } from "react"
+import { Suspense, lazy } from "react"
 import {
   editorCodeAtom,
   editorSeedAtom,
@@ -15,11 +15,12 @@ import {
 } from "./atoms"
 import { CreateActions } from "./CreateActions"
 
+import { seedToKey } from "entropretty-utils"
+import { DicesIcon } from "lucide-react"
 import CodeEditorPreview from "./CodeEditorPreview"
 import initialCode from "./initialCode"
-import { Button } from "../../components/ui/button"
-import { DicesIcon } from "lucide-react"
-import { seedToKey } from "entropretty-utils"
+
+const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
 const CodeEditor = () => {
   const [editorCode, setEditorCode] = useAtom(editorCodeAtom)
@@ -27,18 +28,6 @@ const CodeEditor = () => {
   const [remix] = useAtom(remixAtom)
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
   const [seed] = useAtom(editorSeedAtom)
-  const monaco = useMonaco()
-
-  useEffect(() => {
-    if (monaco) {
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(`
-        declare const ctx: CanvasRenderingContext2D;
-        declare const seed: number[];
-        declare function bits(): void;
-      `)
-    }
-    setEditorCode(remix?.content || initialCode)
-  }, [monaco, setEditorCode, remix])
 
   const handleEditorChange = async (value: string | undefined) => {
     if (!value) return
@@ -89,18 +78,20 @@ const CodeEditor = () => {
           minSize={10}
           className="relative flex flex-col"
         >
-          <Editor
-            height="100%"
-            defaultLanguage="javascript"
-            defaultValue={remix?.content || initialCode}
-            onChange={handleEditorChange}
-            value={editorCode}
-            options={{
-              minimap: { enabled: false },
-              lineNumbers: "on",
-              fontSize: 12,
-            }}
-          />
+          <div className="flex-grow-1 flex w-full flex-row gap-0">
+            <div className="bg-yellow-400 p-2">Procedural</div>
+            <div className="bg-blue-400 p-2">ProceduralAccount</div>
+            <div className="bg-red-400 p-2">ProceduralPersonal</div>
+          </div>
+          <Suspense
+            fallback={<div className="p-8">Loading Monaco editor...</div>}
+          >
+            <MonacoEditor
+              defaultValue={remix?.content || initialCode}
+              onChange={handleEditorChange}
+              value={editorCode}
+            />
+          </Suspense>
           <CreateActions />
         </ResizablePanel>
       </ResizablePanelGroup>
