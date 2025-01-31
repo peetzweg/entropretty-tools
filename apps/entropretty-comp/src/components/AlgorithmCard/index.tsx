@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeedFamily, seedToKey } from "entropretty-utils"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useState } from "react"
 import { Link } from "react-router"
 import { useDisplaySizes } from "../../hooks/useDisplaySizes"
 import { LikeButton } from "./LikeButton"
@@ -15,7 +15,7 @@ interface AlgorithmCardProps {
 export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   const { single, grid } = useDisplaySizes()
 
-  const [seedFamily] = useState<number[][]>([
+  const [seedFamily, setSeedFamily] = useState<number[][]>([
     ...getSeedFamily(algorithm.family_kind!).map((s) => [...s]),
   ])
 
@@ -26,6 +26,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
         <div className={`flex aspect-square items-center justify-center`}>
           <AlgorithmBitmap
+            key={seedToKey(seedFamily[0])}
             algorithmId={algorithm.id}
             seed={seedFamily[0]}
             size={single}
@@ -37,7 +38,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
           <div className="grid grid-cols-3 items-center justify-center gap-4">
             {seedFamily.slice(0, 9).map((seed) => (
               <AlgorithmBitmap
-                key={seedToKey(new Uint8Array(seed))}
+                key={seedToKey(seed)}
                 algorithmId={algorithm.id!}
                 seed={seed}
                 size={grid}
@@ -54,7 +55,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       <div className="flex items-center justify-between border-t border-gray-200 p-4 text-sm text-gray-600">
         <AlgorithmInfo algorithm={algorithm} />
 
-        <AlgorithmActions algorithm={algorithm} />
+        <AlgorithmActions algorithm={algorithm} setSeedFamily={setSeedFamily} />
       </div>
     </div>
   )
@@ -87,12 +88,26 @@ const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
   )
 }
 
-const AlgorithmActions = ({ algorithm }: { algorithm: AlgorithmView }) => {
+const AlgorithmActions = ({
+  algorithm,
+  setSeedFamily,
+}: {
+  algorithm: AlgorithmView
+  setSeedFamily: Dispatch<SetStateAction<number[][]>>
+}) => {
   const { user } = useAuth()
+  const reroll = useCallback(() => {
+    setSeedFamily([...getSeedFamily(algorithm.family_kind!).map((s) => [...s])])
+  }, [algorithm.family_kind, setSeedFamily])
   if (!user) return null
+
   return (
     <div className="flex flex-row gap-2">
       {/* <DeleteButton algorithm={algorithm} /> */}
+
+      <Button variant="ghost" onClick={reroll}>
+        REROLL
+      </Button>
 
       <LikeButton algorithm={algorithm} />
 

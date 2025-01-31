@@ -22,11 +22,7 @@ export default function SeedPopover() {
         <div>
           <h3>Representation</h3>
           <div className="flex flex-row items-center justify-center gap-2">
-            <Input
-              disabled
-              type="text"
-              value={seedToKey(new Uint8Array(seed))}
-            />
+            <Input disabled type="text" value={seedToKey(seed)} />
           </div>
         </div>
 

@@ -70,9 +70,9 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
       {totalLikes > 0 && <div>{totalLikes}</div>}
       <Button
         disabled={!user || isLoading}
-        variant={"link"}
+        variant={"ghost"}
         onClick={toggleLike}
-        className={` ${isLiked ? "font-bold text-yellow-500" : ""} px-0`}
+        className={` ${isLiked ? "text-background bg-yellow-500" : ""}`}
       >
         <ArrowUp
           className="h-4 w-4"
