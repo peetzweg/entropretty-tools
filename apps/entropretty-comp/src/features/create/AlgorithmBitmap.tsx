@@ -8,6 +8,7 @@ interface Props {
   seed: number[]
   size: number
   scale?: number
+  onClick?: () => void
 }
 
 export const AlgorithmBitmap: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   seed,
   size,
   scale = 2,
+  onClick,
 }) => {
   const [ready, setIsReady] = useState(false)
   const { artist } = useWorker()
@@ -36,7 +38,11 @@ export const AlgorithmBitmap: React.FC<Props> = ({
 
   return (
     <canvas
-      className={cn("transition-opacity", { "opacity-0": !ready })}
+      className={cn("transition-opacity", {
+        "opacity-0": !ready,
+        "cursor-pointer": !!onClick,
+      })}
+      onClick={onClick}
       ref={canvasRef}
       width={drawingSize}
       height={drawingSize}
