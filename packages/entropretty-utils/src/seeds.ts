@@ -30,27 +30,38 @@ export function uint8ArrayToBinaryString(arr: Uint8Array): string {
   return binaryString
 }
 
-export function seedToKey(seed: Uint8Array): string {
+export function seedToKey(seed: Uint8Array | Array<number>): string {
   return seed.join(",")
 }
 
 export function getSeedFamily(kind: FamilyKind): Uint8Array[] {
   const seed = getSeed(kind)
+  return deriveSeedFamily(seed)
+}
+
+export function mutateSeed(seed: Uint8Array): Uint8Array {
+  const mutatedSeed = new Uint8Array(seed)
+  // Only relevant now, maybe similar seed type in the future.
+  const isProceduralPersonal = seed.length === 8
+
+  if (isProceduralPersonal) {
+    const noOfBytes = 4
+    const lastBytes = mutatedSeed.slice(-noOfBytes)
+    mutateBits(Math.floor(Math.random() * 3) + 1)(lastBytes)
+    mutatedSeed.set(lastBytes, mutatedSeed.length - noOfBytes)
+  } else {
+    mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed)
+  }
+
+  return mutatedSeed
+}
+
+export function deriveSeedFamily(seed: Uint8Array): Uint8Array[] {
   const seedFamilyMap = new Map<string, Uint8Array>()
   seedFamilyMap.set(seedToKey(seed), seed)
 
   while (seedFamilyMap.size < 16) {
-    const mutatedSeed = new Uint8Array(seed)
-    // Only mutated last few bytes for ProceduralPersonal to make get reasonable u32 results resembling a personal id
-    if (kind === "ProceduralPersonal") {
-      const noOfBytes = 4
-      const lastBytes = seed.slice(-noOfBytes)
-      mutateBits(Math.floor(Math.random() * 3) + 1)(lastBytes)
-      mutatedSeed.set(lastBytes, mutatedSeed.length - noOfBytes)
-    } else {
-      mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed)
-    }
-
+    const mutatedSeed = mutateSeed(seed)
     if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
       seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed)
     }
