@@ -99,7 +99,6 @@ const AlgorithmActions = ({
   const reroll = useCallback(() => {
     setSeedFamily([...getSeedFamily(algorithm.family_kind!).map((s) => [...s])])
   }, [algorithm.family_kind, setSeedFamily])
-  if (!user) return null
 
   return (
     <div className="flex flex-row gap-2">
@@ -109,7 +108,7 @@ const AlgorithmActions = ({
         REROLL
       </Button>
 
-      <LikeButton algorithm={algorithm} />
+      {user && <LikeButton algorithm={algorithm} />}
 
       {user && (
         <Button asChild variant="link">
