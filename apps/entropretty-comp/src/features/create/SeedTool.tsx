@@ -8,7 +8,8 @@ import {
 } from "@/components/ui/select"
 import { useAtom, useSetAtom } from "jotai"
 import { useCallback } from "react"
-import { generateNewSeedAtom, SeedType, editorSeedTypeAtom } from "./atoms"
+import { editorSeedTypeAtom, generateNewSeedAtom, SeedType } from "./atoms"
+import SeedPopover from "./seed-popover"
 
 export const SeedTool = () => {
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
@@ -46,8 +47,8 @@ export const SeedTool = () => {
         <Button variant="ghost" onClick={generateNewSeed}>
           REROLL
         </Button>
+        <SeedPopover />
       </div>
-      {/* <div className="text-xs">{seedToKey(new Uint8Array(seed))}</div> */}
     </div>
   )
 }
