@@ -9,7 +9,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import { z } from "zod"
-import { editorCodeAtom, remixAtom } from "./atoms"
+import { editorCodeAtom, editorSeedTypeAtom, remixAtom } from "./atoms"
 
 const createFormSchema = z.object({
   name: z
@@ -25,6 +25,7 @@ export const CreateActions = () => {
   const queryClient = useQueryClient()
   const [error, setError] = useState<string | null>(null)
   const [editorCode] = useAtom(editorCodeAtom)
+  const [editorSeedType] = useAtom(editorSeedTypeAtom)
   const [remix] = useAtom(remixAtom)
 
   const {
@@ -55,6 +56,7 @@ export const CreateActions = () => {
           user_id: user.id,
           remix_of: remix?.id || undefined,
           like_count: 0,
+          family_kind: editorSeedType,
         })
         .select()
         .single()

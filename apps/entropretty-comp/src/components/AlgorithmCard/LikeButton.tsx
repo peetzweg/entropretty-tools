@@ -70,13 +70,11 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
       {totalLikes > 0 && <div>{totalLikes}</div>}
       <Button
         disabled={!user || isLoading}
-        variant={"ghost"}
-        size={"icon"}
+        variant={"link"}
         onClick={toggleLike}
+        className={` ${isLiked ? "font-bold text-yellow-500" : ""} px-0`}
       >
-        <Star
-          className={`h-4 w-4 ${isLiked ? "fill-yellow-500 stroke-yellow-500" : ""}`}
-        />
+        LIKE
       </Button>
     </div>
   )

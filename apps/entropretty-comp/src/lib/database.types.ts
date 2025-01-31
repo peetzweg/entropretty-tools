@@ -43,22 +43,7 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "algorithms_remix_of_fkey"
-            columns: ["remix_of"]
-            isOneToOne: false
-            referencedRelation: "algorithms"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "algorithms_remix_of_fkey"
-            columns: ["remix_of"]
-            isOneToOne: false
-            referencedRelation: "algorithms_with_user_info"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       likes: {
         Row: {
@@ -93,6 +78,24 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       algorithms_with_user_info: {
@@ -108,22 +111,7 @@ export type Database = {
           updated_at: string | null
           user_id: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "algorithms_remix_of_fkey"
-            columns: ["remix_of"]
-            isOneToOne: false
-            referencedRelation: "algorithms"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "algorithms_remix_of_fkey"
-            columns: ["remix_of"]
-            isOneToOne: false
-            referencedRelation: "algorithms_with_user_info"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Functions: {

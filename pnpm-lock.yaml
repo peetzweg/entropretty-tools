@@ -165,6 +165,9 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
       postcss:
         specifier: ^8.5.1
         version: 8.5.1
