@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import React from "react"
 
 const byteSchema = z.object({
   decimal: z.string(),
@@ -83,10 +84,11 @@ function ByteRow({
     },
   })
 
-  const updateForm = () => {
+  // Update form values whenever the value prop changes
+  React.useEffect(() => {
     form.setValue("decimal", value.toString())
     form.setValue("hex", value.toString(16).padStart(2, "0").toLowerCase())
-  }
+  }, [value, form])
 
   const hasError = Object.keys(form.formState.errors).length > 0
 
@@ -105,7 +107,6 @@ function ByteRow({
             key={i}
             onClick={() => {
               onToggleBit(i)
-              updateForm()
             }}
             className={cn(
               "aspect-square h-9 border transition-colors",
@@ -133,19 +134,33 @@ function ByteRow({
                     className="w-12 font-mono uppercase [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="HEX"
                     maxLength={2}
-                    value={field.value.padStart(2, "0")}
+                    value={field.value}
                     onChange={(e) => {
                       let hex = e.target.value.toLowerCase()
                       // Allow only valid hex characters
                       hex = hex.replace(/[^0-9a-f]/g, "")
                       field.onChange(hex)
 
+                      // If empty, treat as 0
+                      if (hex === "") {
+                        onChange(0)
+                        return
+                      }
+
                       // Only update if we have a valid hex value
                       const parsed = parseInt(hex, 16)
                       if (!isNaN(parsed)) {
                         const newValue = Math.min(255, Math.max(0, parsed))
                         onChange(newValue)
-                        form.setValue("decimal", newValue.toString())
+                      }
+                    }}
+                    onBlur={(e) => {
+                      // On blur, if empty, set to "00"
+                      if (!e.target.value) {
+                        field.onChange("00")
+                      } else {
+                        // Ensure two digits on blur
+                        field.onChange(value.toString(16).padStart(2, "0"))
                       }
                     }}
                   />
@@ -165,20 +180,30 @@ function ByteRow({
                     className="w-14 font-mono [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="DEC"
                     type="number"
+                    value={field.value}
                     onChange={(e) => {
-                      const value = e.target.value
-                      field.onChange(value)
-                      if (value) {
-                        const newValue = Math.min(
-                          255,
-                          Math.max(0, parseInt(value) || 0),
-                        )
+                      const inputValue = e.target.value
+                      field.onChange(inputValue)
+
+                      // If empty, treat as 0
+                      if (inputValue === "") {
+                        onChange(0)
+                        return
+                      }
+
+                      const parsed = parseInt(inputValue)
+                      if (!isNaN(parsed)) {
+                        const newValue = Math.min(255, Math.max(0, parsed))
                         onChange(newValue)
-                        form.setValue("decimal", newValue.toString())
-                        form.setValue(
-                          "hex",
-                          newValue.toString(16).padStart(2, "0"),
-                        )
+                      }
+                    }}
+                    onBlur={(e) => {
+                      // On blur, if empty, set to "0"
+                      if (!e.target.value) {
+                        field.onChange("0")
+                      } else {
+                        // Ensure valid number on blur
+                        field.onChange(value.toString())
                       }
                     }}
                   />
