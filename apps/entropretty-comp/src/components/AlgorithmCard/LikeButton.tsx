@@ -67,19 +67,23 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
   if (isLoading) return null
   return (
     <div className="flex flex-row items-center justify-center gap-2">
-      {totalLikes > 0 && <div>{totalLikes}</div>}
       <Button
         disabled={!user || isLoading}
-        variant={"link"}
+        variant={"ghost"}
         onClick={toggleLike}
-        className={` ${isLiked ? "font-bold text-yellow-500" : ""} px-0`}
+        className={` ${isLiked ? "text-background bg-yellow-500" : ""}`}
       >
         <ArrowUp
           className="h-4 w-4"
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
-        LIKE
+        <span className="flex items-center gap-2">
+          LIKE
+          {totalLikes > 0 && (
+            <span className="text-xs opacity-60">{totalLikes}</span>
+          )}
+        </span>
       </Button>
     </div>
   )

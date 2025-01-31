@@ -8,6 +8,7 @@ interface Props {
   seed: number[]
   size: number
   scale?: number
+  onClick?: () => void
 }
 
 export const AlgorithmBitmap: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   seed,
   size,
   scale = 2,
+  onClick,
 }) => {
   const [ready, setIsReady] = useState(false)
   const { artist } = useWorker()
@@ -23,9 +25,9 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   const drawingSize = useMemo(() => size * scale, [size, scale])
 
   useEffect(() => {
-    console.log("Effect called")
     if (canvasRef.current === null) return
 
+    setIsReady(false)
     artist.render(algorithmId, drawingSize, [...seed]).then((bitmap) => {
       const context = canvasRef.current!.getContext("2d")!
       context.clearRect(0, 0, drawingSize, drawingSize)
@@ -36,7 +38,11 @@ export const AlgorithmBitmap: React.FC<Props> = ({
 
   return (
     <canvas
-      className={cn("cursor-pointer", { hidden: !ready })}
+      className={cn("transition-opacity", {
+        "opacity-0": !ready,
+        "cursor-pointer": !!onClick,
+      })}
+      onClick={onClick}
       ref={canvasRef}
       width={drawingSize}
       height={drawingSize}
