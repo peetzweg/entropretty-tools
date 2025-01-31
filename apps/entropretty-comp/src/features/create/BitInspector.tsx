@@ -131,6 +131,7 @@ function ByteRow({
                 <FormControl>
                   <Input
                     {...field}
+                    disabled={true}
                     className="w-12 font-mono uppercase [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="HEX"
                     maxLength={2}
@@ -139,6 +140,8 @@ function ByteRow({
                       let hex = e.target.value.toLowerCase()
                       // Allow only valid hex characters
                       hex = hex.replace(/[^0-9a-f]/g, "")
+
+                      // Always update the form value first
                       field.onChange(hex)
 
                       // If empty, treat as 0
@@ -147,7 +150,8 @@ function ByteRow({
                         return
                       }
 
-                      // Only update if we have a valid hex value
+                      // For single character input, don't pad with 0
+                      // This allows typing sequential characters
                       const parsed = parseInt(hex, 16)
                       if (!isNaN(parsed)) {
                         const newValue = Math.min(255, Math.max(0, parsed))
@@ -155,12 +159,13 @@ function ByteRow({
                       }
                     }}
                     onBlur={(e) => {
+                      const currentValue = e.target.value.toLowerCase()
                       // On blur, if empty, set to "00"
-                      if (!e.target.value) {
+                      if (!currentValue) {
                         field.onChange("00")
                       } else {
-                        // Ensure two digits on blur
-                        field.onChange(value.toString(16).padStart(2, "0"))
+                        // Ensure two digits on blur, but preserve user input
+                        field.onChange(currentValue.padStart(2, "0"))
                       }
                     }}
                   />
