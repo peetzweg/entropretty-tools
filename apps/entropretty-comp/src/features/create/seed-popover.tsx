@@ -4,21 +4,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { BitInspector } from "./BitInspector"
 import { useAtom } from "jotai"
 import { editorSeedAtom } from "./atoms"
 import { seedToKey } from "entropretty-utils"
 import { Input } from "../../components/ui/input"
+import { ByteManipulator } from "@/components/ByteManipulator"
 
 export default function SeedPopover() {
-  const [seed] = useAtom(editorSeedAtom)
+  const [seed, setSeed] = useAtom(editorSeedAtom)
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm">
-          SEED
-        </Button>
+        <Button variant="ghost">EDIT SEED</Button>
       </PopoverTrigger>
       <PopoverContent className="flex max-h-[500px] w-auto flex-col gap-4 overflow-y-auto p-2">
         <div>
@@ -33,8 +31,8 @@ export default function SeedPopover() {
         </div>
 
         <div>
-          <h3>bytes:</h3>
-          <BitInspector bytes={seed} />
+          <h3>Bytes:</h3>
+          <ByteManipulator value={seed} onChange={setSeed} />
         </div>
       </PopoverContent>
     </Popover>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,16 +14,24 @@ const byteSchema = z.object({
 
 type ByteFormData = z.infer<typeof byteSchema>
 
-interface BitInspectorProps {
-  bytes: number[]
+interface ByteManipulatorProps {
+  value?: number[]
+  placeholder?: number[]
   onChange?: (bytes: number[]) => void
 }
 
-export function BitInspector({
-  bytes: initialBytes,
+export function ByteManipulator({
+  value,
+  placeholder = [0, 0, 0, 0],
   onChange,
-}: BitInspectorProps) {
-  const [bytes, setBytes] = useState(initialBytes)
+}: ByteManipulatorProps) {
+  const [bytes, setBytes] = useState(value || placeholder)
+
+  useEffect(() => {
+    if (value) {
+      setBytes(value)
+    }
+  }, [value])
 
   const updateByte = (index: number, newValue: number) => {
     const newBytes = [...bytes]
