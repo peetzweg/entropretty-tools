@@ -67,7 +67,6 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
   if (isLoading) return null
   return (
     <div className="flex flex-row items-center justify-center gap-2">
-      {totalLikes > 0 && <div>{totalLikes}</div>}
       <Button
         disabled={!user || isLoading}
         variant={"ghost"}
@@ -79,7 +78,12 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
-        LIKE
+        <span className="flex items-center gap-2">
+          LIKE
+          {totalLikes > 0 && (
+            <span className="text-xs opacity-60">{totalLikes}</span>
+          )}
+        </span>
       </Button>
     </div>
   )
