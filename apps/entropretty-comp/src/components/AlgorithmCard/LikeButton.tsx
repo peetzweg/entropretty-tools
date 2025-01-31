@@ -4,7 +4,7 @@ import { useUsersLikes } from "@/hooks/useUsersLikes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { supabase } from "@/lib/supabase"
 import { useQueryClient } from "@tanstack/react-query"
-import { Star } from "lucide-react"
+import { ArrowUp } from "lucide-react"
 import { useCallback, useMemo } from "react"
 import { toast } from "sonner"
 
@@ -74,6 +74,11 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
         onClick={toggleLike}
         className={` ${isLiked ? "font-bold text-yellow-500" : ""} px-0`}
       >
+        <ArrowUp
+          className="h-4 w-4"
+          strokeLinecap="square"
+          strokeLinejoin="miter"
+        />
         LIKE
       </Button>
     </div>

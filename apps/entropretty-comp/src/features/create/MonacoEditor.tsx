@@ -1,9 +1,8 @@
 import Editor, { useMonaco } from "@monaco-editor/react"
-import { useEffect } from "react"
 import { useAtom } from "jotai"
+import { useEffect } from "react"
 import { editorCodeAtom, remixAtom } from "./atoms"
 import initialCode from "./initialCode"
-import poimandresTheme from "./PoimandresTheme"
 
 interface MonacoEditorProps {
   defaultValue: string
