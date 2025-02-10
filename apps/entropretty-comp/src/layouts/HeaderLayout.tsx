@@ -1,13 +1,22 @@
 import { cn } from "@/lib/utils"
 import { PlusIcon } from "lucide-react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
-import { Button } from "../components/ui/button"
-import { useAuth } from "../contexts/auth-context"
+import {
+  WinterAssemblyToast,
+  TOAST_ID,
+} from "@/components/toasts/WinterAssemblyToast"
+import { Button } from "@/components/ui/button"
+import { useAuth } from "@/contexts/auth-context"
+import { useOneTimeToast } from "@/hooks/useOneTimeToast"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+
+  useOneTimeToast(WinterAssemblyToast, {
+    toastId: TOAST_ID,
+  })
 
   return (
     <div className="flex h-screen w-screen flex-col">

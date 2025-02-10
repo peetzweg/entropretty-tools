@@ -79,7 +79,7 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
           strokeLinejoin="miter"
         />
         <span className="flex items-center gap-2">
-          LIKE
+          {user && "LIKE"}
           {totalLikes > 0 && (
             <span className="text-xs opacity-60">{totalLikes}</span>
           )}
