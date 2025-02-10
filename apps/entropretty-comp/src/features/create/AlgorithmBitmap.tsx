@@ -9,6 +9,7 @@ interface Props {
   size: number
   scale?: number
   onClick?: () => void
+  version?: number
 }
 
 export const AlgorithmBitmap: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   size,
   scale = 2,
   onClick,
+  version = 0,
 }) => {
   const [ready, setIsReady] = useState(false)
   const { artist } = useWorker()
@@ -34,7 +36,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
       context.drawImage(bitmap, 0, 0, drawingSize, drawingSize)
       setIsReady(true)
     })
-  }, [seed, algorithmId, size, drawingSize, artist])
+  }, [seed, algorithmId, size, drawingSize, artist, version])
 
   return (
     <canvas
