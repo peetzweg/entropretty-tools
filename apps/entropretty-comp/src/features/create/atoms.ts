@@ -10,6 +10,8 @@ export const editorSeedTypeAtom = atom<SeedType>("Procedural")
 export const remixAtom = atom<AlgorithmView | null>(null)
 export const scriptErrorAtom = atom<string | null>(null)
 
+export const algorithmNameAtom = atom<string>("")
+
 export const editorSeedAtom = atom<number[]>([...getSeed("Procedural")])
 export const generateNewSeedAtom = atom(null, (get, set) => {
   set(editorSeedAtom, [...getSeed(get(editorSeedTypeAtom))])

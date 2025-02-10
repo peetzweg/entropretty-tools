@@ -62,12 +62,14 @@ export default function HeaderLayout() {
           )}
           {user && (
             <>
-              <Button asChild>
-                <Link to="/create" className="flex items-center gap-1">
-                  <PlusIcon className="h-4 w-4" />
-                  NEW
-                </Link>
-              </Button>
+              {location.pathname !== "/create" && (
+                <Button asChild>
+                  <Link to="/create" className="flex items-center gap-1">
+                    <PlusIcon className="h-4 w-4" />
+                    NEW
+                  </Link>
+                </Button>
+              )}
               <div className="px-4">{user.email}</div>
               <Button
                 variant={"ghost"}

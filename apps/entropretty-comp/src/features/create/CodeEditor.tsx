@@ -6,15 +6,13 @@ import {
 import { useAtom } from "jotai"
 import { Suspense, lazy } from "react"
 import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
-import { CreateActions } from "./CreateActions"
-
 import { EditorPreview } from "./EditorPreview"
 import initialCode from "./initialCode"
 import { SeedTools } from "./SeedTools"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
-import { SaveIcon } from "lucide-react"
+import { AlgorithmNameInput } from "./AlgorithmNameInput"
+import { PostButton } from "./PostButton"
+import { Separator } from "@/components/ui/separator"
 const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
 const CodeEditor = () => {
@@ -61,19 +59,16 @@ const CodeEditor = () => {
           className="flex h-full flex-col"
         >
           <Tabs defaultValue="code" className="flex h-full flex-col">
-            <div className="flex flex-row items-center justify-between gap-4 border-b p-2">
-              <Input
-                type="text"
-                placeholder="Algorithm Name"
-                // className="max-w-64"
-              />
-              <div className="flex flex-row items-center justify-between gap-4">
-                <TabsList>
-                  <TabsTrigger value="code">Code</TabsTrigger>
-                  <TabsTrigger value="seed">Seed</TabsTrigger>
-                </TabsList>
-                <Button>POST</Button>
+            <div className="flex flex-row items-center gap-4 border-b p-2">
+              <div className="flex w-full flex-row items-center gap-2">
+                <AlgorithmNameInput />
+                <PostButton />
               </div>
+              <Separator orientation="vertical" />
+              <TabsList>
+                <TabsTrigger value="code">Code</TabsTrigger>
+                <TabsTrigger value="seed">Seed</TabsTrigger>
+              </TabsList>
             </div>
             <TabsContent value="code" className="flex-1 overflow-hidden">
               <Suspense
@@ -91,8 +86,6 @@ const CodeEditor = () => {
               <SeedTools />
             </TabsContent>
           </Tabs>
-
-          {/* <CreateActions /> */}
         </ResizablePanel>
       </ResizablePanelGroup>
     </>
