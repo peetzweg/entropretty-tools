@@ -1,14 +1,13 @@
-import { cn } from "@/lib/utils"
-import { PlusIcon } from "lucide-react"
-import { Link, Outlet, useLocation, useNavigate } from "react-router"
 import {
-  WinterAssemblyToast,
   TOAST_ID,
+  WinterAssemblyToast,
 } from "@/components/toasts/WinterAssemblyToast"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { useOneTimeToast } from "@/hooks/useOneTimeToast"
-import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
+import { PlusIcon } from "lucide-react"
+import { Link, Outlet, useLocation, useNavigate } from "react-router"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()

@@ -1,7 +1,5 @@
 import { ByteManipulator } from "@/components/ByteManipulator"
-import { Input } from "@/components/ui/input"
 import { editorSeedFamilyAtom } from "@/features/create/atoms"
-import { seedToKey } from "entropretty-utils"
 import { useAtom } from "jotai"
 
 export const SeedManipulator = () => {
@@ -18,13 +16,10 @@ export const SeedManipulator = () => {
   return (
     <div className="flex w-full flex-col gap-4">
       <div>
-        <h4 className="font-medium">Seed Manipulation</h4>
+        <h4 className="font-medium">Manipulation</h4>
         <p className="text-muted-foreground text-sm">
-          Fine-tune and adjust your seed values manually.
+          Fine-tune and adjust your current seed values manually.
         </p>
-      </div>
-      <div className="flex flex-row items-center justify-center gap-2">
-        <Input disabled type="text" value={seedToKey(seedFamily[0])} />
       </div>
 
       <div className="flex w-full flex-row items-center justify-center">

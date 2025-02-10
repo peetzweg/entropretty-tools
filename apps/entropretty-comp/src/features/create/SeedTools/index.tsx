@@ -6,15 +6,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import { useAtom, useSetAtom } from "jotai"
 import { useCallback } from "react"
-import { Separator } from "@/components/ui/separator"
-import { editorSeedTypeAtom, generateNewSeedAtom, SeedType } from "../atoms"
+import {
+  editorSeedFamilyAtom,
+  editorSeedTypeAtom,
+  generateNewSeedAtom,
+  SeedType,
+} from "../atoms"
 import { SeedManipulator } from "./SeedManipulator"
+import { SeedRepresentation } from "./SeedRepresentation"
 
 export const SeedTools = () => {
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
+
   const [seedType, setSeedType] = useAtom(editorSeedTypeAtom)
+  const [seedFamily] = useAtom(editorSeedFamilyAtom)
 
   const handleSeedTypeChange = useCallback(
     (value: SeedType) => {
@@ -27,9 +35,10 @@ export const SeedTools = () => {
   return (
     <div className="flex h-full w-full flex-col items-start gap-4 overflow-y-scroll p-4">
       <div>
-        <h3 className="text-lg font-medium">Seed Settings</h3>
+        <h3 className="text-lg font-medium">Settings</h3>
         <p className="text-muted-foreground text-sm">
-          Configure how your current seed and seed type.
+          Configure your seed type and modify your current rolled seed.
+          Remember, your algorithm should cover the whole seed spectrum.
         </p>
       </div>
 
@@ -53,6 +62,17 @@ export const SeedTools = () => {
         </Button>
       </div>
       <Separator />
+
+      <div className="flex w-full flex-col gap-4">
+        <div>
+          <h4 className="font-medium">Current Seed</h4>
+          <p className="text-muted-foreground text-sm">
+            Fine-tune and adjust your current seed values manually.
+          </p>
+        </div>
+
+        <SeedRepresentation seed={seedFamily[0]} />
+      </div>
 
       <SeedManipulator />
     </div>
