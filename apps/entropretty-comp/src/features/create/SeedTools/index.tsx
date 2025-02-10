@@ -35,8 +35,8 @@ export const SeedTools = () => {
   return (
     <div className="flex h-full w-full flex-col items-start gap-4 overflow-y-scroll p-4">
       <div>
-        <h3 className="text-lg font-medium">Settings</h3>
-        <p className="text-muted-foreground text-sm">
+        <h3 className="text-md font-medium">Settings</h3>
+        <p className="text-muted-foreground text-xs">
           Configure your seed type and modify your current rolled seed.
           Remember, your algorithm should cover the whole seed spectrum.
         </p>
@@ -57,7 +57,7 @@ export const SeedTools = () => {
             <SelectItem value="ProceduralAccount">Account Id</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="ghost" onClick={generateNewSeed}>
+        <Button variant="destructive" onClick={generateNewSeed}>
           REROLL
         </Button>
       </div>
@@ -65,16 +65,27 @@ export const SeedTools = () => {
 
       <div className="flex w-full flex-col gap-4">
         <div>
-          <h4 className="font-medium">Current Seed</h4>
-          <p className="text-muted-foreground text-sm">
-            Fine-tune and adjust your current seed values manually.
+          <h3 className="text-md font-medium">Current Seed</h3>
+          <p className="text-muted-foreground text-xs">
+            This is the value of your main seed. The other shown seeds are
+            slightly mutated versions of this one.
           </p>
         </div>
 
         <SeedRepresentation seed={seedFamily[0]} />
       </div>
 
-      <SeedManipulator />
+      <Separator />
+
+      <div className="flex w-full flex-col gap-4">
+        <div>
+          <h3 className="text-md font-medium">Manipulation</h3>
+          <p className="text-muted-foreground text-xs">
+            Fine-tune and adjust your current seed values manually.
+          </p>
+        </div>
+        <SeedManipulator />
+      </div>
     </div>
   )
 }

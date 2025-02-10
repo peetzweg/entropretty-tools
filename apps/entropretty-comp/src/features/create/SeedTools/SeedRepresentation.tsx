@@ -1,6 +1,4 @@
-import { Input } from "@/components/ui/input"
 import { editorSeedTypeAtom } from "@/features/create/atoms"
-import { seedToKey } from "entropretty-utils"
 import { numeric } from "entropretty-utils"
 import { useAtomValue } from "jotai"
 
@@ -25,7 +23,10 @@ export const SeedRepresentation = ({ seed }: SeedRepresentationProps) => {
       {seedType === "ProceduralPersonal" && (
         <div className="font-mono text-sm">{numericValue}</div>
       )}
-      <Input disabled type="text" value={seedToKey(seed)} />
+      {/* <Input disabled type="text" value={seedToKey(seed)} /> */}
+      <div className="text-muted-foreground break-all font-mono text-xs">
+        [{seed.join(",")}]
+      </div>
     </div>
   )
 }

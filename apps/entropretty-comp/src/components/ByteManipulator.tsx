@@ -18,12 +18,14 @@ interface ByteManipulatorProps {
   value?: number[]
   placeholder?: number[]
   onChange?: (bytes: number[]) => void
+  className?: string
 }
 
 export function ByteManipulator({
   value,
   placeholder = [0, 0, 0, 0],
   onChange,
+  className,
 }: ByteManipulatorProps) {
   const [bytes, setBytes] = useState(value || placeholder)
 
@@ -52,19 +54,17 @@ export function ByteManipulator({
   }
 
   return (
-    <div className="mx-auto w-full">
-      <div className="">
-        {bytes.map((byte, byteIndex) => (
-          <ByteRow
-            key={byteIndex}
-            index={byteIndex}
-            value={byte}
-            onChange={(newValue) => updateByte(byteIndex, newValue)}
-            onToggleBit={(bitIndex) => toggleBit(byteIndex, bitIndex)}
-            getBit={(bitIndex) => getBit(byte, bitIndex)}
-          />
-        ))}
-      </div>
+    <div className={cn("inline-flex flex-col", className)}>
+      {bytes.map((byte, byteIndex) => (
+        <ByteRow
+          key={byteIndex}
+          index={byteIndex}
+          value={byte}
+          onChange={(newValue) => updateByte(byteIndex, newValue)}
+          onToggleBit={(bitIndex) => toggleBit(byteIndex, bitIndex)}
+          getBit={(bitIndex) => getBit(byte, bitIndex)}
+        />
+      ))}
     </div>
   )
 }

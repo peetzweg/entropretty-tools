@@ -70,7 +70,7 @@ const CodeEditor = () => {
                 <TabsTrigger value="seed">Seed</TabsTrigger>
               </TabsList>
             </div>
-            <TabsContent value="code" className="flex-1 overflow-hidden">
+            <TabsContent value="code" className="flex-1">
               <Suspense
                 fallback={<div className="p-8">Loading Monaco editor...</div>}
               >
@@ -82,7 +82,7 @@ const CodeEditor = () => {
               </Suspense>
             </TabsContent>
 
-            <TabsContent value="seed">
+            <TabsContent value="seed" className="flex-1 overflow-y-scroll">
               <SeedTools />
             </TabsContent>
           </Tabs>

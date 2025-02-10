@@ -1,9 +1,13 @@
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { Suspense, lazy, useEffect } from "react"
 import { useSearchParams } from "react-router"
-import { editorSeedTypeAtom, remixAtom } from "../features/create/atoms"
+import {
+  editorSeedTypeAtom,
+  generateNewSeedAtom,
+  remixAtom,
+} from "../features/create/atoms"
 import { AlgorithmView } from "../lib/helper.types"
 
 const CodeEditor = lazy(() => import("../features/create/CodeEditor"))
@@ -13,6 +17,7 @@ function Create() {
   const remixId = searchParams.get("remix")
   const [, setRemix] = useAtom(remixAtom)
   const [, setSeedType] = useAtom(editorSeedTypeAtom)
+  const generateNewSeed = useSetAtom(generateNewSeedAtom)
   console.log({ remixId })
 
   const { data, isLoading } = useQuery({
@@ -38,8 +43,9 @@ function Create() {
     } else {
       setRemix(data as AlgorithmView)
       setSeedType(data.family_kind || "Procedural")
+      generateNewSeed()
     }
-  }, [data, setRemix, setSeedType])
+  }, [data, setRemix, setSeedType, generateNewSeed])
 
   return (
     <>
