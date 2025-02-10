@@ -8,10 +8,10 @@ import { Suspense, lazy } from "react"
 import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
 import { CreateActions } from "./CreateActions"
 
-import CodeEditorPreview from "./CodeEditorPreview"
+import { EditorPreview } from "./EditorPreview"
 import initialCode from "./initialCode"
 import { SeedTool } from "./SeedTool"
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
 const CodeEditor = () => {
@@ -36,10 +36,7 @@ const CodeEditor = () => {
           <ResizablePanelGroup direction="vertical">
             <ResizablePanel defaultSize={90} className="h-full w-full">
               <div className="relative h-full w-full">
-                <CodeEditorPreview />
-                <div className="absolute bottom-2 right-2">
-                  <SeedTool />
-                </div>
+                <EditorPreview />
               </div>
             </ResizablePanel>
 
@@ -57,18 +54,34 @@ const CodeEditor = () => {
         <ResizablePanel
           defaultSize={50}
           minSize={10}
-          className="relative flex flex-col"
+          className="flex h-full flex-col"
         >
-          <Suspense
-            fallback={<div className="p-8">Loading Monaco editor...</div>}
-          >
-            <MonacoEditor
-              defaultValue={remix?.content || initialCode}
-              onChange={handleEditorChange}
-              value={editorCode}
-            />
-          </Suspense>
-          <CreateActions />
+          <Tabs defaultValue="code" className="flex h-full flex-col">
+            <div className="flex-none border-b p-2">
+              <TabsList>
+                <TabsTrigger value="code">Code</TabsTrigger>
+                <TabsTrigger value="seed">Seed</TabsTrigger>
+              </TabsList>
+            </div>
+
+            <TabsContent value="code" className="flex-1 overflow-hidden">
+              <Suspense
+                fallback={<div className="p-8">Loading Monaco editor...</div>}
+              >
+                <MonacoEditor
+                  defaultValue={remix?.content || initialCode}
+                  onChange={handleEditorChange}
+                  value={editorCode}
+                />
+              </Suspense>
+            </TabsContent>
+
+            <TabsContent value="seed">
+              <SeedTool />
+            </TabsContent>
+          </Tabs>
+
+          {/* <CreateActions /> */}
         </ResizablePanel>
       </ResizablePanelGroup>
     </>

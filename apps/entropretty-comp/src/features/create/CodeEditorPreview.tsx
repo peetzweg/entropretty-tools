@@ -1,24 +1,30 @@
 import { useAtom } from "jotai"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useWorker } from "@/contexts/worker-context"
 import { cn } from "@/lib/utils"
-import { editorCodeAtom, editorSeedAtom, scriptErrorAtom } from "./atoms"
+import { algorithmVersionAtom, scriptErrorAtom } from "./atoms"
 
-const CodeEditorPreview = ({ size = 512, scale = 2 }) => {
-  const [editorCode] = useAtom(editorCodeAtom)
-  const [seed] = useAtom(editorSeedAtom)
+interface CodeEditorPreviewProps {
+  seed: number[]
+  size?: number
+  scale?: number
+}
+
+const CodeEditorPreview = ({
+  seed,
+  size = 512,
+  scale = 2,
+}: CodeEditorPreviewProps) => {
+  const [algorithmVersion] = useAtom(algorithmVersionAtom)
   const [, setScriptError] = useAtom(scriptErrorAtom)
-
   const [ready, setIsReady] = useState(false)
   const { artist } = useWorker()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  const drawingSize = useMemo(() => size * scale, [size, scale])
+  const drawingSize = size * scale
 
   useEffect(() => {
     if (canvasRef.current === null) return
 
-    artist.updateAlgorithm(0, editorCode)
     artist
       .render(0, drawingSize, seed)
       .then((bitmap) => {
@@ -32,7 +38,7 @@ const CodeEditorPreview = ({ size = 512, scale = 2 }) => {
         setScriptError(e.message)
         console.error(e)
       })
-  }, [artist, drawingSize, editorCode, seed, setScriptError])
+  }, [artist, drawingSize, seed, algorithmVersion, setScriptError])
 
   return (
     <div className="flex h-full w-full items-center justify-center">

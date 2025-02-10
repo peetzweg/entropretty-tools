@@ -50,7 +50,7 @@ export default function HeaderLayout() {
               variant={"link"}
               className={cn(location.pathname.startsWith("/u/") && "underline")}
             >
-              <Link to={`/u/${user.id}`}>MY CREATIONS</Link>
+              <Link to={`/u/${user.id}`}>MINE</Link>
             </Button>
           )}
         </div>
