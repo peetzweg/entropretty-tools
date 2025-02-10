@@ -7,14 +7,14 @@ import {
   editorCodeAtom,
   editorCodeVersionAtom,
   scriptErrorAtom,
-  seedFamilyAtom,
+  editorSeedFamilyAtom,
 } from "./atoms"
 
 const PREVIEW_SIZE = 160 // Smaller size for the grid previews
 
 export const EditorPreview = () => {
   const [editorCode] = useAtom(editorCodeAtom)
-  const [seedFamily] = useAtom(seedFamilyAtom)
+  const [seedFamily] = useAtom(editorSeedFamilyAtom)
   const [, setScriptError] = useAtom(scriptErrorAtom)
   const [codeVersion, setAlgorithmVersion] = useAtom(editorCodeVersionAtom)
   const { artist } = useWorker()
@@ -36,7 +36,7 @@ export const EditorPreview = () => {
 
   return (
     <div className="grid h-full w-full grid-cols-3 gap-4">
-      {seedFamily.map((seed) => (
+      {seedFamily.slice(0, 9).map((seed) => (
         <div key={seedToKey(seed)} className="flex items-center justify-center">
           <AlgorithmBitmap
             key={seedToKey(seed)}

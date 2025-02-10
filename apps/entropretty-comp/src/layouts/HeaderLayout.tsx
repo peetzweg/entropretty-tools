@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { useOneTimeToast } from "@/hooks/useOneTimeToast"
+import { Separator } from "@/components/ui/separator"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
@@ -22,8 +23,12 @@ export default function HeaderLayout() {
     <div className="flex h-screen w-screen flex-col">
       <nav className="flex flex-row items-center justify-between gap-2 border-b border-gray-200 px-6 py-2">
         <div className="flex flex-row items-center justify-center gap-2">
-          <div className="hidden text-xl font-bold md:block">ENTROPRETTY</div>
-          <div className="text-xl font-bold md:hidden">E..Y</div>
+          <div className="hidden text-xl font-bold italic md:block">
+            ENTROPRETTY
+          </div>
+
+          <div className="text-xl font-bold italic md:hidden">E..Y</div>
+
           <Button
             asChild
             variant={"link"}

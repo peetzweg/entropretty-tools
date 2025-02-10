@@ -52,7 +52,7 @@ export function ByteManipulator({
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl">
+    <div className="mx-auto w-full">
       <div className="">
         {bytes.map((byte, byteIndex) => (
           <ByteRow

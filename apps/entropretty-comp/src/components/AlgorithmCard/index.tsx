@@ -52,7 +52,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       </div>
 
       {/* Bottom Part */}
-      <div className="flex flex-col items-start justify-between gap-y-2 border-t border-gray-200 p-4 text-sm text-gray-600 md:flex-row">
+      <div className="flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 text-sm text-gray-600 md:flex-row">
         <AlgorithmInfo algorithm={algorithm} />
 
         <AlgorithmActions algorithm={algorithm} setSeedFamily={setSeedFamily} />
@@ -108,8 +108,6 @@ const AlgorithmActions = ({
         REROLL
       </Button>
 
-      <LikeButton algorithm={algorithm} />
-
       {user && (
         <Button asChild variant="link">
           <Link
@@ -120,6 +118,8 @@ const AlgorithmActions = ({
           </Link>
         </Button>
       )}
+
+      <LikeButton algorithm={algorithm} />
     </div>
   )
 }
