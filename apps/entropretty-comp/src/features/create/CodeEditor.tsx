@@ -10,8 +10,11 @@ import { CreateActions } from "./CreateActions"
 
 import { EditorPreview } from "./EditorPreview"
 import initialCode from "./initialCode"
-import { SeedTool } from "./SeedTool"
+import { SeedTools } from "./SeedTools"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Input } from "../../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { SaveIcon } from "lucide-react"
 const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
 const CodeEditor = () => {
@@ -40,7 +43,8 @@ const CodeEditor = () => {
               </div>
             </ResizablePanel>
 
-            <ResizableHandle />
+            <ResizableHandle withHandle />
+
             <ResizablePanel defaultSize={10}>
               <div className="text-destructive h-full w-full whitespace-pre-wrap bg-gray-800/10 p-1">
                 {scriptError || null}
@@ -49,7 +53,7 @@ const CodeEditor = () => {
           </ResizablePanelGroup>
         </ResizablePanel>
 
-        <ResizableHandle />
+        <ResizableHandle withHandle />
 
         <ResizablePanel
           defaultSize={50}
@@ -57,13 +61,20 @@ const CodeEditor = () => {
           className="flex h-full flex-col"
         >
           <Tabs defaultValue="code" className="flex h-full flex-col">
-            <div className="flex-none border-b p-2">
-              <TabsList>
-                <TabsTrigger value="code">Code</TabsTrigger>
-                <TabsTrigger value="seed">Seed</TabsTrigger>
-              </TabsList>
+            <div className="flex flex-row items-center justify-between gap-4 border-b p-2">
+              <Input
+                type="text"
+                placeholder="Algorithm Name"
+                // className="max-w-64"
+              />
+              <div className="flex flex-row items-center justify-between gap-4">
+                <TabsList>
+                  <TabsTrigger value="code">Code</TabsTrigger>
+                  <TabsTrigger value="seed">Seed</TabsTrigger>
+                </TabsList>
+                <Button>POST</Button>
+              </div>
             </div>
-
             <TabsContent value="code" className="flex-1 overflow-hidden">
               <Suspense
                 fallback={<div className="p-8">Loading Monaco editor...</div>}
@@ -77,7 +88,7 @@ const CodeEditor = () => {
             </TabsContent>
 
             <TabsContent value="seed">
-              <SeedTool />
+              <SeedTools />
             </TabsContent>
           </Tabs>
 

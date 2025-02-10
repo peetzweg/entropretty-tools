@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/select"
 import { useAtom, useSetAtom } from "jotai"
 import { useCallback } from "react"
-import { editorSeedTypeAtom, generateNewSeedAtom, SeedType } from "./atoms"
-import SeedPopover from "./seed-popover"
+import { editorSeedTypeAtom, generateNewSeedAtom, SeedType } from "../atoms"
+import { SeedManipulator } from "./SeedManipulator"
 
-export const SeedTool = () => {
+export const SeedTools = () => {
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
 
   const [seedType, setSeedType] = useAtom(editorSeedTypeAtom)
@@ -25,7 +25,7 @@ export const SeedTool = () => {
   )
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-start gap-4 p-4">
       <div className="flex flex-row items-center justify-center gap-2">
         <Select
           defaultValue="Procedural"
@@ -36,19 +36,18 @@ export const SeedTool = () => {
             <SelectValue placeholder="Select type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Procedural">Procedural</SelectItem>
-            <SelectItem value="ProceduralAccount">ProceduralAccount</SelectItem>
-            <SelectItem value="ProceduralPersonal">
-              ProceduralPersonal
-            </SelectItem>
+            <SelectItem value="Procedural">Entropy</SelectItem>
+            <SelectItem value="ProceduralPersonal">Personal Id</SelectItem>
+            <SelectItem value="ProceduralAccount">Account Id</SelectItem>
           </SelectContent>
         </Select>
 
         <Button variant="ghost" onClick={generateNewSeed}>
           REROLL
         </Button>
-        <SeedPopover />
       </div>
+
+      <SeedManipulator />
     </div>
   )
 }
