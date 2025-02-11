@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { AlgorithmView } from "@/lib/helper.types"
 
-const PAGE_SIZE = 2
+const PAGE_SIZE = 3
 
 export function useBestAlgorithms() {
   const { artist } = useWorker()
