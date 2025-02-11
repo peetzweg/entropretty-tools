@@ -21,13 +21,7 @@ export default function HeaderLayout() {
   return (
     <div className="flex h-screen w-screen flex-col">
       <nav className="flex flex-row items-center justify-between gap-2 border-b border-gray-200 px-6 py-2">
-        <div className="flex flex-row items-center justify-center gap-2">
-          <div className="hidden text-xl font-bold italic md:block">
-            ENTROPRETTY
-          </div>
-
-          <div className="text-xl font-bold italic md:hidden">E..Y</div>
-
+        <div className="flex flex-1 flex-row items-center justify-start gap-2">
           <Button
             asChild
             variant={"link"}
@@ -52,13 +46,22 @@ export default function HeaderLayout() {
             <Button
               asChild
               variant={"link"}
-              className={cn(location.pathname.startsWith("/u/") && "underline")}
+              className={cn(location.pathname === "/mine" && "underline")}
             >
-              <Link to={`/u/${user.id}`}>MINE</Link>
+              <Link to="/mine">MINE</Link>
             </Button>
           )}
         </div>
-        <div className="flex flex-row items-center justify-center gap-2">
+
+        <div className="flex flex-1 items-center justify-center">
+          <div className="hidden text-xl font-bold italic md:block">
+            ENTROPRETTY
+          </div>
+
+          <div className="text-xl font-bold italic md:hidden">E..Y</div>
+        </div>
+
+        <div className="flex flex-1 flex-row items-center justify-end gap-2">
           {!user && (
             <Button asChild>
               <Link to="/login">LOGIN</Link>

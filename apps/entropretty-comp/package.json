@@ -34,7 +34,7 @@
     "entropretty-editor": "workspace:*",
     "entropretty-utils": "workspace:*",
     "eslint-plugin-react-compiler": "19.0.0-beta-27714ef-20250124",
-    "framer-motion": "^11.18.2",
+    "framer-motion": "^11.17.0",
     "jotai": "^2.11.1",
     "lucide-react": "^0.471.2",
     "motion": "^12.0.6",

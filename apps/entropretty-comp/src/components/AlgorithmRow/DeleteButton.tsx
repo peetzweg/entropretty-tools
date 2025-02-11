@@ -3,9 +3,10 @@ import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmView } from "@/lib/helper.types"
 import { supabase } from "@/lib/supabase"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Loader2, Trash2 } from "lucide-react"
-import { useCallback } from "react"
+import { Loader2 } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "sonner"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface DeleteButtonProps {
   algorithm: AlgorithmView
@@ -14,6 +15,7 @@ interface DeleteButtonProps {
 export function DeleteButton({ algorithm }: DeleteButtonProps) {
   const { user } = useAuth()
   const queryClient = useQueryClient()
+  const [isConfirming, setIsConfirming] = useState(false)
 
   const canDelete = user?.id === algorithm.user_id
 
@@ -32,30 +34,60 @@ export function DeleteButton({ algorithm }: DeleteButtonProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["algorithms"] })
+      toast.success("Algorithm deleted successfully")
+      setIsConfirming(false)
     },
     onError: (error: Error) => {
       console.error("Error deleting algorithm:", error)
       toast.error("Error Deleting Algorithm: " + error.message)
+      setIsConfirming(false)
     },
   })
 
-  const handleDelete = useCallback(() => {
-    deleteMutation.mutate()
-  }, [deleteMutation])
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+    if (isConfirming) {
+      timeoutId = setTimeout(() => {
+        setIsConfirming(false)
+      }, 3000)
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [isConfirming])
+
+  const handleClick = useCallback(() => {
+    if (isConfirming) {
+      deleteMutation.mutate()
+    } else {
+      setIsConfirming(true)
+    }
+  }, [isConfirming, deleteMutation])
 
   if (!canDelete) return null
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
-      onClick={handleDelete}
+      variant={isConfirming ? "destructive" : "ghost"}
+      onClick={handleClick}
       disabled={deleteMutation.isPending}
+      className="gap-2"
     >
       {deleteMutation.isPending ? (
         <Loader2 className="h-4 w-4 animate-spin" />
       ) : (
-        <Trash2 className="h-4 w-4" />
+        <AnimatePresence mode="wait">
+          <motion.div
+            layout
+            key={isConfirming ? "confirm" : "delete"}
+            initial={{ opacity: 0, width: "100%" }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: "100%" }}
+            transition={{ duration: 0.2 }}
+          >
+            {isConfirming ? "YES, DELETE!" : "DELETE"}
+          </motion.div>
+        </AnimatePresence>
       )}
     </Button>
   )
