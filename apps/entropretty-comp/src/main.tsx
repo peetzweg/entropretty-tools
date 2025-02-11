@@ -7,6 +7,7 @@ import AlgorithmPage from "@/routes/Algorithm.tsx"
 import LatestPage from "@/routes/Latest.tsx"
 import Login from "@/routes/Login.tsx"
 import UserPage from "@/routes/User.tsx"
+import MinePage from "@/routes/Mine.tsx"
 import { Suspense, lazy } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
@@ -39,6 +40,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/best" element={<BestPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:userId" element={<UserPage />} />
+              <Route path="/mine" element={<MinePage />} />
               <Route element={<RequireUser />}>
                 <Route
                   path="/create"

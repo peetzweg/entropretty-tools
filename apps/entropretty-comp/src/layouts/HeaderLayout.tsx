@@ -52,9 +52,9 @@ export default function HeaderLayout() {
             <Button
               asChild
               variant={"link"}
-              className={cn(location.pathname.startsWith("/u/") && "underline")}
+              className={cn(location.pathname === "/mine" && "underline")}
             >
-              <Link to={`/u/${user.id}`}>MINE</Link>
+              <Link to="/mine">MINE</Link>
             </Button>
           )}
         </div>
