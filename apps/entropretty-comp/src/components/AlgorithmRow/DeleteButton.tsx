@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "sonner"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface DeleteButtonProps {
   algorithm: AlgorithmView
@@ -74,10 +75,19 @@ export function DeleteButton({ algorithm }: DeleteButtonProps) {
     >
       {deleteMutation.isPending ? (
         <Loader2 className="h-4 w-4 animate-spin" />
-      ) : isConfirming ? (
-        "YES, DELETE!"
       ) : (
-        "DELETE"
+        <AnimatePresence mode="wait">
+          <motion.div
+            layout
+            key={isConfirming ? "confirm" : "delete"}
+            initial={{ opacity: 0, width: "100%" }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: "100%" }}
+            transition={{ duration: 0.2 }}
+          >
+            {isConfirming ? "YES, DELETE!" : "DELETE"}
+          </motion.div>
+        </AnimatePresence>
       )}
     </Button>
   )

@@ -40,8 +40,8 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/best" element={<BestPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:userId" element={<UserPage />} />
-              <Route path="/mine" element={<MinePage />} />
               <Route element={<RequireUser />}>
+                <Route path="/mine" element={<MinePage />} />
                 <Route
                   path="/create"
                   element={

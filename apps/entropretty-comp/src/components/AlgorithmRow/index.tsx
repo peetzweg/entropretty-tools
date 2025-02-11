@@ -3,10 +3,9 @@ import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeed, seedToKey } from "entropretty-utils"
-import { Link } from "react-router"
-import { LikeButton } from "../AlgorithmCard/LikeButton"
-import { DeleteButton } from "./DeleteButton"
 import { useMemo } from "react"
+import { Link } from "react-router"
+import { DeleteButton } from "./DeleteButton"
 
 interface AlgorithmRowProps {
   algorithm: AlgorithmView
