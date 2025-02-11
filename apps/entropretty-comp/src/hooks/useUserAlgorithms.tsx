@@ -25,7 +25,6 @@ export function useUserAlgorithms(userId: string | undefined) {
 
       if (data) {
         for (const algorithm of data) {
-          console.log("Updating", algorithm.id)
           artist.updateAlgorithm(algorithm.id, algorithm.content)
         }
       }

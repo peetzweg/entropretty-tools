@@ -38,10 +38,6 @@ export default function HeaderLayout() {
             <Link to="/best">BEST</Link>
           </Button>
 
-          <Button variant={"link"} disabled>
-            FILTER
-          </Button>
-
           {user && (
             <Button
               asChild
