@@ -22,7 +22,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
   if (!algorithm.id) return null
 
   return (
-    <div className="flex w-full flex-col border border-gray-200 bg-white">
+    <div className="flex w-full flex-col border border-gray-200">
       <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
         <div className={`flex aspect-square items-center justify-center`}>
           <AlgorithmBitmap
@@ -102,8 +102,6 @@ const AlgorithmActions = ({
 
   return (
     <div className="flex w-full flex-row items-center justify-end gap-2 md:w-auto">
-      {/* <DeleteButton algorithm={algorithm} /> */}
-
       <Button variant="ghost" onClick={reroll}>
         REROLL
       </Button>

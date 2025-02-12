@@ -68,6 +68,7 @@ const CodeEditor = () => {
               <TabsList>
                 <TabsTrigger value="code">Code</TabsTrigger>
                 <TabsTrigger value="seed">Seed</TabsTrigger>
+                <TabsTrigger value="check">Check</TabsTrigger>
               </TabsList>
             </div>
             <TabsContent value="code" className="flex-1">
@@ -84,6 +85,9 @@ const CodeEditor = () => {
 
             <TabsContent value="seed" className="flex-1 overflow-y-scroll">
               <SeedTools />
+            </TabsContent>
+            <TabsContent value="check" className="flex-1 overflow-y-scroll">
+              <h1>Checking code</h1>
             </TabsContent>
           </Tabs>
         </ResizablePanel>
