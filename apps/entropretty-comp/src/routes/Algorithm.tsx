@@ -48,7 +48,7 @@ export default function AlgorithmPage() {
   }
 
   return (
-    <div className="my-4 h-[calc(100vh-8rem)]">
+    <div className="relative my-4 h-[calc(100vh-8rem)]">
       <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )

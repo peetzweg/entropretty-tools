@@ -4,6 +4,7 @@ import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
 import { deriveSeedFamily, getSeed, seedToKey } from "entropretty-utils"
 import { useCallback, useEffect, useState } from "react"
+import { useInView } from "react-intersection-observer"
 import { Link } from "react-router"
 import { LikeButton } from "../AlgorithmCard/LikeButton"
 
@@ -17,6 +18,10 @@ export function AlgorithmInfiniteGrid({
   className = "",
 }: AlgorithmInfiniteGridProps) {
   const [seeds, setSeeds] = useState<number[][]>([])
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "400px", // Start loading more content before reaching the bottom
+  })
 
   const reroll = useCallback(() => {
     const initial = getSeed(algorithm.family_kind!)
@@ -24,15 +29,29 @@ export function AlgorithmInfiniteGrid({
     setSeeds(family.map((s) => [...s]))
   }, [algorithm.family_kind])
 
+  const loadMore = useCallback(() => {
+    if (seeds.length === 0) return
+
+    const lastSeed = new Uint8Array(seeds[seeds.length - 1])
+    const newFamily = deriveSeedFamily(lastSeed, 24)
+    setSeeds((prev) => [...prev, ...newFamily.map((s) => [...s])])
+  }, [seeds])
+
   useEffect(() => {
     reroll()
   }, [reroll])
+
+  useEffect(() => {
+    if (inView) {
+      loadMore()
+    }
+  }, [inView, loadMore])
 
   return (
     <div className="relative flex flex-col px-4">
       <div className={`flex w-full flex-col ${className} relative`}>
         <div className="h-full w-full p-4">
-          <div className="mx-auto flex flex-wrap items-center justify-center">
+          <div className="mx-auto flex flex-wrap items-center justify-center gap-1">
             {seeds.map((seed) => (
               <AlgorithmBitmap
                 key={seedToKey(seed)}
@@ -42,13 +61,14 @@ export function AlgorithmInfiniteGrid({
                 scale={1.4}
               />
             ))}
+            {/* Loading trigger */}
+            <div ref={ref} className="h-4 w-full" />
           </div>
         </div>
-      </div>
-      {/* Bottom Part */}
-      <div className="absolute bottom-0 right-0 flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 text-sm text-gray-600 md:flex-row">
-        <AlgorithmInfo algorithm={algorithm} />
-        <AlgorithmActions algorithm={algorithm} reroll={reroll} />
+        <div className="bg-background flow-col fixed bottom-4 right-4 flex flex-col items-center justify-center gap-8 gap-y-2 border border-gray-200 p-4 text-gray-600 md:flex-row md:justify-between">
+          <AlgorithmInfo algorithm={algorithm} />
+          <AlgorithmActions algorithm={algorithm} />
+        </div>
       </div>
     </div>
   )
@@ -81,21 +101,11 @@ const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
   )
 }
 
-const AlgorithmActions = ({
-  algorithm,
-  reroll,
-}: {
-  algorithm: AlgorithmView
-  reroll: () => void
-}) => {
+const AlgorithmActions = ({ algorithm }: { algorithm: AlgorithmView }) => {
   const { user } = useAuth()
 
   return (
     <div className="flex w-full flex-row items-center justify-end gap-2 md:w-auto">
-      <Button variant="ghost" onClick={reroll}>
-        REROLL
-      </Button>
-
       {user && (
         <Button asChild variant="link">
           <Link
