@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useWorker } from "@/contexts/worker-context"
 import { AlgorithmId } from "@/workers/artist"
+import { seedToKey } from "entropretty-utils"
 
 interface Props {
   algorithmId: AlgorithmId
@@ -48,6 +49,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
       ref={canvasRef}
       width={drawingSize}
       height={drawingSize}
+      title={seedToKey(seed)}
       style={{ width: size, height: size }}
     />
   )

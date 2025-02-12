@@ -1,4 +1,4 @@
-import { AlgorithmCard } from "@/components/AlgorithmCard/index"
+import { AlgorithmInfiniteGrid } from "@/components/AlgorithmInfiniteGrid"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useWorker } from "@/contexts/worker-context"
 import { Database } from "@/lib/database.types"
@@ -48,8 +48,8 @@ export default function AlgorithmPage() {
   }
 
   return (
-    <div className="mx-auto my-4">
-      <AlgorithmCard algorithm={algorithm} />
+    <div className="my-4 h-[calc(100vh-8rem)]">
+      <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )
 }
