@@ -74,21 +74,21 @@ export default function HeaderLayout() {
         </div>
         <div className="flex flex-1 flex-row items-center justify-end gap-2">
           {!user && (
-            <Button asChild>
+            <Button className="hidden md:block" asChild>
               <Link to="/login">LOGIN</Link>
             </Button>
           )}
           {user && (
             <>
               {location.pathname !== "/create" && (
-                <Button asChild>
+                <Button className="hidden md:flex" asChild>
                   <Link to="/create" className="flex items-center gap-1">
                     <PlusIcon className="h-4 w-4" />
                     NEW
                   </Link>
                 </Button>
               )}
-              <div className="px-4">{user.email}</div>
+              <div className="hidden px-4 md:block">{user.email}</div>
               <Button
                 variant={"ghost"}
                 onMouseDown={() => {
