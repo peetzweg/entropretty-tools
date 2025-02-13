@@ -1,3 +1,4 @@
+import { FeedbackDialog } from "@/components/FeedbackDialog"
 import {
   TOAST_ID,
   WinterAssemblyToast,
@@ -39,13 +40,17 @@ export default function HeaderLayout() {
           </Button>
 
           {user && (
-            <Button
-              asChild
-              variant={"link"}
-              className={cn(location.pathname === "/mine" && "underline")}
-            >
-              <Link to="/mine">MINE</Link>
-            </Button>
+            <>
+              <Button
+                asChild
+                variant={"link"}
+                className={cn(location.pathname === "/mine" && "underline")}
+              >
+                <Link to="/mine">MINE</Link>
+              </Button>
+
+              <FeedbackDialog />
+            </>
           )}
         </div>
 

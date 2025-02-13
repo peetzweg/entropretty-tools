@@ -45,6 +45,30 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          content: string
+          created_at: string
+          id: number
+          sentiment: number
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: number
+          sentiment: number
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: number
+          sentiment?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       likes: {
         Row: {
           algorithm_id: number
