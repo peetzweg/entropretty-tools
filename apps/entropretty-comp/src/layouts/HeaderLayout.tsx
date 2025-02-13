@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { useOneTimeToast } from "@/hooks/useOneTimeToast"
 import { cn } from "@/lib/utils"
 import { PlusIcon } from "lucide-react"
+import { useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
 
 export default function HeaderLayout() {
@@ -18,6 +19,18 @@ export default function HeaderLayout() {
   useOneTimeToast(WinterAssemblyToast, {
     toastId: TOAST_ID,
   })
+  useEffect(() => {
+    // Set random favicon
+    const randomFaviconNumber = Math.floor(Math.random() * 3) + 1
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement
+    if (!link) {
+      const newLink = document.createElement("link")
+      newLink.rel = "icon"
+      document.head.appendChild(newLink)
+    }
+    ;(document.querySelector("link[rel~='icon']") as HTMLLinkElement).href =
+      `/favicon/${randomFaviconNumber}.png`
+  }, [])
 
   return (
     <div className="flex h-screen w-screen flex-col">
