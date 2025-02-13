@@ -18,6 +18,9 @@ module.exports = {
     },
     extend: {
       // Custom Additions
+      fontFamily: {
+        jersey: ['"Jersey 20"', "sans-serif"],
+      },
       spacing: {
         "single-algorithm": "var(--single-algorithm)",
         "grid-algorithm": "var(--grid-algorithm)",

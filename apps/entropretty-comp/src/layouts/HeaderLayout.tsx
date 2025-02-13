@@ -55,13 +55,10 @@ export default function HeaderLayout() {
         </div>
 
         <div className="flex flex-1 items-center justify-center">
-          <div className="hidden text-xl font-bold italic md:block">
-            ENTROPRETTY
+          <div className="font-jersey hidden text-3xl md:block">
+            Entropretty
           </div>
-
-          <div className="text-xl font-bold italic md:hidden">E..Y</div>
         </div>
-
         <div className="flex flex-1 flex-row items-center justify-end gap-2">
           {!user && (
             <Button asChild>

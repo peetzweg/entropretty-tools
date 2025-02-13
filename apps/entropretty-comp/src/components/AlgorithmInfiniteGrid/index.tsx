@@ -81,7 +81,7 @@ export function AlgorithmInfiniteGrid({
                 key={seedToKey(seed)}
                 algorithmId={algorithm.id!}
                 seed={seed}
-                size={150}
+                size={200}
                 scale={2}
               />
             ))}
