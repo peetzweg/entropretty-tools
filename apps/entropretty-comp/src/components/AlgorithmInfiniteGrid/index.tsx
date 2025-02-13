@@ -2,12 +2,7 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
-import {
-  deriveSeedFamily,
-  getSeed,
-  mutateBits,
-  seedToKey,
-} from "entropretty-utils"
+import { deriveSeedFamily, getSeed, seedToKey } from "entropretty-utils"
 import { useCallback, useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import { Link } from "react-router"
