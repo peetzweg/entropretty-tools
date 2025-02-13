@@ -34,9 +34,12 @@ export function seedToKey(seed: Uint8Array | Array<number>): string {
   return seed.join(",")
 }
 
-export function getSeedFamily(kind: FamilyKind): Uint8Array[] {
+export function getSeedFamily(
+  kind: FamilyKind,
+  size: number = 16,
+): Uint8Array[] {
   const seed = getSeed(kind)
-  return deriveSeedFamily(seed)
+  return deriveSeedFamily(seed, size)
 }
 
 export function mutateSeed(seed: Uint8Array): Uint8Array {
@@ -56,11 +59,14 @@ export function mutateSeed(seed: Uint8Array): Uint8Array {
   return mutatedSeed
 }
 
-export function deriveSeedFamily(seed: Uint8Array): Uint8Array[] {
+export function deriveSeedFamily(
+  seed: Uint8Array,
+  size: number = 16,
+): Uint8Array[] {
   const seedFamilyMap = new Map<string, Uint8Array>()
   seedFamilyMap.set(seedToKey(seed), seed)
 
-  while (seedFamilyMap.size < 16) {
+  while (seedFamilyMap.size < size) {
     const mutatedSeed = mutateSeed(seed)
     if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
       seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed)

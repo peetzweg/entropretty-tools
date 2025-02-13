@@ -1,7 +1,7 @@
 import Editor, { useMonaco } from "@monaco-editor/react"
 import { useAtom } from "jotai"
 import { useEffect } from "react"
-import { editorCodeAtom, remixAtom } from "./atoms"
+import { editorCodeAtom } from "./atoms"
 import initialCode from "./initialCode"
 
 interface MonacoEditorProps {
@@ -10,10 +10,9 @@ interface MonacoEditorProps {
   onChange: (value: string | undefined) => void
 }
 
-const MonacoEditor = ({ defaultValue, value, onChange }: MonacoEditorProps) => {
+const MonacoEditor = ({ value, onChange }: MonacoEditorProps) => {
   const monaco = useMonaco()
-  const [, setEditorCode] = useAtom(editorCodeAtom)
-  const [remix] = useAtom(remixAtom)
+  const [code, setEditorCode] = useAtom(editorCodeAtom)
 
   // Set up Monaco configuration
   useEffect(() => {
@@ -33,16 +32,15 @@ const MonacoEditor = ({ defaultValue, value, onChange }: MonacoEditorProps) => {
 
   // Handle code initialization
   useEffect(() => {
-    if (remix?.content || initialCode) {
-      setEditorCode(remix?.content || initialCode)
+    if (!code) {
+      setEditorCode(initialCode)
     }
-  }, [setEditorCode, remix])
+  }, [setEditorCode, code])
 
   return (
     <Editor
       height="100%"
       defaultLanguage="javascript"
-      defaultValue={defaultValue}
       theme="poimandres"
       onChange={onChange}
       value={value}

@@ -36,10 +36,10 @@ export const EditorPreview = () => {
 
   return (
     <div className="grid h-full w-full grid-cols-3 gap-4">
-      {seedFamily.slice(0, 9).map((seed) => (
+      {seedFamily.slice(0, 9).map((seed, index) => (
         <div key={seedToKey(seed)} className="flex items-center justify-center">
           <AlgorithmBitmap
-            key={seedToKey(seed)}
+            key={`canvas-${index}`}
             algorithmId={0}
             seed={seed}
             size={PREVIEW_SIZE}
