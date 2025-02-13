@@ -4,6 +4,7 @@ import { useAtom, useSetAtom } from "jotai"
 import { Suspense, lazy, useEffect } from "react"
 import { useSearchParams } from "react-router"
 import {
+  editorCodeAtom,
   editorSeedTypeAtom,
   generateNewSeedAtom,
   remixAtom,
@@ -17,6 +18,7 @@ function Create() {
   const remixId = searchParams.get("remix")
   const [, setRemix] = useAtom(remixAtom)
   const [, setSeedType] = useAtom(editorSeedTypeAtom)
+  const [, setEditorCode] = useAtom(editorCodeAtom)
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
   console.log({ remixId })
 
@@ -40,12 +42,14 @@ function Create() {
   useEffect(() => {
     if (!data) {
       setRemix(null)
+      setEditorCode("")
     } else {
       setRemix(data as AlgorithmView)
+      setEditorCode(data.content || "")
       setSeedType(data.family_kind || "Procedural")
       generateNewSeed()
     }
-  }, [data, setRemix, setSeedType, generateNewSeed])
+  }, [data, setRemix, setSeedType, generateNewSeed, setEditorCode])
 
   return (
     <>

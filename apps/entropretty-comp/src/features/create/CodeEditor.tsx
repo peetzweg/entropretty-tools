@@ -76,7 +76,6 @@ const CodeEditor = () => {
                 fallback={<div className="p-8">Loading Monaco editor...</div>}
               >
                 <MonacoEditor
-                  defaultValue={remix?.content || initialCode}
                   onChange={handleEditorChange}
                   value={editorCode}
                 />
