@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useAtom, useSetAtom } from "jotai"
-import { Suspense, lazy, useEffect } from "react"
+import { Suspense, lazy, useEffect, useState } from "react"
 import { useSearchParams } from "react-router"
 import {
   editorCodeAtom,
@@ -11,7 +11,7 @@ import {
 } from "../features/create/atoms"
 import { AlgorithmView } from "../lib/helper.types"
 
-const CodeEditor = lazy(() => import("../features/create/CodeEditor"))
+const CreateFeature = lazy(() => import("../features/create"))
 
 function Create() {
   const [searchParams] = useSearchParams()
@@ -19,6 +19,7 @@ function Create() {
   const [, setRemix] = useAtom(remixAtom)
   const [, setSeedType] = useAtom(editorSeedTypeAtom)
   const [, setEditorCode] = useAtom(editorCodeAtom)
+  const [isReady, setIsReady] = useState<boolean>(false)
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
   console.log({ remixId })
 
@@ -41,21 +42,25 @@ function Create() {
 
   useEffect(() => {
     if (!data) {
-      setRemix(null)
       setEditorCode("")
+      setSeedType("Procedural")
+      generateNewSeed()
+      setRemix(null)
     } else {
       setRemix(data as AlgorithmView)
+
       setEditorCode(data.content || "")
       setSeedType(data.family_kind || "Procedural")
       generateNewSeed()
     }
+    setTimeout(() => setIsReady(true), 500)
   }, [data, setRemix, setSeedType, generateNewSeed, setEditorCode])
 
   return (
     <>
-      {!isLoading && (
+      {!isLoading && isReady && (
         <Suspense fallback={<div className="p-8">Loading code editor...</div>}>
-          <CodeEditor />
+          <CreateFeature />
         </Suspense>
       )}
     </>

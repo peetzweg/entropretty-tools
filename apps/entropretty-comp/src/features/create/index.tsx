@@ -3,27 +3,19 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useAtom } from "jotai"
 import { Suspense, lazy } from "react"
-import { editorCodeAtom, remixAtom, scriptErrorAtom } from "./atoms"
-import { EditorPreview } from "./EditorPreview"
-import initialCode from "./initialCode"
-import { SeedTools } from "./SeedTools"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AlgorithmNameInput } from "./AlgorithmNameInput"
+import { scriptErrorAtom } from "./atoms"
+import { AlgorithmPreview } from "./AlgorithmPreview"
 import { PostButton } from "./PostButton"
-import { Separator } from "@/components/ui/separator"
+import { SeedTools } from "./SeedTools"
 const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
-const CodeEditor = () => {
-  const [editorCode, setEditorCode] = useAtom(editorCodeAtom)
+export const CreateFeature = () => {
   const [scriptError] = useAtom(scriptErrorAtom)
-  const [remix] = useAtom(remixAtom)
-
-  const handleEditorChange = async (value: string | undefined) => {
-    if (!value) return
-    setEditorCode(value)
-  }
 
   return (
     <>
@@ -37,7 +29,7 @@ const CodeEditor = () => {
           <ResizablePanelGroup direction="vertical">
             <ResizablePanel defaultSize={90} className="h-full w-full">
               <div className="relative h-full w-full">
-                <EditorPreview />
+                <AlgorithmPreview />
               </div>
             </ResizablePanel>
 
@@ -75,10 +67,7 @@ const CodeEditor = () => {
               <Suspense
                 fallback={<div className="p-8">Loading Monaco editor...</div>}
               >
-                <MonacoEditor
-                  onChange={handleEditorChange}
-                  value={editorCode}
-                />
+                <MonacoEditor />
               </Suspense>
             </TabsContent>
 
@@ -95,4 +84,4 @@ const CodeEditor = () => {
   )
 }
 
-export default CodeEditor
+export default CreateFeature

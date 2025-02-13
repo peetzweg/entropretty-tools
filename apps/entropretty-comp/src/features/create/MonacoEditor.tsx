@@ -1,16 +1,10 @@
 import Editor, { useMonaco } from "@monaco-editor/react"
 import { useAtom } from "jotai"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { editorCodeAtom } from "./atoms"
 import initialCode from "./initialCode"
 
-interface MonacoEditorProps {
-  defaultValue: string
-  value: string
-  onChange: (value: string | undefined) => void
-}
-
-const MonacoEditor = ({ value, onChange }: MonacoEditorProps) => {
+const MonacoEditor = () => {
   const monaco = useMonaco()
   const [code, setEditorCode] = useAtom(editorCodeAtom)
 
@@ -30,20 +24,27 @@ const MonacoEditor = ({ value, onChange }: MonacoEditorProps) => {
     }
   }, [monaco])
 
-  // Handle code initialization
-  useEffect(() => {
+  const onChange = (value: string | undefined) => {
+    if (!value) return
+    setEditorCode(value)
+  }
+
+  const onMount = useCallback(() => {
     if (!code) {
+      console.log("setting initial code as no code", code)
       setEditorCode(initialCode)
     }
-  }, [setEditorCode, code])
+  }, [code, setEditorCode])
 
   return (
     <Editor
       height="100%"
       defaultLanguage="javascript"
       theme="poimandres"
+      defaultValue={initialCode}
       onChange={onChange}
-      value={value}
+      onMount={onMount}
+      value={code}
       options={{
         minimap: { enabled: false },
         lineNumbers: "on",

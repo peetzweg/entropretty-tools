@@ -12,7 +12,7 @@ import {
 
 const PREVIEW_SIZE = 160 // Smaller size for the grid previews
 
-export const EditorPreview = () => {
+export const AlgorithmPreview = () => {
   const [editorCode] = useAtom(editorCodeAtom)
   const [seedFamily] = useAtom(editorSeedFamilyAtom)
   const [, setScriptError] = useAtom(scriptErrorAtom)
