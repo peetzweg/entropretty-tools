@@ -21,7 +21,6 @@ function Create() {
   const [, setEditorCode] = useAtom(editorCodeAtom)
   const [isReady, setIsReady] = useState<boolean>(false)
   const generateNewSeed = useSetAtom(generateNewSeedAtom)
-  console.log({ remixId })
 
   const { data, isLoading } = useQuery({
     queryKey: ["algorithm", remixId],

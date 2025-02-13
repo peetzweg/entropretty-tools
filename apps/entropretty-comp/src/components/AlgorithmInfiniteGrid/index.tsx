@@ -2,7 +2,12 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
-import { deriveSeedFamily, getSeed, seedToKey } from "entropretty-utils"
+import {
+  deriveSeedFamily,
+  getSeed,
+  mutateBits,
+  seedToKey,
+} from "entropretty-utils"
 import { useCallback, useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import { Link } from "react-router"
@@ -23,23 +28,42 @@ export function AlgorithmInfiniteGrid({
     rootMargin: "400px", // Start loading more content before reaching the bottom
   })
 
-  const reroll = useCallback(() => {
+  useEffect(() => {
     const initial = getSeed(algorithm.family_kind!)
-    const family = deriveSeedFamily(initial, 48)
-    setSeeds(family.map((s) => [...s]))
+    const family = deriveSeedFamily(initial, {
+      size: 48,
+      minBits: 1,
+      maxBits: 1,
+    })
+
+    // Convert to array of unique seeds
+    const uniqueSeeds = Array.from(
+      new Set(family.map((seed) => seedToKey(seed))),
+    )
+      .map((key) => family.find((seed) => seedToKey(seed) === key)!)
+      .map((s) => [...s])
+
+    setSeeds(uniqueSeeds)
   }, [algorithm.family_kind])
 
   const loadMore = useCallback(() => {
     if (seeds.length === 0) return
 
     const lastSeed = new Uint8Array(seeds[seeds.length - 1])
-    const newFamily = deriveSeedFamily(lastSeed, 24)
-    setSeeds((prev) => [...prev, ...newFamily.map((s) => [...s])])
-  }, [seeds])
+    const newFamily = deriveSeedFamily(lastSeed, {
+      size: 24,
+      minBits: 1,
+      maxBits: 1,
+    })
 
-  useEffect(() => {
-    reroll()
-  }, [reroll])
+    // Filter out any duplicates by converting to string for comparison
+    const existingKeys = new Set(seeds.map((seed) => seedToKey(seed)))
+    const uniqueNewSeeds = newFamily.filter(
+      (seed) => !existingKeys.has(seedToKey([...seed])),
+    )
+
+    setSeeds((prev) => [...prev, ...uniqueNewSeeds.map((s) => [...s])])
+  }, [seeds])
 
   useEffect(() => {
     if (inView) {
@@ -58,7 +82,7 @@ export function AlgorithmInfiniteGrid({
                 algorithmId={algorithm.id!}
                 seed={seed}
                 size={150}
-                scale={1.4}
+                scale={2}
               />
             ))}
             {/* Loading trigger */}

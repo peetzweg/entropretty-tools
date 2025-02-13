@@ -39,10 +39,29 @@ export function getSeedFamily(
   size: number = 16,
 ): Uint8Array[] {
   const seed = getSeed(kind)
-  return deriveSeedFamily(seed, size)
+  return deriveSeedFamily(seed, { size, maxBits: 3, minBits: 1 })
 }
 
-export function mutateSeed(seed: Uint8Array): Uint8Array {
+export function mutateSeed(
+  seed: Uint8Array,
+  options: {
+    minBits: number
+    maxBits: number
+  } = {
+    minBits: 1,
+    maxBits: 3,
+  },
+): Uint8Array {
+  if (options.minBits > options.maxBits) {
+    throw new Error("minBits must be less than maxBits")
+  }
+  if (options.minBits < 1) {
+    throw new Error("minBits must be greater than 0")
+  }
+  if (options.maxBits < 1) {
+    throw new Error("maxBits must be greater than 0")
+  }
+
   const mutatedSeed = new Uint8Array(seed)
   // Only relevant now, maybe similar seed type in the future.
   const isProceduralPersonal = seed.length === 8
@@ -50,7 +69,9 @@ export function mutateSeed(seed: Uint8Array): Uint8Array {
   if (isProceduralPersonal) {
     const noOfBytes = 4
     const lastBytes = mutatedSeed.slice(-noOfBytes)
-    mutateBits(Math.floor(Math.random() * 3) + 1)(lastBytes)
+    mutateBits(
+      Math.max(Math.floor(Math.random() * options.maxBits), options.minBits),
+    )(lastBytes)
     mutatedSeed.set(lastBytes, mutatedSeed.length - noOfBytes)
   } else {
     mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed)
@@ -61,12 +82,16 @@ export function mutateSeed(seed: Uint8Array): Uint8Array {
 
 export function deriveSeedFamily(
   seed: Uint8Array,
-  size: number = 16,
+  options: {
+    size: number
+    minBits: number
+    maxBits: number
+  },
 ): Uint8Array[] {
   const seedFamilyMap = new Map<string, Uint8Array>()
   seedFamilyMap.set(seedToKey(seed), seed)
 
-  while (seedFamilyMap.size < size) {
+  while (seedFamilyMap.size < options.size) {
     const mutatedSeed = mutateSeed(seed)
     if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
       seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed)
