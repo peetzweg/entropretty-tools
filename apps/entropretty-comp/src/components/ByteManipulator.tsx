@@ -117,10 +117,8 @@ function ByteRow({
               onToggleBit(i)
             }}
             className={cn(
-              "aspect-square h-9 border transition-colors",
+              "hover:bg-border/25 aspect-square h-9 border transition-colors",
               getBit(i) === 1 ? "bg-border" : "bg-transparent",
-              i === 0 ? "rounded-l-md" : "",
-              i === 7 ? "rounded-r-md" : "",
             )}
             aria-label={`Toggle bit ${i}`}
           >

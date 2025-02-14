@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -64,13 +65,13 @@ export default function LoginPage() {
               : "Enter your email below to login to your account"}
           </CardDescription>
           {isSignUp && (
-            <CardDescription className="text-background mt-2 rounded bg-sky-500 p-4">
+            <CardDescription className="text-background mt-2 bg-sky-500 p-4">
               We are not sending out any confirmation mail as of yet. So you can
               sign up with any email.
             </CardDescription>
           )}
           {!isSignUp && (
-            <CardDescription className="text-background mt-2 rounded bg-sky-500 p-4">
+            <CardDescription className="text-background mt-2 bg-sky-500 p-4">
               If you don't want to sign up you can use <br />
               username: <code className="font-bold">
                 example@example.com
@@ -98,13 +99,17 @@ export default function LoginPage() {
               )}
             </div>
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-end justify-between">
                 <Label htmlFor="password">Password</Label>
-                {!isSignUp && (
-                  <Button variant="link" className="px-0 font-normal">
-                    Forgot password?
-                  </Button>
-                )}
+
+                {/* <Button
+                  variant="link"
+                  className={cn({
+                    "pointer-events-none opacity-0": !isSignUp,
+                  })}
+                >
+                  Forgot password?
+                </Button> */}
               </div>
               <Input id="password" type="password" {...register("password")} />
               {errors.password && (
@@ -115,17 +120,15 @@ export default function LoginPage() {
             </div>
             {error && <div className="text-destructive text-sm">{error}</div>}
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSignUp ? "Create account" : "Sign in"}
+              {isSignUp ? "CREATE" : "SIGN IN"}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm">
-            {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-            <Button
-              variant="link"
-              className="px-0"
-              onClick={() => setIsSignUp(!isSignUp)}
-            >
-              {isSignUp ? "Sign in" : "Create account"}
+          <div className="mt-4 flex flex-col gap-4 text-center text-sm">
+            <div>
+              {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+            </div>
+            <Button variant="ghost" onClick={() => setIsSignUp(!isSignUp)}>
+              {isSignUp ? "SIGN IN" : "CREATE ACCOUNT"}
             </Button>
           </div>
         </CardContent>
