@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import { Link } from "react-router"
 import { LikeButton } from "../AlgorithmCard/LikeButton"
+import { AlgorithmInfo } from "../AlgorithmInfo"
 
 interface AlgorithmInfiniteGridProps {
   algorithm: AlgorithmView
@@ -89,33 +90,6 @@ export function AlgorithmInfiniteGrid({
           <AlgorithmActions algorithm={algorithm} />
         </div>
       </div>
-    </div>
-  )
-}
-
-const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
-  return (
-    <div className="flex flex-col">
-      <div>
-        <span>
-          {`${algorithm.name || "Untitled"} `}
-          <Link
-            className="text-muted-foreground underline"
-            to={`/a/${algorithm.id}`}
-          >{`/a/${algorithm.id}`}</Link>
-        </span>
-
-        {algorithm.remix_of && (
-          <>
-            {` remix of `}
-            <Link
-              className="text-muted-foreground underline"
-              to={`/a/${algorithm.remix_of}`}
-            >{`/a/${algorithm.remix_of}`}</Link>
-          </>
-        )}
-      </div>
-      <div>{`by ${algorithm.email || "Anonymous"}`}</div>
     </div>
   )
 }

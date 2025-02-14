@@ -6,7 +6,10 @@ import { getSeedFamily, seedToKey } from "entropretty-utils"
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
 import { Link } from "react-router"
 import { useDisplaySizes } from "../../hooks/useDisplaySizes"
+import { familyKindLabel } from "../../lib/utils"
+import { Badge } from "../ui/badge"
 import { LikeButton } from "./LikeButton"
+import { AlgorithmInfo } from "../AlgorithmInfo"
 
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
@@ -52,38 +55,16 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       </div>
 
       {/* Bottom Part */}
-      <div className="flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 text-sm text-gray-600 md:flex-row">
+      <div className="relative flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 md:flex-row">
+        <Badge
+          className="absolute left-0 top-[-22px]"
+          variant={algorithm.family_kind}
+        >{`${familyKindLabel(algorithm.family_kind!)}`}</Badge>
+
         <AlgorithmInfo algorithm={algorithm} />
 
         <AlgorithmActions algorithm={algorithm} setSeedFamily={setSeedFamily} />
       </div>
-    </div>
-  )
-}
-
-const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
-  return (
-    <div className="flex flex-col">
-      <div>
-        <span>
-          {`${algorithm.name || "Untitled"} `}
-          <Link
-            className="text-muted-foreground underline"
-            to={`/a/${algorithm.id}`}
-          >{`/a/${algorithm.id}`}</Link>
-        </span>
-
-        {algorithm.remix_of && (
-          <>
-            {` remix of `}
-            <Link
-              className="text-muted-foreground underline"
-              to={`/a/${algorithm.remix_of}`}
-            >{`/a/${algorithm.remix_of}`}</Link>
-          </>
-        )}
-      </div>
-      <div>{`by ${algorithm.email || "Anonymous"}`}</div>
     </div>
   )
 }

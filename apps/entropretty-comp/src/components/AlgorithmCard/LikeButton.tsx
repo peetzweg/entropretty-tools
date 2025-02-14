@@ -71,7 +71,7 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
         disabled={!user || isLoading}
         variant={"ghost"}
         onClick={toggleLike}
-        className={` ${isLiked ? "text-background bg-yellow-500" : ""}`}
+        className={` ${isLiked ? "bg-brand-yellow hover:bg-brand-yellow/80" : ""}`}
       >
         <ArrowUp
           className="h-4 w-4"
