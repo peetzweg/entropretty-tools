@@ -1,15 +1,14 @@
+import { LikeButton } from "@/components/AlgorithmCard/LikeButton"
+import { AlgorithmInfo } from "@/components/AlgorithmInfo"
+import { FamilyKindBadge } from "@/components/FamilyKindBadge"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
+import { useDisplaySizes } from "@/hooks/useDisplaySizes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeedFamily, seedToKey } from "entropretty-utils"
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
 import { Link } from "react-router"
-import { useDisplaySizes } from "../../hooks/useDisplaySizes"
-import { familyKindLabel } from "../../lib/utils"
-import { Badge } from "../ui/badge"
-import { LikeButton } from "./LikeButton"
-import { AlgorithmInfo } from "../AlgorithmInfo"
 
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
@@ -56,10 +55,10 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
 
       {/* Bottom Part */}
       <div className="relative flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 md:flex-row">
-        <Badge
+        <FamilyKindBadge
+          algorithm={algorithm}
           className="absolute left-0 top-[-22px]"
-          variant={algorithm.family_kind}
-        >{`${familyKindLabel(algorithm.family_kind!)}`}</Badge>
+        />
 
         <AlgorithmInfo algorithm={algorithm} />
 

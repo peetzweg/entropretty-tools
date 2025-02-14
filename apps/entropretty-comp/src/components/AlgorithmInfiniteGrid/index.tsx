@@ -8,6 +8,7 @@ import { useInView } from "react-intersection-observer"
 import { Link } from "react-router"
 import { LikeButton } from "../AlgorithmCard/LikeButton"
 import { AlgorithmInfo } from "../AlgorithmInfo"
+import { FamilyKindBadge } from "../FamilyKindBadge"
 
 interface AlgorithmInfiniteGridProps {
   algorithm: AlgorithmView
@@ -86,6 +87,10 @@ export function AlgorithmInfiniteGrid({
           </div>
         </div>
         <div className="bg-background flow-col fixed bottom-4 right-4 flex flex-col items-center justify-center gap-8 gap-y-2 border border-gray-200 p-4 text-gray-600 md:flex-row md:justify-between">
+          <FamilyKindBadge
+            algorithm={algorithm}
+            className="absolute left-0 top-[-22px] z-10"
+          />
           <AlgorithmInfo algorithm={algorithm} />
           <AlgorithmActions algorithm={algorithm} />
         </div>

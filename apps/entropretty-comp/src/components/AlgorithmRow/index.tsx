@@ -1,3 +1,6 @@
+import { AlgorithmInfo } from "@/components/AlgorithmInfo"
+import { DeleteButton } from "@/components/AlgorithmRow/DeleteButton"
+import { FamilyKindBadge } from "@/components/FamilyKindBadge"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
@@ -5,10 +8,6 @@ import { AlgorithmView } from "@/lib/helper.types"
 import { getSeed, seedToKey } from "entropretty-utils"
 import { useMemo } from "react"
 import { Link } from "react-router"
-import { familyKindLabel } from "../../lib/utils"
-import { AlgorithmInfo } from "../AlgorithmInfo"
-import { Badge } from "../ui/badge"
-import { DeleteButton } from "./DeleteButton"
 
 interface AlgorithmRowProps {
   algorithm: AlgorithmView
@@ -24,10 +23,10 @@ export function AlgorithmRow({ algorithm }: AlgorithmRowProps) {
 
   return (
     <div className="relative flex w-full items-center justify-between gap-4 border border-gray-200 bg-white p-2">
-      <Badge
+      <FamilyKindBadge
+        algorithm={algorithm}
         className="absolute bottom-0 left-0 z-10"
-        variant={algorithm.family_kind}
-      >{`${familyKindLabel(algorithm.family_kind!)}`}</Badge>
+      />
       <div className="relative flex items-center gap-4">
         <div>
           <AlgorithmBitmap
