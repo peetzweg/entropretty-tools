@@ -3,6 +3,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { useUsersLikes } from "@/hooks/useUsersLikes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { supabase } from "@/lib/supabase"
+import { cn } from "@/lib/utils"
 import { useQueryClient } from "@tanstack/react-query"
 import { ArrowUp } from "lucide-react"
 import { useCallback, useMemo } from "react"
@@ -68,21 +69,22 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-2">
       <Button
-        disabled={!user || isLoading}
         variant={"ghost"}
         onClick={toggleLike}
-        className={` ${isLiked ? "bg-brand-yellow hover:bg-brand-yellow/80" : ""}`}
+        className={cn({
+          "bg-brand-yellow hover:bg-brand-yellow/80": isLiked,
+          "pointer-events-none": !user || isLoading,
+        })}
       >
         <ArrowUp
           className="h-4 w-4"
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
-        <span className="flex items-center gap-2">
-          {user && "LIKE"}
-          {totalLikes > 0 && (
-            <span className="text-xs opacity-60">{totalLikes}</span>
-          )}
+        <span className="text-primary flex items-center gap-2">
+          {/* {user && "LIKE"} */}
+
+          <span className="text-sm">{totalLikes || 0}</span>
         </span>
       </Button>
     </div>
