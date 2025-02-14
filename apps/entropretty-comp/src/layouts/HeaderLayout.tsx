@@ -68,8 +68,9 @@ export default function HeaderLayout() {
         </div>
 
         <div className="flex flex-1 items-center justify-center">
-          <div className="font-jersey hidden text-3xl md:block">
-            Entropretty
+          <div className="font-jersey hidden flex-row gap-1 text-3xl lg:flex">
+            <div>Entropretty</div>
+            <div className="text-brand-blue text-sm">BETA</div>
           </div>
         </div>
         <div className="flex flex-1 flex-row items-center justify-end gap-2">
