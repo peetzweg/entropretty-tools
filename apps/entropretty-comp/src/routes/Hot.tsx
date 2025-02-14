@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { AlgorithmCard } from "@/components/AlgorithmCard"
-import { useBestAlgorithms } from "@/hooks/useBestAlgorithms"
+import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
 
-export default function BestPage() {
+export default function HotPage() {
   const { ref, inView } = useInView()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useBestAlgorithms()
+    useHotAlgorithms()
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {

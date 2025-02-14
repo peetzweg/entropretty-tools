@@ -41,15 +41,15 @@ export default function HeaderLayout() {
             variant={"link"}
             className={cn(location.pathname === "/" && "underline")}
           >
-            <Link to="/">LATEST</Link>
+            <Link to="/">NEW</Link>
           </Button>
 
           <Button
             asChild
             variant={"link"}
-            className={cn(location.pathname === "/best" && "underline")}
+            className={cn(location.pathname === "/hot" && "underline")}
           >
-            <Link to="/best">BEST</Link>
+            <Link to="/hot">HOT</Link>
           </Button>
 
           {user && (

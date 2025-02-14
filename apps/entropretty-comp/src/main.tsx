@@ -15,7 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router"
 import RequireUser from "./layouts/RequireUser"
-import BestPage from "./routes/Best"
+import HotPage from "./routes/Hot"
 
 const Create = lazy(() => import("@/routes/Create"))
 
@@ -37,7 +37,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route element={<HeaderLayout />}>
               <Route path="/" element={<LatestPage />} />
-              <Route path="/best" element={<BestPage />} />
+              <Route path="/hot" element={<HotPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:userId" element={<UserPage />} />
               <Route element={<RequireUser />}>
