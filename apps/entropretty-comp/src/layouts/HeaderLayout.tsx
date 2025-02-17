@@ -11,7 +11,6 @@ import { PlusIcon } from "lucide-react"
 import { useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
 import { useUserProfile } from "../hooks/useUserProfile"
-import { Skeleton } from "../components/ui/skeleton"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
