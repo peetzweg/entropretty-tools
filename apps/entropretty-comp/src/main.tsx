@@ -9,6 +9,7 @@ import Login from "@/routes/Login.tsx"
 import SignUp from "@/routes/SignUp.tsx"
 import UserPage from "@/routes/User.tsx"
 import MinePage from "@/routes/Mine.tsx"
+import Profile from "@/routes/Profile.tsx"
 import { Suspense, lazy } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
@@ -44,6 +45,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/u/:username" element={<UserPage />} />
               <Route element={<RequireUser />}>
                 <Route path="/mine" element={<MinePage />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route
                   path="/create"
                   element={

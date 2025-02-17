@@ -82,7 +82,7 @@ export function FeedbackDialog() {
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" className="hidden md:flex">
-          FEEDBACK
+          feedback
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="rounded-none p-4">

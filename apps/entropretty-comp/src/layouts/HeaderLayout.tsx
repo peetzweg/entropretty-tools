@@ -41,7 +41,7 @@ export default function HeaderLayout() {
             variant={"link"}
             className={cn(location.pathname === "/" && "underline")}
           >
-            <Link to="/">NEW</Link>
+            <Link to="/">new</Link>
           </Button>
 
           <Button
@@ -49,7 +49,7 @@ export default function HeaderLayout() {
             variant={"link"}
             className={cn(location.pathname === "/hot" && "underline")}
           >
-            <Link to="/hot">HOT</Link>
+            <Link to="/hot">hot</Link>
           </Button>
 
           {user && (
@@ -59,7 +59,7 @@ export default function HeaderLayout() {
                 variant={"link"}
                 className={cn(location.pathname === "/mine" && "underline")}
               >
-                <Link to="/mine">MINE</Link>
+                <Link to="/mine">mine</Link>
               </Button>
 
               <FeedbackDialog />
@@ -75,9 +75,14 @@ export default function HeaderLayout() {
         </div>
         <div className="flex flex-1 flex-row items-center justify-end gap-2">
           {!user && (
-            <Button className="hidden md:block" asChild>
-              <Link to="/login">LOGIN</Link>
-            </Button>
+            <>
+              <Button className="hidden md:block" asChild>
+                <Link to="/login">LOGIN</Link>
+              </Button>
+              <Button variant={"ghost"} className="hidden md:block" asChild>
+                <Link to="/signup">SIGN UP</Link>
+              </Button>
+            </>
           )}
           {user && (
             <>
@@ -89,7 +94,9 @@ export default function HeaderLayout() {
                   </Link>
                 </Button>
               )}
-              <div className="hidden px-4 md:block">{user.email}</div>
+              <Button variant="ghost" asChild>
+                <Link to="/profile">{user.email}</Link>
+              </Button>
               <Button
                 variant={"ghost"}
                 onMouseDown={() => {
