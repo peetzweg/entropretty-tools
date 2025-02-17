@@ -10,11 +10,14 @@ import { cn } from "@/lib/utils"
 import { PlusIcon } from "lucide-react"
 import { useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
+import { useUserProfile } from "../hooks/useUserProfile"
+import { Skeleton } from "../components/ui/skeleton"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const { data: profile, isLoading: isLoadingProfile } = useUserProfile()
 
   useOneTimeToast(WinterAssemblyToast, {
     toastId: TOAST_ID,
@@ -86,6 +89,11 @@ export default function HeaderLayout() {
           )}
           {user && (
             <>
+              {!isLoadingProfile && (
+                <Button variant="ghost" asChild>
+                  <Link to="/profile">{profile?.username || user.email}</Link>
+                </Button>
+              )}
               {location.pathname !== "/create" && (
                 <Button className="hidden md:flex" asChild>
                   <Link to="/create" className="flex items-center gap-1">
@@ -94,9 +102,6 @@ export default function HeaderLayout() {
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" asChild>
-                <Link to="/profile">{user.email}</Link>
-              </Button>
               <Button
                 variant={"ghost"}
                 onMouseDown={() => {

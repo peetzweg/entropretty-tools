@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/auth-context"
 import { supabase } from "@/lib/supabase"
+import { Profile } from "@/lib/helper.types"
 
 const usernameSchema = z.object({
   username: z
@@ -25,10 +26,7 @@ const usernameSchema = z.object({
 type UsernameFormValues = z.infer<typeof usernameSchema>
 
 interface UsernameProps {
-  profile: {
-    username: string
-    updated_at: string
-  } | null
+  profile: Profile | null
 }
 
 export function Username({ profile }: UsernameProps) {

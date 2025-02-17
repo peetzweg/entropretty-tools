@@ -1,31 +1,13 @@
 import { useNavigate } from "react-router"
-import { useQuery } from "@tanstack/react-query"
 
 import { useAuth } from "@/contexts/auth-context"
-import { supabase } from "@/lib/supabase"
+import { useUserProfile } from "@/hooks/useUserProfile"
 import { Username } from "./components/Username"
 
 export function Profile() {
   const { user } = useAuth()
   const navigate = useNavigate()
-
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ["profile", user?.id],
-    queryFn: async () => {
-      if (!user) throw new Error("Not authenticated")
-
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", user.id)
-        .limit(1)
-        .single()
-
-      if (error) throw error
-      return data
-    },
-    enabled: !!user,
-  })
+  const { data: profile, isLoading } = useUserProfile()
 
   if (!user) {
     navigate("/login")
@@ -51,7 +33,7 @@ export function Profile() {
         </p>
       </div>
 
-      <Username profile={profile} />
+      <Username profile={profile || null} />
     </div>
   )
 }
