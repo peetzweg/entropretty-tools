@@ -17,7 +17,7 @@ import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router"
 import RequireUser from "./layouts/RequireUser"
 import HotPage from "./routes/Hot"
-
+import ScrollToTop from "@/components/ScrollToTop"
 const Create = lazy(() => import("@/routes/Create"))
 
 const queryClient = new QueryClient({
@@ -35,6 +35,7 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <BrowserRouter>
           <Toaster />
+          <ScrollToTop />
           <Routes>
             <Route element={<HeaderLayout />}>
               <Route path="/" element={<LatestPage />} />
