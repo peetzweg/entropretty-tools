@@ -25,33 +25,35 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
 
   return (
     <div className="flex w-full flex-col border border-gray-200">
-      <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
-        <div className={`flex aspect-square items-center justify-center`}>
-          <AlgorithmBitmap
-            key={seedToKey(seedFamily[0])}
-            algorithmId={algorithm.id}
-            seed={seedFamily[0]}
-            size={single}
-            scale={2}
-          />
-        </div>
-
-        <div className={`flex h-full w-full items-center justify-center`}>
-          <div className="grid grid-cols-3 items-center justify-center gap-4">
-            {seedFamily.slice(0, 9).map((seed) => (
-              <AlgorithmBitmap
-                key={seedToKey(seed)}
-                algorithmId={algorithm.id!}
-                seed={seed}
-                size={grid}
-                scale={2}
-              />
-            ))}
+      <Link to={`/a/${algorithm.id}`}>
+        <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
+          <div className={`flex aspect-square items-center justify-center`}>
+            <AlgorithmBitmap
+              key={seedToKey(seedFamily[0])}
+              algorithmId={algorithm.id}
+              seed={seedFamily[0]}
+              size={single}
+              scale={2}
+            />
           </div>
-        </div>
 
-        <div className="absolute bottom-2 right-2 flex flex-row"></div>
-      </div>
+          <div className={`flex h-full w-full items-center justify-center`}>
+            <div className="grid grid-cols-3 items-center justify-center gap-4">
+              {seedFamily.slice(0, 9).map((seed) => (
+                <AlgorithmBitmap
+                  key={seedToKey(seed)}
+                  algorithmId={algorithm.id!}
+                  seed={seed}
+                  size={grid}
+                  scale={2}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="absolute bottom-2 right-2 flex flex-row"></div>
+        </div>
+      </Link>
 
       {/* Bottom Part */}
       <div className="relative flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 md:flex-row">
