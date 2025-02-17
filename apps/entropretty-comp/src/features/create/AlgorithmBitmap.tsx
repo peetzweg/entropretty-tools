@@ -32,7 +32,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (e.altKey && canvasRef.current) {
       const link = document.createElement("a")
-      link.download = `${seed.join("-")}.png`
+      link.download = `${algorithmId}_${seed.join("-")}.png`
       link.href = canvasRef.current.toDataURL("image/png")
       link.click()
     } else if (onClick) {
