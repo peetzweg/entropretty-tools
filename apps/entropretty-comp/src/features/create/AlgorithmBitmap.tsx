@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, useCallback } from "react"
 import { useWorker } from "@/contexts/worker-context"
 import { AlgorithmId } from "@/workers/artist"
 import { seedToKey } from "entropretty-utils"
@@ -29,16 +29,22 @@ export const AlgorithmBitmap: React.FC<Props> = ({
 
   const drawingSize = useMemo(() => size * scale, [size, scale])
 
-  const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (e.altKey && canvasRef.current) {
-      const link = document.createElement("a")
-      link.download = `${algorithmId}_${seed.join("-")}.png`
-      link.href = canvasRef.current.toDataURL("image/png")
-      link.click()
-    } else if (onClick) {
-      onClick()
-    }
-  }
+  const handleCanvasClick = useCallback(
+    (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (e.altKey && canvasRef.current) {
+        const link = document.createElement("a")
+        link.download = `${algorithmId}_${seed.join("-")}.png`
+        link.href = canvasRef.current.toDataURL("image/png")
+        link.click()
+        setTimeout(() => {
+          link.remove()
+        }, 0)
+      } else if (onClick) {
+        onClick()
+      }
+    },
+    [algorithmId, seed, onClick],
+  )
 
   useEffect(() => {
     if (canvasRef.current === null) return
