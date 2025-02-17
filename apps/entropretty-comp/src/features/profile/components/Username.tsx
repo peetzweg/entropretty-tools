@@ -102,16 +102,22 @@ export function Username({ profile }: UsernameProps) {
         {errors.username && (
           <p className="text-sm text-red-500">{errors.username.message}</p>
         )}
-        <p className="text-muted-foreground text-xs">
-          Username can only be changed once per month.
-          {profile?.updated_at && (
-            <>
-              {" "}
-              Last changed on{" "}
-              {new Date(profile.updated_at).toLocaleDateString()}.
-            </>
-          )}
-        </p>
+        {!profile?.username ? (
+          <p className="text-destructive text-xs">
+            A username is required in order to create Entropretty entires.
+          </p>
+        ) : (
+          <p className="text-muted-foreground text-xs">
+            Username can only be changed once per month.
+            {profile?.updated_at && (
+              <>
+                {" "}
+                Last changed on{" "}
+                {new Date(profile.updated_at).toLocaleDateString()}.
+              </>
+            )}
+          </p>
+        )}
       </div>
 
       <Button

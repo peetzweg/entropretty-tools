@@ -19,6 +19,7 @@ import { BrowserRouter, Route, Routes } from "react-router"
 import RequireUser from "./layouts/RequireUser"
 import HotPage from "./routes/Hot"
 import ScrollToTop from "@/components/ScrollToTop"
+import RequireUsername from "./layouts/RequireUsername"
 const Create = lazy(() => import("@/routes/Create"))
 
 const queryClient = new QueryClient({
@@ -46,16 +47,18 @@ createRoot(document.getElementById("root")!).render(
               <Route element={<RequireUser />}>
                 <Route path="/mine" element={<MinePage />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route
-                  path="/create"
-                  element={
-                    <Suspense
-                      fallback={<div className="p-8">Loading editor...</div>}
-                    >
-                      <Create />
-                    </Suspense>
-                  }
-                />
+                <Route element={<RequireUsername />}>
+                  <Route
+                    path="/create"
+                    element={
+                      <Suspense
+                        fallback={<div className="p-8">Loading editor...</div>}
+                      >
+                        <Create />
+                      </Suspense>
+                    }
+                  />
+                </Route>
               </Route>
             </Route>
             <Route path="/login" element={<Login />} />

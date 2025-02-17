@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/auth-context"
+import { toast } from "sonner"
 
 const signUpSchema = z
   .object({
@@ -44,9 +45,23 @@ export default function SignUpPage() {
 
   const onSubmit = async (data: SignUpFormValues) => {
     try {
-      await signUp(data.email, data.password)
-      setError(null)
-      navigate("/")
+      try {
+        await signUp(data.email, data.password)
+        toast.success("Account created successfully", {
+          description: "Please confirm your email address in order to login.",
+          duration: Infinity,
+          dismissible: true,
+          action: {
+            label: "Dismiss",
+            onClick: () => toast.dismiss(),
+          },
+        })
+        setError(null)
+        navigate("/")
+      } catch (exception) {
+        toast.error("An error occurred")
+        console.error(exception)
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred")
     }
