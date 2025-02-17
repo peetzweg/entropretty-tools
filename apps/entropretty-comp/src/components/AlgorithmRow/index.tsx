@@ -24,7 +24,7 @@ export function AlgorithmRow({ algorithm }: AlgorithmRowProps) {
   return (
     <div className="relative flex w-full items-center justify-between gap-4 border border-gray-200 bg-white p-2">
       <FamilyKindBadge
-        algorithm={algorithm}
+        familyKind={algorithm.family_kind}
         className="absolute bottom-0 left-0 z-10"
       />
       <div className="relative flex items-center gap-4">

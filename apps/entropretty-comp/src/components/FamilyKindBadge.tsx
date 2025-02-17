@@ -1,21 +1,21 @@
-import { AlgorithmView } from "@/lib/helper.types"
+import { FamilyKind } from "entropretty-utils"
 import { cn, familyKindLabel } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 
 interface FamilyKindBadgeProps {
-  algorithm: AlgorithmView
+  familyKind: FamilyKind | null
   className?: string
 }
 
 export function FamilyKindBadge({
-  algorithm,
+  familyKind,
   className,
 }: FamilyKindBadgeProps) {
-  if (!algorithm.family_kind) return null
+  if (!familyKind) return null
 
   return (
-    <Badge className={cn(className)} variant={algorithm.family_kind}>
-      {`${familyKindLabel(algorithm.family_kind!)}`}
+    <Badge className={cn(className)} variant={familyKind}>
+      {familyKindLabel(familyKind)}
     </Badge>
   )
 }

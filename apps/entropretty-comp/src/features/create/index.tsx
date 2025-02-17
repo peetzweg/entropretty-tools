@@ -7,15 +7,18 @@ import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useAtom } from "jotai"
 import { Suspense, lazy } from "react"
+import { FamilyKindBadge } from "../../components/FamilyKindBadge"
 import { AlgorithmNameInput } from "./AlgorithmNameInput"
-import { scriptErrorAtom } from "./atoms"
 import { AlgorithmPreview } from "./AlgorithmPreview"
+import { editorSeedTypeAtom, scriptErrorAtom } from "./atoms"
 import { PostButton } from "./PostButton"
 import { SeedTools } from "./SeedTools"
+
 const MonacoEditor = lazy(() => import("./MonacoEditor"))
 
 export const CreateFeature = () => {
   const [scriptError] = useAtom(scriptErrorAtom)
+  const [editorSeedType] = useAtom(editorSeedTypeAtom)
 
   return (
     <>
@@ -30,6 +33,10 @@ export const CreateFeature = () => {
             <ResizablePanel defaultSize={90} className="h-full w-full">
               <div className="relative h-full w-full">
                 <AlgorithmPreview />
+                <FamilyKindBadge
+                  className="absolute bottom-0 left-0"
+                  familyKind={editorSeedType}
+                />
               </div>
             </ResizablePanel>
 

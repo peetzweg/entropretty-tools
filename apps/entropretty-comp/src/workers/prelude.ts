@@ -24,6 +24,15 @@ export const preludeScript = `
         return nibbles
       }
 
+      // function nibbles(bytes) {
+      //   const nibbles = []
+      //   for (let i = 0; i < bytes.length; i++) {
+      //     nibbles.push((bytes[i] >> 4) & 15)
+      //     nibbles.push(bytes[i] & 15)
+      //   }
+      //   return nibbles
+      // }
+
       function bit(seed, i) {
         return (seed[Math.floor(i / 8) % seed.length] >> i % 8) & 1
       }

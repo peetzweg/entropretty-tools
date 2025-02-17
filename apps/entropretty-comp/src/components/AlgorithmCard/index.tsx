@@ -56,7 +56,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       {/* Bottom Part */}
       <div className="relative flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 md:flex-row">
         <FamilyKindBadge
-          algorithm={algorithm}
+          familyKind={algorithm.family_kind}
           className="absolute left-0 top-[-22px]"
         />
 

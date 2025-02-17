@@ -72,7 +72,7 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
         variant={"ghost"}
         onClick={toggleLike}
         className={cn({
-          "bg-brand-yellow hover:bg-brand-yellow/80": isLiked,
+          "bg-brand-blue hover:bg-brand-blue/80 text-background": isLiked,
           "pointer-events-none": !user || isLoading,
         })}
       >
@@ -81,7 +81,7 @@ export function LikeButton({ algorithm }: LikeButtonProps) {
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
-        <span className="text-primary flex items-center gap-2">
+        <span className="flex items-center gap-2">
           {/* {user && "LIKE"} */}
 
           <span className="text-sm">{totalLikes || 0}</span>
