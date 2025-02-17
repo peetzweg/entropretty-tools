@@ -16,9 +16,15 @@ const renderQueue: RenderJob[] = []
 let isRendering = false
 
 const workerAPI = {
-  updateAlgorithm(algorithmId: AlgorithmId, algorithm: string) {
+  async updateAlgorithm(algorithmId: AlgorithmId, algorithm: string) {
+    // 0 is the editor algorithm
     if (algorithmId === 0) {
       algorithms.set(algorithmId, algorithm)
+      return this.render(
+        algorithmId,
+        50,
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      )
     } else {
       if (algorithms.has(algorithmId)) {
         // console.info("Not Updated algo", algorithmId)
@@ -107,10 +113,10 @@ async function processQueue() {
       `${preludeScript}\n${script}`,
     )
     drawAlgorithm(ctx, seed)
-    // const imageBitmap = await createImageBitmap(canvas, {})
     const imageBitmap = canvas.transferToImageBitmap()
     resolve(transfer(imageBitmap, [imageBitmap]))
   } catch (error) {
+    console.error(error)
     reject(error as Error)
   }
 
