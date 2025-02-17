@@ -16,29 +16,35 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/auth-context"
 
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-})
+const signUpSchema = z
+  .object({
+    email: z.string().email("Please enter a valid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type SignUpFormValues = z.infer<typeof signUpSchema>
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null)
-  const { signIn } = useAuth()
+  const { signUp } = useAuth()
   const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<SignUpFormValues>({
+    resolver: zodResolver(signUpSchema),
   })
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: SignUpFormValues) => {
     try {
-      await signIn(data.email, data.password)
+      await signUp(data.email, data.password)
       setError(null)
       navigate("/")
     } catch (error) {
@@ -50,9 +56,11 @@ export default function LoginPage() {
     <div className="container flex h-[100vh] w-full items-center justify-center">
       <Card className="mx-auto w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Create an account
+          </CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your email below to create your account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -80,15 +88,28 @@ export default function LoginPage() {
                 </p>
               )}
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                {...register("confirmPassword")}
+              />
+              {errors.confirmPassword?.message && (
+                <p className="text-destructive text-sm">
+                  {String(errors.confirmPassword.message)}
+                </p>
+              )}
+            </div>
             {error && <div className="text-destructive text-sm">{error}</div>}
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              SIGN IN
+              CREATE ACCOUNT
             </Button>
           </form>
           <div className="mt-4 flex flex-col gap-4 text-center text-sm">
-            <div>Don't have an account?</div>
-            <Button variant="ghost" onClick={() => navigate("/signup")}>
-              CREATE ACCOUNT
+            <div>Already have an account?</div>
+            <Button variant="ghost" onClick={() => navigate("/login")}>
+              SIGN IN
             </Button>
           </div>
         </CardContent>

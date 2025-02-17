@@ -6,6 +6,7 @@ import HeaderLayout from "@/layouts/HeaderLayout.tsx"
 import AlgorithmPage from "@/routes/Algorithm.tsx"
 import LatestPage from "@/routes/Latest.tsx"
 import Login from "@/routes/Login.tsx"
+import SignUp from "@/routes/SignUp.tsx"
 import UserPage from "@/routes/User.tsx"
 import MinePage from "@/routes/Mine.tsx"
 import { Suspense, lazy } from "react"
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")!).render(
               </Route>
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
