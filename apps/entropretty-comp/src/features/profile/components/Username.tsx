@@ -104,7 +104,7 @@ export function Username({ profile }: UsernameProps) {
         )}
         {!profile?.username ? (
           <p className="text-destructive text-xs">
-            A username is required in order to create Entropretty entires.
+            A username is required in order to create Entropretty entries.
           </p>
         ) : (
           <p className="text-muted-foreground text-xs">
