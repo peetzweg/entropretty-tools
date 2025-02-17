@@ -1,6 +1,6 @@
 import { AlgorithmRow } from "@/components/AlgorithmRow"
 import { useAuth } from "@/contexts/auth-context"
-import { useUserAlgorithms } from "@/hooks/useUserAlgorithms"
+import { useUserIdAlgorithms } from "@/hooks/useUserIdAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { Navigate } from "react-router"
@@ -9,7 +9,7 @@ export default function Mine() {
   const { user } = useAuth()
   const { ref, inView } = useInView()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useUserAlgorithms(user?.id)
+    useUserIdAlgorithms(user?.id)
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {

@@ -6,10 +6,10 @@ import { useParams } from "react-router"
 import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
 
 export default function UserPage() {
-  const { userId } = useParams()
+  const { username } = useParams()
   const { ref, inView } = useInView()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useUserAlgorithms(userId)
+    useUserAlgorithms(username)
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -18,8 +18,8 @@ export default function UserPage() {
   }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage])
 
   // Redirect if not logged in
-  if (!userId) {
-    return <div>No user with id {userId} found</div>
+  if (!username) {
+    return <div>No user with username {username} found</div>
   }
 
   if (isLoading) {

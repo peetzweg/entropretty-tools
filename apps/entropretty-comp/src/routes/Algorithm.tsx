@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
 
 type AlgorithmView =
-  Database["public"]["Views"]["algorithms_with_user_info"]["Row"]
+  Database["public"]["Views"]["algorithms_with_user_profile"]["Row"]
 
 export default function AlgorithmPage() {
   const { algorithmId } = useParams()
@@ -17,7 +17,7 @@ export default function AlgorithmPage() {
     queryKey: ["algorithm", algorithmId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("algorithms_with_user_info")
+        .from("algorithms_with_user_profile")
         .select()
         .eq("id", algorithmId)
         .single()
@@ -49,6 +49,7 @@ export default function AlgorithmPage() {
 
   return (
     <div className="relative my-4 h-[calc(100vh-8rem)]">
+      {/* <AlgorithmDemo algorithm={algorithm} /> */}
       <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )

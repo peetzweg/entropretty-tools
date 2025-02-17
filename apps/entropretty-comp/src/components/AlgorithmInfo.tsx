@@ -23,7 +23,15 @@ export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
           </>
         )}
       </div>
-      <div>{`by ${algorithm.username || "Anonymous"}`}</div>
+      <div>
+        {`by `}
+        <Link
+          className="text-muted-foreground underline"
+          to={`/u/${algorithm.username || "Anonymous"}`}
+        >
+          {algorithm.username || "Anonymous"}
+        </Link>
+      </div>
     </div>
   )
 }

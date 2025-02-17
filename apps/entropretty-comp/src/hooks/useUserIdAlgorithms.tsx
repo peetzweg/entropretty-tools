@@ -5,12 +5,12 @@ import { useInfiniteQuery } from "@tanstack/react-query"
 
 const PAGE_SIZE = 3
 
-export function useUserAlgorithms(username: string | undefined) {
+export function useUserIdAlgorithms(userId: string | undefined) {
   const { artist } = useWorker()
 
   return useInfiniteQuery<AlgorithmView[]>({
-    queryKey: ["algorithms", "user", username],
-    enabled: !!username,
+    queryKey: ["algorithms", "user-id", userId],
+    enabled: !!userId,
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
       const from = (pageParam as number) * PAGE_SIZE
@@ -19,7 +19,7 @@ export function useUserAlgorithms(username: string | undefined) {
       const { data, error } = await supabase
         .from("algorithms_with_user_profile")
         .select()
-        .eq("username", username)
+        .eq("user_id", userId)
         .order("created_at", { ascending: false })
         .range(from, to)
 
