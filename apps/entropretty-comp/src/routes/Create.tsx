@@ -26,7 +26,7 @@ function Create() {
     queryKey: ["algorithm", remixId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("algorithms_with_user_info")
+        .from("algorithms_with_user_profile")
         .select()
         .eq("id", remixId)
         .single()

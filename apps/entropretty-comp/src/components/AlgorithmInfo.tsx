@@ -23,7 +23,7 @@ export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
           </>
         )}
       </div>
-      <div>{`by ${algorithm.email || "Anonymous"}`}</div>
+      <div>{`by ${algorithm.username || "Anonymous"}`}</div>
     </div>
   )
 }

@@ -17,7 +17,7 @@ export function useLatestAlgorithms() {
       const to = from + PAGE_SIZE - 1
 
       const { data, error } = await supabase
-        .from("algorithms_with_user_info")
+        .from("algorithms_with_user_profile")
         .select()
         .order("created_at", { ascending: false })
         .range(from, to)

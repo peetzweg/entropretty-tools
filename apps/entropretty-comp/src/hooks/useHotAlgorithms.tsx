@@ -16,7 +16,7 @@ export function useHotAlgorithms() {
       const to = from + PAGE_SIZE - 1
 
       const { data, error } = await supabase
-        .from("algorithms_with_user_info")
+        .from("algorithms_with_user_profile")
         .select()
         .order("like_count", { ascending: false })
         .gt("like_count", 0)

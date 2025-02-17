@@ -17,7 +17,7 @@ export function useUserAlgorithms(userId: string | undefined) {
       const to = from + PAGE_SIZE - 1
 
       const { data, error } = await supabase
-        .from("algorithms_with_user_info")
+        .from("algorithms_with_user_profile")
         .select()
         .eq("user_id", userId)
         .order("created_at", { ascending: false })

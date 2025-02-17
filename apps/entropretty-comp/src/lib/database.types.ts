@@ -97,26 +97,33 @@ export type Database = {
             foreignKeyName: "likes_algorithm_id_fkey"
             columns: ["algorithm_id"]
             isOneToOne: false
-            referencedRelation: "algorithms_with_user_info"
+            referencedRelation: "algorithms_with_user_profile"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_algorithm_id_fkey"
+            columns: ["algorithm_id"]
+            isOneToOne: false
+            referencedRelation: "algorithms_with_user_profile"
             referencedColumns: ["id"]
           },
         ]
       }
       profiles: {
         Row: {
-          display_name: string | null
-          id: string
           updated_at: string
+          user_id: string
+          username: string | null
         }
         Insert: {
-          display_name?: string | null
-          id: string
           updated_at?: string
+          user_id: string
+          username?: string | null
         }
         Update: {
-          display_name?: string | null
-          id?: string
           updated_at?: string
+          user_id?: string
+          username?: string | null
         }
         Relationships: []
       }
@@ -134,6 +141,21 @@ export type Database = {
           remix_of: number | null
           updated_at: string | null
           user_id: string | null
+        }
+        Relationships: []
+      }
+      algorithms_with_user_profile: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          family_kind: Database["public"]["Enums"]["family_kind"] | null
+          id: number | null
+          like_count: number | null
+          name: string | null
+          remix_of: number | null
+          updated_at: string | null
+          user_id: string | null
+          username: string | null
         }
         Relationships: []
       }
