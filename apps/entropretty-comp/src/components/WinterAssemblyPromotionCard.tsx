@@ -5,7 +5,7 @@ export function WinterAssemblyPromotionCard() {
     <div className="mx-auto flex w-screen flex-col overflow-hidden border bg-black text-white sm:flex-row md:w-[682px]">
       <div className="relative aspect-video h-36 w-full sm:aspect-video sm:h-auto">
         <img
-          src="/Assembly-Winter-25-1920x1080-bg.webp"
+          src="/Assembly-Winter-25-bg.webp"
           alt="Assembly Winter 2025 Background"
           className="h-full w-full object-cover"
         />
