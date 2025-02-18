@@ -21,7 +21,7 @@ export function WinterAssemblyPromotionCard() {
       <div className="space-y-4 p-4">
         <div className="space-y-1">
           <h2 className="text-xl font-bold text-white sm:text-3xl">
-            3.000,00 USD Prize Pool
+            3.000,00$ Prize Pool
           </h2>
           <h2 className="text-sm font-bold text-white">
             ENTROPRETTY Competition @ Winter Assembly 2025
