@@ -36,7 +36,7 @@ export function WinterAssemblyPromotionCard() {
         <div className="flex justify-end">
           <Button
             variant="link"
-            className="text-white hover:text-gray-300"
+            className="text-xs text-white hover:text-gray-300"
             asChild
           >
             <a
