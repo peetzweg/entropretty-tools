@@ -4,7 +4,7 @@ import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 
-export default function LatestPage() {
+export default function NewPage() {
   const { ref, inView } = useInView()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useLatestAlgorithms()

@@ -1,11 +1,6 @@
-import { FeedbackDialog } from "@/components/FeedbackDialog"
-import {
-  TOAST_ID,
-  WinterAssemblyToast,
-} from "@/components/toasts/WinterAssemblyToast"
+import { HelpMenu } from "@/components/HelpMenu"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
-import { useOneTimeToast } from "@/hooks/useOneTimeToast"
 import { cn } from "@/lib/utils"
 import { PlusIcon } from "lucide-react"
 import { useEffect } from "react"
@@ -18,9 +13,6 @@ export default function HeaderLayout() {
   const location = useLocation()
   const { data: profile, isLoading: isLoadingProfile } = useUserProfile()
 
-  useOneTimeToast(WinterAssemblyToast, {
-    toastId: TOAST_ID,
-  })
   useEffect(() => {
     // Set random favicon
     const randomFaviconNumber = Math.floor(Math.random() * 3) + 1
@@ -41,32 +33,32 @@ export default function HeaderLayout() {
           <Button
             asChild
             variant={"link"}
-            className={cn(location.pathname === "/" && "underline")}
+            className={cn(location.pathname === "/new" && "underline")}
           >
-            <Link to="/">new</Link>
+            <Link to="/new">new</Link>
           </Button>
 
           <Button
             asChild
             variant={"link"}
-            className={cn(location.pathname === "/hot" && "underline")}
+            className={cn(
+              (location.pathname === "/hot" || location.pathname === "/") &&
+                "underline",
+            )}
           >
-            <Link to="/hot">hot</Link>
+            <Link to="/">hot</Link>
           </Button>
 
           {user && (
-            <>
-              <Button
-                asChild
-                variant={"link"}
-                className={cn(location.pathname === "/mine" && "underline")}
-              >
-                <Link to="/mine">mine</Link>
-              </Button>
-
-              <FeedbackDialog />
-            </>
+            <Button
+              asChild
+              variant={"link"}
+              className={cn(location.pathname === "/mine" && "underline")}
+            >
+              <Link to="/mine">mine</Link>
+            </Button>
           )}
+          <HelpMenu />
         </div>
 
         <div className="flex flex-1 items-center justify-center">

@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer"
 import { AlgorithmCard } from "@/components/AlgorithmCard"
 import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
+import { WinterAssemblyPromotionCard } from "../components/WinterAssemblyPromotionCard"
 
 export default function HotPage() {
   const { ref, inView } = useInView()
@@ -29,6 +30,7 @@ export default function HotPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
+        <WinterAssemblyPromotionCard />
         {data?.pages.map((page) =>
           page.map((algorithm) => (
             <AlgorithmCard key={algorithm.id} algorithm={algorithm} />

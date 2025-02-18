@@ -26,6 +26,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+import { ListItem } from "../HelpMenu"
 
 const feedbackSchema = z.object({
   feedback: z.string().min(1, "Please provide some feedback"),
@@ -81,9 +82,10 @@ export function FeedbackDialog() {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="hidden md:flex">
-          feedback
-        </Button>
+        <ListItem
+          title="Feedback"
+          description="Share your thoughts and help us improve"
+        />
       </AlertDialogTrigger>
       <AlertDialogContent className="rounded-none p-4">
         <AlertDialogHeader>

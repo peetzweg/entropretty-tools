@@ -4,7 +4,7 @@ import { AuthProvider } from "@/contexts/auth-context.tsx"
 import { WorkerProvider } from "@/contexts/worker-context.tsx"
 import HeaderLayout from "@/layouts/HeaderLayout.tsx"
 import AlgorithmPage from "@/routes/Algorithm.tsx"
-import LatestPage from "@/routes/Latest.tsx"
+import NewPage from "@/routes/New"
 import Login from "@/routes/Login.tsx"
 import SignUp from "@/routes/SignUp.tsx"
 import UserPage from "@/routes/User.tsx"
@@ -40,8 +40,9 @@ createRoot(document.getElementById("root")!).render(
           <ScrollToTop />
           <Routes>
             <Route element={<HeaderLayout />}>
-              <Route path="/" element={<LatestPage />} />
+              <Route path="/new" element={<NewPage />} />
               <Route path="/hot" element={<HotPage />} />
+              <Route path="/" element={<HotPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:username" element={<UserPage />} />
               <Route element={<RequireUser />}>
