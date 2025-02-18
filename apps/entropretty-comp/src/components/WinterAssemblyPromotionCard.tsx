@@ -20,14 +20,14 @@ export function WinterAssemblyPromotionCard() {
 
       <div className="space-y-4 p-4">
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-white sm:text-3xl">
+          <h2 className="font-jersey text-3xl font-bold text-white sm:text-3xl">
             3.000,00$ Prize Pool
           </h2>
-          <h2 className="text-sm font-bold text-white">
+          <h2 className="font-jersey text-lg font-bold text-white sm:text-base">
             ENTROPRETTY Competition @ Winter Assembly 2025
           </h2>
 
-          <p className="text-xs text-gray-300">
+          <p className="font-jersey text-base text-gray-300">
             Join us at Messukeskus, Helsinki from February 20th to February
             23rd, 2025 for an unforgettable experience.
           </p>
@@ -36,7 +36,7 @@ export function WinterAssemblyPromotionCard() {
         <div className="flex justify-end">
           <Button
             variant="link"
-            className="text-xs text-white hover:text-gray-300"
+            className="font-jersey text-base text-white hover:text-gray-300"
             asChild
           >
             <a
