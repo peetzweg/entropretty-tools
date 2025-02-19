@@ -69,16 +69,13 @@ export function WinterAssemblyPromotionCard() {
             asChild
           >
             <a
-              href="https://assembly.org/en/events/winter25"
+              href="https://assembly.org/en/articles/assembly-to-host-global-tattoo-algorithm-competitions-in-2025-in"
               target="_blank"
               rel="noopener noreferrer"
             >
               Learn more at assembly.org
             </a>
           </Button>
-          {/* <Button variant="secondary" className="hover:bg-gray-700">
-            Dismiss
-          </Button> */}
         </div>
       </div>
     </div>
