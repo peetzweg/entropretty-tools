@@ -16,6 +16,7 @@ import {
   editorCodeAtom,
   editorSeedTypeAtom,
   remixAtom,
+  scriptErrorAtom,
 } from "./atoms"
 
 const validateAlgorithmName = (
@@ -41,6 +42,7 @@ export const PostButton = () => {
   const queryClient = useQueryClient()
   const [editorCode] = useAtom(editorCodeAtom)
   const [editorSeedType] = useAtom(editorSeedTypeAtom)
+  const [scriptError] = useAtom(scriptErrorAtom)
   const [remix] = useAtom(remixAtom)
   const [algorithmName, setAlgorithmName] = useAtom(algorithmNameAtom)
 
@@ -99,7 +101,11 @@ export const PostButton = () => {
           <TooltipTrigger asChild>
             <Button
               onClick={() => createAlgorithm.mutate()}
-              disabled={createAlgorithm.isPending || !nameValidation.isValid}
+              disabled={
+                createAlgorithm.isPending ||
+                !nameValidation.isValid ||
+                scriptError !== null
+              }
               className="min-w-[100px]"
             >
               <div className="flex items-center justify-center">
