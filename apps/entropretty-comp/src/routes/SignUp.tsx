@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
 
@@ -23,6 +24,9 @@ const signUpSchema = z
     email: z.string().email("Please enter a valid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(1, "Please confirm your password"),
+    termsAgreed: z.boolean().refine((val) => val === true, {
+      message: "The licensing terms need to be accepted",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -95,7 +99,7 @@ export default function SignUpPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="gavin@entropretty.com"
                 {...register("email")}
               />
               {errors.email?.message && (
@@ -126,6 +130,34 @@ export default function SignUpPage() {
                 </p>
               )}
             </div>
+            <div className="flex items-start space-x-4">
+              <Checkbox
+                id="terms"
+                className="mt-1"
+                onCheckedChange={(checked) => {
+                  register("termsAgreed").onChange({
+                    target: { name: "termsAgreed", value: checked },
+                  })
+                }}
+              />
+              <Label htmlFor="terms" className="text-sm">
+                I agree to license my submitted code under{" "}
+                <a
+                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline"
+                >
+                  CC BY-NC-SA 4.0
+                </a>
+                .
+              </Label>
+            </div>
+            {errors.termsAgreed?.message && (
+              <p className="text-destructive text-sm">
+                {String(errors.termsAgreed.message)}
+              </p>
+            )}
             <div className="flex justify-center">
               <HCaptcha
                 ref={captcha}
