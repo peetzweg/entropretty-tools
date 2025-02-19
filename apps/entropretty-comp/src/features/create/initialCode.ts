@@ -1,4 +1,13 @@
-export default `ctx.translate(5, 5)
+export default `/**
+ * This script is a draw function you need to fill.
+ * It should draw a design based on the seed.
+ * Canvas is 100x100 units.
+ *
+ * Available variables:
+ * ctx: the CanvasRenderingContext2D to draw on
+ * seed: array of numbers 0-255
+ */
+ctx.translate(5, 5)
 ctx.textAlign = "center"
 ctx.textBaseline = "middle"
 

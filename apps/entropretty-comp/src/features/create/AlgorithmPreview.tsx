@@ -37,18 +37,17 @@ export const AlgorithmPreview = () => {
   return (
     <div className="grid h-full w-full grid-cols-3 overflow-scroll">
       {seedFamily.slice(0, 9).map((seed, index) => (
-        <div
-          key={seedToKey(seed)}
-          className="flex items-center justify-center border-[.5px] border-gray-200"
-        >
-          <AlgorithmBitmap
-            key={`canvas-${index}`}
-            algorithmId={0}
-            seed={seed}
-            size={PREVIEW_SIZE}
-            scale={2}
-            version={codeVersion}
-          />
+        <div key={seedToKey(seed)} className="flex items-center justify-center">
+          <div className="border border-dashed">
+            <AlgorithmBitmap
+              key={`canvas-${index}`}
+              algorithmId={0}
+              seed={seed}
+              size={PREVIEW_SIZE}
+              scale={2}
+              version={codeVersion}
+            />
+          </div>
         </div>
       ))}
     </div>
