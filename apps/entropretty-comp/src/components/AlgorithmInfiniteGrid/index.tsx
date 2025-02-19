@@ -72,13 +72,13 @@ export function AlgorithmInfiniteGrid({
     <div className="relative flex flex-col px-4">
       <div className={`flex w-full flex-col ${className} relative`}>
         <div className="h-full w-full p-4">
-          <div className="mx-auto flex flex-wrap items-center justify-center gap-1">
+          <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-6 sm:gap-16">
             {seeds.map((seed) => (
               <AlgorithmBitmap
                 key={seedToKey(seed)}
                 algorithmId={algorithm.id!}
                 seed={seed}
-                size={200}
+                size={150}
                 scale={2}
               />
             ))}
@@ -86,7 +86,7 @@ export function AlgorithmInfiniteGrid({
             <div ref={ref} className="h-4 w-full" />
           </div>
         </div>
-        <div className="bg-background flow-col fixed bottom-4 right-4 flex flex-col items-center justify-center gap-8 gap-y-2 border border-gray-200 p-4 text-gray-600 md:flex-row md:justify-between">
+        <div className="bg-background fixed bottom-0 left-0 right-0 flex w-full items-center justify-between gap-8 gap-y-2 border border-gray-200 p-4 pb-8 text-gray-600 sm:pb-4">
           <FamilyKindBadge
             familyKind={algorithm.family_kind}
             className="absolute left-0 top-[-22px] z-10"
@@ -103,7 +103,7 @@ const AlgorithmActions = ({ algorithm }: { algorithm: AlgorithmView }) => {
   const { user } = useAuth()
 
   return (
-    <div className="flex w-full flex-row items-center justify-end gap-2 md:w-auto">
+    <div className="flex w-auto flex-row items-center justify-end gap-2 md:w-auto">
       {user && (
         <Button asChild variant="link">
           <Link

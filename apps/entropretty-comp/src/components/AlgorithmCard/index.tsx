@@ -56,7 +56,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
       </Link>
 
       {/* Bottom Part */}
-      <div className="relative flex flex-col items-center justify-between gap-y-2 border-t border-gray-200 p-4 md:flex-row">
+      <div className="relative flex flex-row items-center justify-between gap-y-2 border-t border-gray-200 p-4">
         <FamilyKindBadge
           familyKind={algorithm.family_kind}
           className="absolute left-0 top-[-22px]"
@@ -83,7 +83,7 @@ const AlgorithmActions = ({
   }, [algorithm.family_kind, setSeedFamily])
 
   return (
-    <div className="flex w-full flex-row items-center justify-end gap-2 md:w-auto">
+    <div className="flex w-auto flex-row items-center justify-end gap-2 md:w-auto">
       <Button variant="ghost" onClick={reroll}>
         REROLL
       </Button>
@@ -99,7 +99,9 @@ const AlgorithmActions = ({
         </Button>
       )}
 
-      <LikeButton algorithm={algorithm} />
+      <div className="hidden md:block">
+        <LikeButton algorithm={algorithm} />
+      </div>
     </div>
   )
 }
