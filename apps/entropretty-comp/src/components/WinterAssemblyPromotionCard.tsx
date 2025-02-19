@@ -2,8 +2,8 @@ import { Button } from "./ui/button"
 
 export function WinterAssemblyPromotionCard() {
   return (
-    <div className="mx-auto flex w-screen flex-col overflow-hidden border bg-black text-white sm:flex-row md:w-[682px]">
-      <div className="relative aspect-video h-36 w-full sm:aspect-video sm:h-auto">
+    <div className="mx-auto flex w-screen flex-col overflow-hidden border bg-black text-white sm:flex-col md:w-[682px]">
+      <div className="relative aspect-video h-36 w-full sm:aspect-video sm:h-36">
         <img
           src="/Assembly-Winter-25-bg.webp"
           alt="Assembly Winter 2025 Background"
@@ -13,34 +13,40 @@ export function WinterAssemblyPromotionCard() {
           <img
             src="/assembly-winter-2025-logo.png"
             alt="Assembly Winter 2025 Logo"
-            className="max-h-32 w-auto max-w-[70%] sm:max-w-[90%]"
+            className="max-h-32 w-auto max-w-[70%] sm:max-w-[80%]"
           />
         </div>
       </div>
 
       <div className="space-y-4 p-4">
         <div className="space-y-1">
-          <h2 className="font-jersey text-3xl font-bold text-white sm:text-3xl">
-            3.000,00$ Prize Pool
+          <h2 className="text-2xl font-bold text-white sm:text-2xl">
+            $3000 Prize Pool
           </h2>
-          <h2 className="font-jersey text-lg font-bold text-white sm:text-base">
+          <h2 className="text-lg font-bold text-white sm:text-base">
             ENTROPRETTY Competition @ Winter Assembly 2025
           </h2>
 
-          <p className="font-jersey text-base text-gray-300">
-            Join us at Messukeskus, Helsinki from February 20th to February
-            23rd, 2025 for an unforgettable experience.
+          <p className="text-sm text-gray-300">
+            The competition is open globally, anyone can enter!
           </p>
+          <br />
+          <ul className="list-decimal space-y-1 pl-5 text-sm text-gray-300">
+            <li>Submit your own design or remix another and post it here</li>
+            <li>Go to the Assembly website and submit your 3 best entries</li>
+            <li>Entries close 22nd February</li>
+            <li>Winners will be announced on the 23rd of February</li>
+          </ul>
         </div>
 
         <div className="flex justify-end">
           <Button
             variant="link"
-            className="font-jersey text-base text-white hover:text-gray-300"
+            className="text-sm text-white hover:text-gray-300"
             asChild
           >
             <a
-              href="https://assembly.org/"
+              href="https://assembly.org/en/events/winter25"
               target="_blank"
               rel="noopener noreferrer"
             >
