@@ -1,6 +1,7 @@
 import { expose, transfer } from "comlink"
 import { preludeScript } from "./prelude"
 
+const RENDER_TIMEOUT_MS = 300
 type Size = number
 export type AlgorithmId = number
 type RenderJob = {
@@ -94,26 +95,41 @@ async function processQueue() {
   }
 
   try {
-    // console.info("drawing", { algorithmId, size, seed })
+    // Set up a timeout of 2000ms (2 seconds)
+    const timeoutPromise = new Promise((_, timeoutReject) => {
+      setTimeout(() => {
+        timeoutReject(
+          new Error(`Render job timed out after ${RENDER_TIMEOUT_MS}ms`),
+        )
+      }, RENDER_TIMEOUT_MS)
+    })
 
-    // Prelude
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.scale(canvas.width / 100, canvas.width / 100)
-    ctx.lineWidth = 1
-    ctx.lineCap = "butt"
-    ctx.lineJoin = "miter"
-    ctx.strokeStyle = "black"
-    ctx.fillStyle = "black"
-    ctx.textAlign = "center"
-    ctx.textBaseline = "bottom"
+    // Create a promise for the actual rendering work
+    const renderPromise = (async () => {
+      ctx.scale(canvas.width / 100, canvas.width / 100)
+      ctx.lineWidth = 1
+      ctx.lineCap = "butt"
+      ctx.lineJoin = "miter"
+      ctx.strokeStyle = "black"
+      ctx.fillStyle = "black"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "bottom"
 
-    const drawAlgorithm = new Function(
-      "ctx",
-      "seed",
-      `${preludeScript}\n${script}`,
-    )
-    drawAlgorithm(ctx, seed)
-    const imageBitmap = canvas.transferToImageBitmap()
+      const drawAlgorithm = new Function(
+        "ctx",
+        "seed",
+        `${preludeScript}\n${script}`,
+      )
+      drawAlgorithm(ctx, seed)
+      const imageBitmap = canvas.transferToImageBitmap()
+      return imageBitmap
+    })()
+
+    // Race between the timeout and the render
+    const imageBitmap = (await Promise.race([
+      renderPromise,
+      timeoutPromise,
+    ])) as ImageBitmap
     resolve(transfer(imageBitmap, [imageBitmap]))
   } catch (error) {
     console.error(error)
