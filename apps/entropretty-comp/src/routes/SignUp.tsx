@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import { z } from "zod"
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -32,6 +33,8 @@ type SignUpFormValues = z.infer<typeof signUpSchema>
 
 export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null)
+  const [captchaToken, setCaptchaToken] = useState<string>()
+  const captcha = useRef<HCaptcha>(null)
   const { signUp } = useAuth()
   const navigate = useNavigate()
 
@@ -44,11 +47,17 @@ export default function SignUpPage() {
   })
 
   const onSubmit = async (data: SignUpFormValues) => {
+    if (!captchaToken) {
+      setError("Please complete the captcha")
+      return
+    }
+
     try {
       try {
-        await signUp(data.email, data.password)
+        await signUp(data.email, data.password, captchaToken)
+        captcha.current?.resetCaptcha()
         toast.success("Account created successfully", {
-          description: "Please confirm your email address in order to login.",
+          // description: "Please confirm your email address in order to login.",
           duration: Infinity,
           dismissible: true,
           action: {
@@ -59,6 +68,7 @@ export default function SignUpPage() {
         setError(null)
         navigate("/")
       } catch (exception) {
+        captcha.current?.resetCaptcha()
         toast.error("An error occurred")
         console.error(exception)
       }
@@ -115,6 +125,13 @@ export default function SignUpPage() {
                   {String(errors.confirmPassword.message)}
                 </p>
               )}
+            </div>
+            <div className="flex justify-center">
+              <HCaptcha
+                ref={captcha}
+                sitekey={"07c0e734-3642-4f8a-a830-89105772bc7e"}
+                onVerify={(token) => setCaptchaToken(token)}
+              />
             </div>
             {error && <div className="text-destructive text-sm">{error}</div>}
             <Button type="submit" className="w-full" disabled={isSubmitting}>

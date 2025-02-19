@@ -7,7 +7,11 @@ import { supabase } from "@/lib/supabase"
 type AuthContextType = {
   user: User | null
   signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string) => Promise<void>
+  signUp: (
+    email: string,
+    password: string,
+    captchaToken: string,
+  ) => Promise<void>
   signOut: () => Promise<void>
 }
 
@@ -36,12 +40,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error
   }
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    captchaToken: string,
+  ) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: "https://entropretty.netlify.app/login",
+        emailRedirectTo: "https://app.entropretty.com/login",
+        captchaToken,
       },
     })
     if (error) throw error
