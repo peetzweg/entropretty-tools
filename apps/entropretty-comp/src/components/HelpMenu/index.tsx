@@ -56,13 +56,22 @@ export function HelpMenu() {
                   />
                 </Link>
 
-                <Link to="https://entropretty.com/" target="_blank">
+                <Link
+                  to="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D"
+                  target="_blank"
+                >
                   <ListItem
-                    title="What is this?"
-                    description="https://entropretty.com/"
+                    title="Canvas API Reference"
+                    description="Documentation for the CanvasRenderingContext2D API used for drawing"
                   />
                 </Link>
               </div>
+              <Link to="https://entropretty.com/" target="_blank">
+                <ListItem
+                  title="What is this?"
+                  description="https://entropretty.com/"
+                />
+              </Link>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
