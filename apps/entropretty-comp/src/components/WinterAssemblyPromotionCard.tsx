@@ -28,24 +28,38 @@ export function WinterAssemblyPromotionCard() {
             ENTROPRETTY Competition @ Winter Assembly 2025
           </h2>
 
-          <p className="text-sm text-gray-300">
-            The competition is open globally, anyone can enter!
-          </p>
-          <br />
-          <ul className="list-decimal space-y-1 pl-5 text-sm text-gray-300">
-            <li>Submit your own design or remix another and post it here</li>
-            <li>
-              Go to the{" "}
-              {/* <Button variant={"link"} asChild>
-                <Link to={"https://scene.assembly.org/"} target="_blank">
-                  Assembly website
+          <div className="space-y-4">
+            <p className="text-sm text-gray-300">
+              The competition is open globally, anyone can enter!
+            </p>
+            <ul className="list-decimal space-y-1 pl-8 text-sm text-gray-300">
+              <li>Code your own design or remix another and post it here</li>
+              <li>
+                Make sure your algorithm{" "}
+                <Link
+                  className="text-white underline hover:cursor-pointer hover:text-gray-300"
+                  to={"https://entropretty.com/rules"}
+                  target="_blank"
+                >
+                  adheres to the rules
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-white underline hover:cursor-pointer hover:text-gray-300"
+                  to={"https://scene.assembly.org/"}
+                  target="_blank"
+                >
+                  Submit
                 </Link>{" "}
-              </Button> */}
-              and submit your 3 best entries
-            </li>
-            <li>Entries close 22nd February</li>
-            <li>Winners will be announced on the 23rd of February</li>
-          </ul>
+                up to 3 entries
+              </li>
+            </ul>
+            <p className="text-sm text-gray-300">
+              Entries close 22nd February, Winners will be announced on the 23rd
+              of February.
+            </p>
+          </div>
         </div>
 
         <div className="flex justify-end">
