@@ -14,7 +14,7 @@ export function WinterAssemblyPromotionCard() {
           <img
             src="/assembly-winter-2025-logo.png"
             alt="Assembly Winter 2025 Logo"
-            className="max-h-32 w-auto max-w-[70%] sm:max-w-[80%]"
+            className="max-h-32 w-auto max-w-[70%] sm:max-w-[60%]"
           />
         </div>
       </div>
