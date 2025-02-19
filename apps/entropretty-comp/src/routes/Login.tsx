@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import { z } from "zod"
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,6 +26,8 @@ type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
+  const [captchaToken, setCaptchaToken] = useState<string>()
+  const captcha = useRef<HCaptcha>(null)
   const { signIn } = useAuth()
   const navigate = useNavigate()
 
@@ -37,11 +40,18 @@ export default function LoginPage() {
   })
 
   const onSubmit = async (data: LoginFormValues) => {
+    if (!captchaToken) {
+      setError("Please complete the captcha")
+      return
+    }
+
     try {
-      await signIn(data.email, data.password)
+      await signIn(data.email, data.password, captchaToken)
+      captcha.current?.resetCaptcha()
       setError(null)
       navigate("/")
     } catch (error) {
+      captcha.current?.resetCaptcha()
       setError(error instanceof Error ? error.message : "An error occurred")
     }
   }
@@ -81,6 +91,13 @@ export default function LoginPage() {
               )}
             </div>
             {error && <div className="text-destructive text-sm">{error}</div>}
+            <div className="flex justify-center">
+              <HCaptcha
+                ref={captcha}
+                sitekey={"07c0e734-3642-4f8a-a830-89105772bc7e"}
+                onVerify={(token) => setCaptchaToken(token)}
+              />
+            </div>
             <Button type="submit" className="w-full" disabled={isSubmitting}>
               SIGN IN
             </Button>

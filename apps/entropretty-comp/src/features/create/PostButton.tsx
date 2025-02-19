@@ -85,7 +85,7 @@ export const PostButton = () => {
       console.info("Successfully created algorithm", data)
       setAlgorithmName("")
       queryClient.invalidateQueries({ queryKey: ["algorithms", "latest"] })
-      navigate(`/`)
+      navigate(`/new`)
     },
     onError: (error: Error) => {
       toast.error(error.message)

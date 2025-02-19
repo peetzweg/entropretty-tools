@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import { Button } from "./ui/button"
 
 export function WinterAssemblyPromotionCard() {
@@ -33,7 +34,15 @@ export function WinterAssemblyPromotionCard() {
           <br />
           <ul className="list-decimal space-y-1 pl-5 text-sm text-gray-300">
             <li>Submit your own design or remix another and post it here</li>
-            <li>Go to the Assembly website and submit your 3 best entries</li>
+            <li>
+              Go to the{" "}
+              {/* <Button variant={"link"} asChild>
+                <Link to={"https://scene.assembly.org/"} target="_blank">
+                  Assembly website
+                </Link>{" "}
+              </Button> */}
+              and submit your 3 best entries
+            </li>
             <li>Entries close 22nd February</li>
             <li>Winners will be announced on the 23rd of February</li>
           </ul>
