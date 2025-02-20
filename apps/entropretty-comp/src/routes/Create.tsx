@@ -10,12 +10,14 @@ import {
   remixAtom,
 } from "../features/create/atoms"
 import { AlgorithmView } from "../lib/helper.types"
+import { FamilyKind } from "entropretty-utils"
 
 const CreateFeature = lazy(() => import("../features/create"))
 
 function Create() {
   const [searchParams] = useSearchParams()
   const remixId = searchParams.get("remix")
+  const seedTypeQuery = searchParams.get("type")
   const [, setRemix] = useAtom(remixAtom)
   const [, setSeedType] = useAtom(editorSeedTypeAtom)
   const [, setEditorCode] = useAtom(editorCodeAtom)
@@ -42,7 +44,7 @@ function Create() {
   useEffect(() => {
     if (!data) {
       setEditorCode("")
-      setSeedType("Procedural")
+      setSeedType((seedTypeQuery as FamilyKind) || "Procedural")
       generateNewSeed()
       setRemix(null)
     } else {
@@ -53,7 +55,14 @@ function Create() {
       generateNewSeed()
     }
     setTimeout(() => setIsReady(true), 500)
-  }, [data, setRemix, setSeedType, generateNewSeed, setEditorCode])
+  }, [
+    data,
+    setRemix,
+    seedTypeQuery,
+    setSeedType,
+    generateNewSeed,
+    setEditorCode,
+  ])
 
   return (
     <>

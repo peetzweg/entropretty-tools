@@ -1,8 +1,8 @@
 import { HelpMenu } from "@/components/HelpMenu"
+import { NewDialog } from "@/components/NewDialog"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
-import { PlusIcon } from "lucide-react"
 import { useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
 import { useUserProfile } from "../hooks/useUserProfile"
@@ -85,14 +85,7 @@ export default function HeaderLayout() {
                   <Link to="/profile">{profile?.username || user.email}</Link>
                 </Button>
               )}
-              {location.pathname !== "/create" && (
-                <Button className="hidden md:flex" asChild>
-                  <Link to="/create" className="flex items-center gap-1">
-                    <PlusIcon className="h-4 w-4" />
-                    NEW
-                  </Link>
-                </Button>
-              )}
+              {location.pathname !== "/create" && <NewDialog />}
               <Button
                 variant={"ghost"}
                 onMouseDown={() => {
