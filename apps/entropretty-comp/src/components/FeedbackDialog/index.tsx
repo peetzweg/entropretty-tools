@@ -1,12 +1,12 @@
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -80,20 +80,20 @@ export function FeedbackDialog() {
   }
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <ListItem
           title="Feedback"
           description="Share your thoughts and help us improve"
         />
-      </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-none p-4">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Leave Feedback</AlertDialogTitle>
-          <AlertDialogDescription>
+      </DialogTrigger>
+      <DialogContent className="p-4">
+        <DialogHeader>
+          <DialogTitle>Leave Feedback</DialogTitle>
+          <DialogDescription>
             We'd love to hear what went well or how we can improve entropretty.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+          </DialogDescription>
+        </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -148,10 +148,10 @@ export function FeedbackDialog() {
                 )}
               />
 
-              <div className="flex gap-2">
-                <AlertDialogCancel asChild>
-                  <Button variant="outline">Cancel</Button>
-                </AlertDialogCancel>
+              <DialogFooter className="sm:justify-end">
+                <Button variant="outline" onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
                 <Button type="submit" disabled={submitFeedback.isPending}>
                   {submitFeedback.isPending ? (
                     <>
@@ -162,11 +162,11 @@ export function FeedbackDialog() {
                     "Submit"
                   )}
                 </Button>
-              </div>
+              </DialogFooter>
             </div>
           </form>
         </Form>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   )
 }
