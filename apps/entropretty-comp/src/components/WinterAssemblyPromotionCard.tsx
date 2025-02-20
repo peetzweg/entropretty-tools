@@ -55,9 +55,12 @@ export function WinterAssemblyPromotionCard() {
                 up to 3 entries
               </li>
             </ul>
+            <p className="text-sm font-bold text-gray-300">
+              Entries close Saturday the 22nd February at noon (12PM GMT+2).
+            </p>
             <p className="text-sm text-gray-300">
-              Entries close 22nd February, Winners will be announced on the 23rd
-              of February.
+              Winners and runner ups will be announced and demoed live on Sunday
+              23rd of February at Assembly.
             </p>
           </div>
         </div>
