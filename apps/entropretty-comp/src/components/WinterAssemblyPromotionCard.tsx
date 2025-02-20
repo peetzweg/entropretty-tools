@@ -1,5 +1,6 @@
 import { Link } from "react-router"
 import { Button } from "./ui/button"
+import { MoveUpRight } from "lucide-react"
 
 export function WinterAssemblyPromotionCard() {
   return (
@@ -22,7 +23,14 @@ export function WinterAssemblyPromotionCard() {
       <div className="space-y-4 p-4">
         <div className="space-y-1">
           <h2 className="text-2xl font-bold text-white sm:text-2xl">
-            $3000 Prize Pool
+            <Link
+              to="https://assembly.org/en/events/winter25/program/demoscene-competitions"
+              target="_blank"
+              className="underline"
+            >
+              $3000 Prize Pool
+              <MoveUpRight className="inline-block h-6 w-6" />
+            </Link>
           </h2>
           <h2 className="text-lg font-bold text-white sm:text-base">
             ENTROPRETTY Competition @ Winter Assembly 2025
@@ -30,10 +38,12 @@ export function WinterAssemblyPromotionCard() {
 
           <div className="space-y-4">
             <p className="text-sm text-gray-300">
-              The competition is open globally, anyone can enter!
+              The competition is{" "}
+              <span className="font-bold">open globally</span>, anyone can
+              enter!
             </p>
             <ul className="list-decimal space-y-1 pl-8 text-sm text-gray-300">
-              <li>Code your own design or remix another and post it here</li>
+              <li>Code your own design or remix another and post it here!</li>
               <li>
                 Make sure your algorithm{" "}
                 <Link
@@ -42,6 +52,7 @@ export function WinterAssemblyPromotionCard() {
                   target="_blank"
                 >
                   adheres to the rules
+                  <MoveUpRight className="inline-block h-4 w-4" />
                 </Link>
               </li>
               <li>
@@ -50,13 +61,21 @@ export function WinterAssemblyPromotionCard() {
                   to={"https://scene.assembly.org/"}
                   target="_blank"
                 >
-                  Submit
-                </Link>{" "}
-                up to 3 entries
+                  Submit up to 3 Entropretty posts per category to Partyman
+                  <MoveUpRight className="inline-block h-4 w-4" />
+                </Link>
               </li>
             </ul>
+
             <p className="text-sm font-bold text-gray-300">
-              Entries close Saturday the 22nd February at noon (12PM GMT+2).
+              <Link
+                to="https://scene.assembly.org/event/timetable/"
+                target="blank"
+                className="text-white underline hover:cursor-pointer hover:text-gray-300"
+              >
+                Entries close Saturday the 22nd February at noon (12PM GMT+2)
+                <MoveUpRight className="inline-block h-4 w-4" />
+              </Link>
             </p>
             <p className="text-sm text-gray-300">
               Winners and runner ups will be announced and demoed live on Sunday
