@@ -61,7 +61,8 @@ export function WinterAssemblyPromotionCard() {
                   to={"https://scene.assembly.org/"}
                   target="_blank"
                 >
-                  Submit up to 3 Entropretty posts per category to Partyman
+                  Submit up to 3 Entropretty posts & Screenshot per category to
+                  Partyman
                   <MoveUpRight className="inline-block h-4 w-4" />
                 </Link>
               </li>
