@@ -95,7 +95,7 @@ export function WinterAssemblyPromotionCard() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              @Entropretty on Twitter
+              @Entropretty on X
             </a>
           </Button>
           <Button
