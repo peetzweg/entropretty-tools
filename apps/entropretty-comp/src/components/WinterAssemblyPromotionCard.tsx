@@ -85,7 +85,7 @@ export function WinterAssemblyPromotionCard() {
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex flex-col justify-between sm:flex-row">
           <Button
             variant="link"
             className="text-sm text-white hover:text-gray-300"
