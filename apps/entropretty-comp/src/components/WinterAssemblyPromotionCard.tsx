@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import { Button } from "./ui/button"
-import { MoveUpRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 
 export function WinterAssemblyPromotionCard() {
   return (
@@ -29,7 +29,7 @@ export function WinterAssemblyPromotionCard() {
               className="underline"
             >
               $3000 Prize Pool
-              <MoveUpRight className="inline-block h-6 w-6" />
+              <ArrowUpRight className="inline-block h-6 w-6" />
             </Link>
           </h2>
           <h2 className="text-lg font-bold text-white sm:text-base">
@@ -52,7 +52,7 @@ export function WinterAssemblyPromotionCard() {
                   target="_blank"
                 >
                   adheres to the rules
-                  <MoveUpRight className="inline-block h-4 w-4" />
+                  <ArrowUpRight className="inline-block h-4 w-4" />
                 </Link>
               </li>
               <li>
@@ -63,7 +63,7 @@ export function WinterAssemblyPromotionCard() {
                 >
                   Submit up to 3 Entropretty posts & Screenshot per category to
                   Partyman
-                  <MoveUpRight className="inline-block h-4 w-4" />
+                  <ArrowUpRight className="inline-block h-4 w-4" />
                 </Link>
               </li>
             </ul>
@@ -75,7 +75,7 @@ export function WinterAssemblyPromotionCard() {
                 className="text-white underline hover:cursor-pointer hover:text-gray-300"
               >
                 Entries close Saturday the 22nd February at noon (12PM GMT+2)
-                <MoveUpRight className="inline-block h-4 w-4" />
+                <ArrowUpRight className="inline-block h-4 w-4" />
               </Link>
             </p>
             <p className="text-sm text-gray-300">
