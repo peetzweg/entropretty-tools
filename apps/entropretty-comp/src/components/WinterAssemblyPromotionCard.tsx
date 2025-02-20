@@ -72,11 +72,11 @@ export function WinterAssemblyPromotionCard() {
             asChild
           >
             <a
-              href="https://assembly.org/en/articles/assembly-to-host-global-tattoo-algorithm-competitions-in-2025-in"
+              href="https://assembly.org/discord"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Learn more at assembly.org
+              Talk to us in the Assembly Discord!
             </a>
           </Button>
         </div>
