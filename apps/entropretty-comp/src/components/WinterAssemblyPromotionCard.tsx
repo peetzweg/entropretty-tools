@@ -84,7 +84,20 @@ export function WinterAssemblyPromotionCard() {
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <Button
+            variant="link"
+            className="text-sm text-white hover:text-gray-300"
+            asChild
+          >
+            <a
+              href="https://x.com/entropretty"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @Entropretty on Twitter
+            </a>
+          </Button>
           <Button
             variant="link"
             className="text-sm text-white hover:text-gray-300"
