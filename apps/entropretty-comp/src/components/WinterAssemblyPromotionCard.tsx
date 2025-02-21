@@ -1,6 +1,77 @@
 import { Link } from "react-router"
 import { Button } from "./ui/button"
 import { ArrowUpRight } from "lucide-react"
+import { useEffect, useState } from "react"
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState({
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  })
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date()
+      const targetDate = new Date("2025-02-22T12:00:00+02:00")
+
+      let difference = targetDate.getTime() - now.getTime()
+
+      if (difference <= 0) {
+        return { hours: "00", minutes: "00", seconds: "00" }
+      }
+
+      const hours = Math.floor(difference / (1000 * 60 * 60))
+      difference -= hours * (1000 * 60 * 60)
+
+      const minutes = Math.floor(difference / (1000 * 60))
+      difference -= minutes * (1000 * 60)
+
+      const seconds = Math.floor(difference / 1000)
+
+      return {
+        hours: hours.toString().padStart(2, "0"),
+        minutes: minutes.toString().padStart(2, "0"),
+        seconds: seconds.toString().padStart(2, "0"),
+      }
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft())
+    }, 1000)
+
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft())
+
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="flex items-center justify-center space-x-1 font-mono text-4xl font-bold text-white">
+        <span>{timeLeft.hours}</span>
+        <span>:</span>
+        <span>{timeLeft.minutes}</span>
+        <span>:</span>
+        <span>{timeLeft.seconds}</span>
+      </div>
+      <div className="text-lg text-gray-300">
+        left until{" "}
+        <Link
+          className="underline hover:text-white"
+          to="https://scene.assembly.org/entry/add/"
+          target="_blank"
+        >
+          submissions to PARTYMAN
+        </Link>{" "}
+        close
+      </div>
+      <div className="text-lg text-gray-300">
+        ensure you submission includes a screenshot
+      </div>
+    </div>
+  )
+}
 
 export function WinterAssemblyPromotionCard() {
   return (
@@ -68,50 +139,15 @@ export function WinterAssemblyPromotionCard() {
               </li>
             </ul>
 
-            <p className="text-sm font-bold text-gray-300">
-              <Link
-                to="https://scene.assembly.org/event/timetable/"
-                target="blank"
-                className="text-white underline hover:cursor-pointer hover:text-gray-300"
-              >
-                Entries close Saturday the 22nd February at noon (12PM GMT+2)
-                <ArrowUpRight className="inline-block h-4 w-4" />
-              </Link>
-            </p>
-            <p className="text-sm text-gray-300">
+            {/* <p className="text-sm text-gray-300">
               Winners and runner ups will be announced and demoed live on Sunday
               23rd of February at Assembly.
-            </p>
+            </p> */}
           </div>
         </div>
 
-        <div className="flex flex-col justify-between sm:flex-row">
-          <Button
-            variant="link"
-            className="text-sm text-white hover:text-gray-300"
-            asChild
-          >
-            <a
-              href="https://x.com/entropretty"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @Entropretty on X
-            </a>
-          </Button>
-          <Button
-            variant="link"
-            className="text-sm text-white hover:text-gray-300"
-            asChild
-          >
-            <a
-              href="https://assembly.org/discord"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Talk to us in the Assembly Discord!
-            </a>
-          </Button>
+        <div className="space-y-4 pt-2">
+          <CountdownTimer />
         </div>
       </div>
     </div>
