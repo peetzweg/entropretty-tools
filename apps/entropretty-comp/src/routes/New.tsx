@@ -4,6 +4,7 @@ import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { FamilyKindFilter } from "@/components/FamilyKindFilter"
+import { WinterAssemblyPromotionCard } from "@/components/WinterAssemblyPromotionCard"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -51,6 +52,7 @@ export default function NewPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
+        <WinterAssemblyPromotionCard />
         <FamilyKindFilter />
         <Feed />
       </div>

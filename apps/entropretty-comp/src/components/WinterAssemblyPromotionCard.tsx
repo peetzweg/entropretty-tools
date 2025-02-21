@@ -1,8 +1,6 @@
-import { Link } from "react-router"
-import { Button } from "./ui/button"
 import { ArrowUpRight } from "lucide-react"
 import { useEffect, useState } from "react"
-
+import { Link } from "react-router"
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
     hours: "00",
