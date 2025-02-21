@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { cn, familyKindColor, familyKindLabel } from "@/lib/utils"
 import { FamilyKind } from "entropretty-utils"
 import { ArrowUpRight, PlusIcon } from "lucide-react"
@@ -57,6 +58,22 @@ export function NewDialog() {
             Choose your Seed Category
           </DialogTitle>
         </DialogHeader>
+        <Alert variant="info">
+          <AlertDescription className="text-xs">
+            Remember:{" "}
+            <Link
+              className="hover:text-brand-blue/80 underline"
+              to="https://entropretty.com/rules#2-determinism-uniqueness"
+              target="_blank"
+            >
+              Rule 2.3 Determinism & Uniqueness{" "}
+            </Link>
+            <br />
+            Every byte of the seed should be encoded into the design. Not using
+            all bytes will result in a poor uniqueness rating.
+          </AlertDescription>
+        </Alert>
+
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <SeedTypeCard kind="Procedural" />
@@ -80,6 +97,7 @@ export function NewDialog() {
             </div>
           </div>
         </div>
+
         <DialogFooter>
           <Button variant="link" asChild>
             <Link
@@ -87,7 +105,7 @@ export function NewDialog() {
               target="_blank"
               className="text-primary hover:underline"
             >
-              Learn more about the types of Seed
+              Learn about seed types & meaning
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </Button>
