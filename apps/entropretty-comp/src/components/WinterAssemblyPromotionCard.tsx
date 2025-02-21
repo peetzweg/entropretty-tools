@@ -53,10 +53,10 @@ function CountdownTimer() {
         <span>:</span>
         <span>{timeLeft.seconds}</span>
       </div>
-      <div className="text-lg text-gray-300">
+      <div className="text-justify text-sm text-gray-300 sm:text-lg">
         left until{" "}
         <Link
-          className="underline hover:text-white"
+          className="text-brand-yellow underline hover:text-white"
           to="https://scene.assembly.org/entry/add/"
           target="_blank"
         >
@@ -64,7 +64,7 @@ function CountdownTimer() {
         </Link>{" "}
         close
       </div>
-      <div className="text-lg text-gray-300">
+      <div className="text-justify text-sm text-gray-300 sm:text-lg">
         ensure you submission includes a screenshot
       </div>
     </div>
