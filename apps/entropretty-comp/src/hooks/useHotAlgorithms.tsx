@@ -22,6 +22,7 @@ export function useHotAlgorithms() {
         .from("algorithms_with_user_profile")
         .select()
         .order("like_count", { ascending: false })
+        .order("id", { ascending: true })
         .gt("like_count", 0)
 
       if (familyKindFilter !== "All") {
