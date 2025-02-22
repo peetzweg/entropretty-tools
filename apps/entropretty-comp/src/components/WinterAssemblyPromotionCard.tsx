@@ -7,6 +7,7 @@ function CountdownTimer() {
     minutes: "00",
     seconds: "00",
   })
+  const [isExpired, setIsExpired] = useState(false)
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -16,6 +17,7 @@ function CountdownTimer() {
       let difference = targetDate.getTime() - now.getTime()
 
       if (difference <= 0) {
+        setIsExpired(true)
         return { hours: "00", minutes: "00", seconds: "00" }
       }
 
@@ -43,6 +45,33 @@ function CountdownTimer() {
 
     return () => clearInterval(timer)
   }, [])
+
+  if (isExpired) {
+    return (
+      <div className="flex flex-col space-y-4">
+        <div>
+          <div className="text-center text-xl font-bold text-white">
+            Submissions are closed
+          </div>
+          <div className="text-center text-lg text-gray-300">
+            Judging is taking place
+          </div>
+        </div>
+        <div className="text-gray-300">
+          All submitted entries are shown at 9PM GMT+2 in the on Stage and in
+          the{" "}
+          <Link
+            className="underline hover:text-white"
+            to="https://assembly.org/streams"
+            target="_blank"
+          >
+            Assembly livestream
+          </Link>
+          . The winners will be announced Sunday the 23rd.
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -72,6 +101,20 @@ function CountdownTimer() {
 }
 
 export function WinterAssemblyPromotionCard() {
+  const [isExpired, setIsExpired] = useState(false)
+
+  useEffect(() => {
+    const checkExpiry = () => {
+      const now = new Date()
+      const targetDate = new Date("2025-02-22T12:00:00+02:00")
+      setIsExpired(now >= targetDate)
+    }
+
+    checkExpiry()
+    const timer = setInterval(checkExpiry, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div className="mx-auto flex w-screen flex-col overflow-hidden border bg-black text-white sm:flex-col md:w-[682px]">
       <div className="relative aspect-video h-36 w-full sm:aspect-video sm:h-36">
@@ -105,43 +148,40 @@ export function WinterAssemblyPromotionCard() {
             ENTROPRETTY Competition @ Winter Assembly 2025
           </h2>
 
-          <div className="space-y-4">
-            <p className="text-sm text-gray-300">
-              The competition is{" "}
-              <span className="font-bold">open globally</span>, anyone can
-              enter!
-            </p>
-            <ul className="list-decimal space-y-1 pl-8 text-sm text-gray-300">
-              <li>Code your own design or remix another and post it here!</li>
-              <li>
-                Make sure your algorithm{" "}
-                <Link
-                  className="text-white underline hover:cursor-pointer hover:text-gray-300"
-                  to={"https://entropretty.com/rules"}
-                  target="_blank"
-                >
-                  adheres to the rules
-                  <ArrowUpRight className="inline-block h-4 w-4" />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-white underline hover:cursor-pointer hover:text-gray-300"
-                  to={"https://scene.assembly.org/"}
-                  target="_blank"
-                >
-                  Submit up to 3 Entropretty posts & Screenshot per category to
-                  Partyman
-                  <ArrowUpRight className="inline-block h-4 w-4" />
-                </Link>
-              </li>
-            </ul>
-
-            {/* <p className="text-sm text-gray-300">
-              Winners and runner ups will be announced and demoed live on Sunday
-              23rd of February at Assembly.
-            </p> */}
-          </div>
+          {!isExpired && (
+            <div className="space-y-4">
+              <p className="text-sm text-gray-300">
+                The competition is{" "}
+                <span className="font-bold">open globally</span>, anyone can
+                enter!
+              </p>
+              <ul className="list-decimal space-y-1 pl-8 text-sm text-gray-300">
+                <li>Code your own design or remix another and post it here!</li>
+                <li>
+                  Make sure your algorithm{" "}
+                  <Link
+                    className="text-white underline hover:cursor-pointer hover:text-gray-300"
+                    to={"https://entropretty.com/rules"}
+                    target="_blank"
+                  >
+                    adheres to the rules
+                    <ArrowUpRight className="inline-block h-4 w-4" />
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-white underline hover:cursor-pointer hover:text-gray-300"
+                    to={"https://scene.assembly.org/"}
+                    target="_blank"
+                  >
+                    Submit up to 3 Entropretty posts & Screenshot per category
+                    to Partyman
+                    <ArrowUpRight className="inline-block h-4 w-4" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="space-y-4 pt-2">
