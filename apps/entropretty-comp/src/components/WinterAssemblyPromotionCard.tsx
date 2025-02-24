@@ -13,6 +13,10 @@ function CountdownTimer() {
         We will be contacting the winners shortly to arrange prize distribution.
         Stay tuned for the next competition!
       </div>
+      <div className="text-center text-gray-300">
+        Keep experimenting with new algorithms and join us for more exciting
+        events ahead!
+      </div>
     </div>
   )
 }
