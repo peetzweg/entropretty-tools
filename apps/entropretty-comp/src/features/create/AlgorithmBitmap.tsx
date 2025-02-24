@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils"
-import { useEffect, useMemo, useRef, useState, useCallback } from "react"
-import { useWorker } from "@/contexts/worker-context"
 import { AlgorithmId } from "@/workers/artist"
 import { seedToKey } from "entropretty-utils"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useAlgorithmService } from "../../contexts/service-context"
 
 interface Props {
   algorithmId: AlgorithmId
@@ -24,7 +24,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   className,
 }) => {
   const [ready, setIsReady] = useState(false)
-  const { artist } = useWorker()
+  const service = useAlgorithmService()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const drawingSize = useMemo(() => size * scale, [size, scale])
@@ -50,13 +50,13 @@ export const AlgorithmBitmap: React.FC<Props> = ({
     if (canvasRef.current === null) return
 
     setIsReady(false)
-    artist.render(algorithmId, drawingSize, [...seed]).then((bitmap) => {
+    service.render(algorithmId, drawingSize, [...seed]).then((bitmap) => {
       const context = canvasRef.current!.getContext("2d")!
       context.clearRect(0, 0, drawingSize, drawingSize)
       context.drawImage(bitmap, 0, 0, drawingSize, drawingSize)
       setIsReady(true)
     })
-  }, [seed, algorithmId, size, drawingSize, artist, version])
+  }, [seed, algorithmId, size, drawingSize, service, version])
 
   return (
     <canvas
