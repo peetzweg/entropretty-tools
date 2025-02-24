@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 function CountdownTimer() {
   return (
     <div className="flex flex-col space-y-4">
@@ -12,6 +14,15 @@ function CountdownTimer() {
       <div className="text-center text-gray-300">
         We will be contacting the winners shortly to arrange prize distribution.
         Stay tuned for the next competition!
+      </div>
+      <div className="text-center">
+        <Link
+          to="https://www.pouet.net/party_results.php?which=1898&when=2025"
+          target="_blank"
+          className="text-gray-300 underline hover:text-white"
+        >
+          See the results on Pouet
+        </Link>
       </div>
       <div className="text-center text-gray-300">
         Keep experimenting with new algorithms and join us for more exciting
