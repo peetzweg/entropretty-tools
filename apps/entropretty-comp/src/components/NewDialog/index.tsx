@@ -58,7 +58,7 @@ export function NewDialog() {
             Choose your Seed Category
           </DialogTitle>
         </DialogHeader>
-        <Alert variant="info">
+        {/* <Alert variant="info">
           <AlertDescription className="text-xs">
             Remember:{" "}
             <Link
@@ -72,29 +72,17 @@ export function NewDialog() {
             Every byte of the seed should be encoded into the design. Not using
             all bytes will result in a poor uniqueness rating.
           </AlertDescription>
-        </Alert>
+        </Alert> */}
 
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <SeedTypeCard kind="Procedural" />
-            <div className="text-muted-foreground space-y-0.5 text-center text-xs">
-              <div>1st Place: 142 $DOT</div>
-              <div>2nd Place: &nbsp;47 $DOT</div>
-            </div>
           </div>
           <div className="space-y-2">
             <SeedTypeCard kind="ProceduralPersonal" />
-            <div className="text-muted-foreground space-y-0.5 text-center text-xs">
-              <div>1st Place: 142 $DOT</div>
-              <div>2nd Place: &nbsp;47 $DOT</div>
-            </div>
           </div>
           <div className="space-y-2">
             <SeedTypeCard kind="ProceduralAccount" />
-            <div className="text-muted-foreground space-y-0.5 text-center text-xs">
-              <div>1st Place: 142 $DOT</div>
-              <div>2nd Place: &nbsp;47 $DOT</div>
-            </div>
           </div>
         </div>
 
