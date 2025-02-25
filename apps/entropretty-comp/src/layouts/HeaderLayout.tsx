@@ -15,7 +15,7 @@ export default function HeaderLayout() {
 
   useEffect(() => {
     // Set random favicon
-    const randomFaviconNumber = Math.floor(Math.random() * 3) + 1
+    const randomFaviconNumber = Math.floor(Math.random() * 13) + 1
     const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement
     if (!link) {
       const newLink = document.createElement("link")
