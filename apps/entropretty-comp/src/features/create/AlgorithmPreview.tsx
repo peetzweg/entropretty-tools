@@ -11,7 +11,7 @@ import {
 } from "./atoms"
 import { AlgorithmCompliance } from "./AlgorithmCompliance"
 
-const PREVIEW_SIZE = 224 // Smaller size for the grid previews
+const PREVIEW_SIZE = 164 // Smaller size for the grid previews
 
 export const AlgorithmPreview = () => {
   const [editorCode] = useAtom(editorCodeAtom)
@@ -39,10 +39,10 @@ export const AlgorithmPreview = () => {
   }, [algorithmService, editorCode, setScriptError, setAlgorithmVersion])
 
   return (
-    <div className="grid h-full w-full grid-cols-3 overflow-scroll">
-      {seedFamily.slice(0, 9).map((seed, index) => (
+    <div className="grid h-full w-full grid-cols-4 overflow-scroll">
+      {seedFamily.slice(0, 12).map((seed, index) => (
         <div key={seedToKey(seed)} className="flex items-center justify-center">
-          <div className="border border-dashed">
+          <div className="relative border border-dashed">
             {ready && (
               <AlgorithmCompliance
                 key={`compliance-${index}`}

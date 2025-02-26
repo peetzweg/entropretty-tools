@@ -1,7 +1,18 @@
 import { expose } from "comlink"
 import { preludeScript } from "./prelude"
-import { colorCountRule } from "entropretty-compliance/browser"
+import {
+  colorCountRule,
+  colorIslandsRule,
+} from "entropretty-compliance/browser"
+import type {
+  SingleImageRule,
+  ComplianceResult as RuleComplianceResult,
+  CheckMetadata,
+} from "entropretty-compliance/browser"
+
 const COMPLIANCE_TIMEOUT_MS = 300
+const COMPLIANCE_REFERENCE_SIZE = 100
+
 type Size = number
 export type AlgorithmId = number
 type ComplianceJob = {
@@ -14,8 +25,15 @@ type ComplianceJob = {
 
 export interface ComplianceResult {
   isCompliant: boolean
-  issues: string[]
+  issues: CheckMetadata[]
 }
+
+// Centralized registry of all compliance rules
+const complianceRules: SingleImageRule[] = [
+  colorCountRule,
+  colorIslandsRule,
+  // Add new rules here
+]
 
 const algorithms: Map<AlgorithmId, string> = new Map()
 const complianceQueue: ComplianceJob[] = []
@@ -81,7 +99,10 @@ async function processQueue() {
   }
 
   const script = algorithms.get(algorithmId)!
-  const canvas = new OffscreenCanvas(size, size)
+  const canvas = new OffscreenCanvas(
+    COMPLIANCE_REFERENCE_SIZE,
+    COMPLIANCE_REFERENCE_SIZE,
+  )
   const ctx = canvas.getContext("2d")
 
   if (!ctx) {
@@ -112,8 +133,6 @@ async function processQueue() {
       ctx.textAlign = "center"
       ctx.textBaseline = "bottom"
 
-      const issues: string[] = []
-
       // Execute the algorithm to check for compliance
       const drawAlgorithm = new Function(
         "ctx",
@@ -133,16 +152,22 @@ async function processQueue() {
       const buffer = new ArrayBuffer(imageData.data.length)
       new Uint8Array(buffer).set(imageData.data)
 
-      const result = await colorCountRule.check(buffer)
-      console.log({ result })
+      // Run all compliance rules
+      const ruleResults = await runAllComplianceRules(buffer)
 
-      // Extract issues from the compliance result
-      if (result.status !== "pass" && result.metadata) {
-        issues.push(...result.metadata.map((m) => m.message))
+      // Extract all issues from rule results
+      const issues: CheckMetadata[] = []
+      let isCompliant = true
+
+      for (const result of ruleResults) {
+        if (result.status !== "pass" && result.metadata) {
+          issues.push(...result.metadata)
+          isCompliant = false
+        }
       }
 
       return {
-        isCompliant: result.status === "pass",
+        isCompliant,
         issues,
       }
     })()
@@ -160,6 +185,17 @@ async function processQueue() {
 
   isProcessing = false
   processQueue()
+}
+
+/**
+ * Runs all compliance rules on the given image buffer
+ * @param buffer The image buffer to check
+ * @returns Array of compliance results from all rules
+ */
+async function runAllComplianceRules(
+  buffer: ArrayBuffer,
+): Promise<RuleComplianceResult[]> {
+  return Promise.all(complianceRules.map((rule) => rule.check(buffer)))
 }
 
 function compareNumberArrays(a: number[], b: number[]): boolean {

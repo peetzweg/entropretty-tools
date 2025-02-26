@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
+    "watch": "tsup --watch",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
