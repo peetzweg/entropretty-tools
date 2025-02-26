@@ -31,7 +31,7 @@ export const defaultConfig: Config = {
   rules: {
     colorCount: {
       maxColors: 3,
-      tolerance: 50, // Increased tolerance for color grouping
+      tolerance: 75, // Increased tolerance for color grouping
     },
     colorIslands: {
       minIslandSize: 50,

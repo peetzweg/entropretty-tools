@@ -48,6 +48,7 @@ export const colorIslandsRule: SingleImageRule = {
                 "Could not determine image dimensions. Invalid image data format.",
             },
           ],
+          type: "colorIslands",
         }
       }
 
@@ -156,6 +157,7 @@ export const colorIslandsRule: SingleImageRule = {
               message: "No small color islands found",
             },
           ],
+          type: "colorIslands",
         }
       }
 
@@ -201,6 +203,7 @@ export const colorIslandsRule: SingleImageRule = {
       return {
         status,
         metadata,
+        type: "colorIslands",
       }
     } catch (error: unknown) {
       return {
@@ -212,6 +215,7 @@ export const colorIslandsRule: SingleImageRule = {
             }`,
           },
         ],
+        type: "colorIslands",
       }
     }
   },

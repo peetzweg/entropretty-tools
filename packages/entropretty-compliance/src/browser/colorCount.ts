@@ -84,6 +84,7 @@ export const colorCountRule: SingleImageRule = {
             },
           },
         ],
+        type: "colorCount",
       }
     } catch (error: unknown) {
       return {
@@ -95,6 +96,7 @@ export const colorCountRule: SingleImageRule = {
             }`,
           },
         ],
+        type: "colorCount",
       }
     }
   },
