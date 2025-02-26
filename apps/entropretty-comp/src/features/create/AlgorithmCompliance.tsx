@@ -138,16 +138,17 @@ export const AlgorithmCompliance: React.FC<Props> = ({
                   <>
                     <li>{colorCountIssue.message}</li>
                     {issueColors.length > 0 && (
-                      <div className="ml-2 mt-1 flex flex-wrap gap-1">
+                      <div className="ml-2 mt-2 flex flex-wrap gap-2">
                         {issueColors.map((color: string, index: number) => (
                           <div
                             key={index}
-                            style={{
-                              backgroundColor: color,
-                              width: "10px",
-                              height: "10px",
-                            }}
-                          />
+                            className="flex items-center justify-center bg-white p-0.5"
+                          >
+                            <div
+                              className="h-3 w-3"
+                              style={{ backgroundColor: color }}
+                            />
+                          </div>
                         ))}
                       </div>
                     )}
