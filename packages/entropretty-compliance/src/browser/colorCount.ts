@@ -22,9 +22,19 @@ function areSimilarColors(
   )
 }
 
+// Helper function to determine if a color is white or near-white
+function isNearWhite(color: RGB, whiteTolerance: number): boolean {
+  return (
+    color.r >= 255 - whiteTolerance &&
+    color.g >= 255 - whiteTolerance &&
+    color.b >= 255 - whiteTolerance
+  )
+}
+
 export const colorCountRule: SingleImageRule = {
   name: "color-count",
-  description: "Checks if the image uses more than 3 distinct colors",
+  description:
+    "Checks if the image uses more than 3 distinct colors (excluding white, transparent pixels, and anti-aliasing colors)",
   type: "single",
   check: async (buffer: ArrayBuffer): Promise<ComplianceResult> => {
     try {
@@ -32,22 +42,40 @@ export const colorCountRule: SingleImageRule = {
       // Create ImageData directly from the ArrayBuffer
       const data = new Uint8ClampedArray(buffer)
 
-      // Store unique colors with tolerance grouping
+      // Calculate total pixel count (total pixels in the image)
+      const totalPixelCount = data.length / 4
+
+      // Store unique colors with tolerance grouping and their frequencies
       const colorGroups: RGB[] = []
+      const colorFrequency: number[] = []
 
       // Process pixels in groups of 4 (RGBA)
       for (let i = 0; i < data.length; i += 4) {
+        // Skip transparent or mostly transparent pixels
+        const alpha = data[i + 3]
+        if (alpha < 10) {
+          continue
+        }
+
         const currentColor: RGB = {
           r: data[i],
           g: data[i + 1],
           b: data[i + 2],
         }
 
+        // Skip white or near-white colors
+        if (isNearWhite(currentColor, config.whiteTolerance || 10)) {
+          continue
+        }
+
         // Check if this color is similar to any existing group
         let foundGroup = false
-        for (const groupColor of colorGroups) {
-          if (areSimilarColors(currentColor, groupColor, config.tolerance)) {
+        for (let j = 0; j < colorGroups.length; j++) {
+          if (
+            areSimilarColors(currentColor, colorGroups[j], config.tolerance)
+          ) {
             foundGroup = true
+            colorFrequency[j]++
             break
           }
         }
@@ -55,10 +83,25 @@ export const colorCountRule: SingleImageRule = {
         // If no similar color group found, create new group
         if (!foundGroup) {
           colorGroups.push(currentColor)
+          colorFrequency.push(1)
         }
       }
 
-      const colorCount = colorGroups.length
+      // Filter out colors that appear in less than the configured threshold percentage of total image pixels
+      // This helps exclude anti-aliasing artifacts and insignificant colors
+      const frequencyThreshold = Math.max(
+        1,
+        totalPixelCount * config.frequencyThreshold,
+      )
+      const significantColors: RGB[] = []
+
+      for (let i = 0; i < colorGroups.length; i++) {
+        if (colorFrequency[i] >= frequencyThreshold) {
+          significantColors.push(colorGroups[i])
+        }
+      }
+
+      const colorCount = significantColors.length
       const status = colorCount <= config.maxColors ? "pass" : "warn"
 
       return {
@@ -71,7 +114,7 @@ export const colorCountRule: SingleImageRule = {
                 : `Image uses ${colorCount} distinct colors, which exceeds the recommended limit of ${config.maxColors}`,
             details: {
               totalColors: colorCount,
-              uniqueColors: colorGroups.map((color) => ({
+              uniqueColors: significantColors.map((color) => ({
                 r: color.r,
                 g: color.g,
                 b: color.b,
@@ -80,7 +123,12 @@ export const colorCountRule: SingleImageRule = {
                   .padStart(2, "0")}${color.b.toString(16).padStart(2, "0")}`,
               })),
               tolerance: config.tolerance,
+              whiteTolerance: config.whiteTolerance,
               maxColors: config.maxColors,
+              note:
+                "White/near-white colors, transparent pixels, and colors that appear in less than " +
+                config.frequencyThreshold * 100 +
+                "% of the total image are excluded from the count",
             },
           },
         ],

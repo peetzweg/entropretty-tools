@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from "react"
 import { AlgorithmId } from "@/workers/artist"
 import { useAlgorithmService } from "@/contexts/service-context"
-import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
+import { AlgorithmBitmap } from "./AlgorithmBitmap"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
 import { CheckMetadata } from "entropretty-compliance/browser"
@@ -10,6 +10,24 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+
+// Extend the CheckMetadata type to include the details property with colors
+interface ExtendedCheckMetadata extends CheckMetadata {
+  details?: {
+    totalColors?: number
+    uniqueColors?: Array<{
+      r: number
+      g: number
+      b: number
+      hex: string
+    }>
+    tolerance?: number
+    whiteTolerance?: number
+    maxColors?: number
+    note?: string
+  }
+}
 
 interface Props {
   algorithmId: AlgorithmId
@@ -34,7 +52,7 @@ export const AlgorithmCompliance: React.FC<Props> = ({
   const [overlayImageData, setOverlayImageData] = useState<ImageData | null>(
     null,
   )
-  const [issues, setIssues] = useState<CheckMetadata[]>([])
+  const [issues, setIssues] = useState<ExtendedCheckMetadata[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const drawingSize = useMemo(() => size * scale, [size, scale])
 
@@ -56,22 +74,25 @@ export const AlgorithmCompliance: React.FC<Props> = ({
     )
   }, [issues])
 
-  // Check if we have any issues that should trigger the popover
-  const hasPopoverIssues = useMemo(
-    () => colorCountIssue || colorIslandIssues.length > 0,
-    [colorCountIssue, colorIslandIssues],
-  )
+  // Extract colors from colorCountIssue if they exist
+  const issueColors = useMemo(() => {
+    if (colorCountIssue?.details?.uniqueColors) {
+      return colorCountIssue.details.uniqueColors.map((color) => color.hex)
+    }
+    return []
+  }, [colorCountIssue])
 
   useEffect(() => {
     service
       .checkCompliance(algorithmId, drawingSize, [...seed])
       .then((result) => {
+        // Always set issues, even if there's no overlay image data
+        setIssues(result.issues as ExtendedCheckMetadata[])
+
         if (result.issueOverlayImageData) {
           setOverlayImageData(result.issueOverlayImageData)
-          setIssues(result.issues)
         } else {
           setOverlayImageData(null)
-          setIssues([])
         }
       })
       .catch((error) => {
@@ -108,11 +129,29 @@ export const AlgorithmCompliance: React.FC<Props> = ({
             </PopoverTrigger>
             <PopoverContent variant={"destructive"} className="w-auto p-2">
               <ul className="list-disc space-y-1 pl-4 text-sm">
-                {colorCountIssue && <li>{colorCountIssue.message}</li>}
                 {colorIslandIssues.length > 0 && (
                   <li>
                     {`There ${colorIslandIssues.length === 1 ? "is" : "are"} ${colorIslandIssues.length} detailed ${colorIslandIssues.length === 1 ? "area" : "areas"} which might not be tattooable.`}
                   </li>
+                )}
+                {colorCountIssue && (
+                  <>
+                    <li>{colorCountIssue.message}</li>
+                    {issueColors.length > 0 && (
+                      <div className="ml-2 mt-1 flex flex-wrap gap-1">
+                        {issueColors.map((color: string, index: number) => (
+                          <div
+                            key={index}
+                            style={{
+                              backgroundColor: color,
+                              width: "10px",
+                              height: "10px",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </ul>
             </PopoverContent>
@@ -129,15 +168,14 @@ export const AlgorithmCompliance: React.FC<Props> = ({
         className={className}
       />
       {overlayImageData && (
-        <>
-          <canvas
-            ref={canvasRef}
-            className="absolute inset-0 opacity-100 transition-opacity duration-200 hover:opacity-0"
-            width={drawingSize}
-            height={drawingSize}
-            style={{ width: size, height: size }}
-          />
-        </>
+        <canvas
+          ref={canvasRef}
+          className={cn(
+            "absolute left-0 top-0 h-full w-full cursor-pointer touch-none transition-opacity hover:opacity-0",
+            className,
+          )}
+          onClick={onClick}
+        />
       )}
     </div>
   )

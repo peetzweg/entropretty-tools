@@ -3,6 +3,8 @@ export interface Config {
     colorCount: {
       maxColors: number
       tolerance: number
+      whiteTolerance: number
+      frequencyThreshold: number // Minimum percentage of total image pixels required for a color to be considered significant
     }
     colorIslands: {
       minIslandSize: number
@@ -31,7 +33,9 @@ export const defaultConfig: Config = {
   rules: {
     colorCount: {
       maxColors: 3,
-      tolerance: 75, // Increased tolerance for color grouping
+      tolerance: 10, // Increased tolerance for color grouping
+      whiteTolerance: 10, // Tolerance for determining if a color is white or near-white
+      frequencyThreshold: 0.01, // 1% threshold for color significance
     },
     colorIslands: {
       minIslandSize: 50,

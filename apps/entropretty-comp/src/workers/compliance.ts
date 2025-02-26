@@ -27,6 +27,7 @@ export interface ComplianceResult {
   isCompliant: boolean
   issues: CheckMetadata[]
   issueOverlayImageData?: ImageData
+  ruleTypesFailed: string[]
 }
 
 // Centralized registry of all compliance rules
@@ -157,10 +158,18 @@ async function processQueue() {
       const issues: CheckMetadata[] = []
       let isCompliant = true
 
+      // Keep track of rule types with issues
+      const rulesWithIssues = new Set<string>()
+
       for (const result of ruleResults) {
         if (result.status !== "pass" && result.metadata) {
           issues.push(...result.metadata)
           isCompliant = false
+
+          // Record which rule type had issues
+          if (result.type) {
+            rulesWithIssues.add(result.type)
+          }
         }
       }
 
@@ -225,6 +234,7 @@ async function processQueue() {
         isCompliant,
         issues,
         issueOverlayImageData,
+        ruleTypesFailed: [...rulesWithIssues],
       }
     })()
 
