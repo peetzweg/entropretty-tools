@@ -27,11 +27,8 @@ const workerAPI = {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       )
     } else {
-      if (algorithms.has(algorithmId)) {
-        // console.info("Not Updated algo", algorithmId)
-      } else {
+      if (!algorithms.has(algorithmId)) {
         algorithms.set(algorithmId, algorithm)
-        console.info("Updated algo", algorithmId)
       }
     }
   },

@@ -27,3 +27,5 @@ dist-ssr
 .vscode
 *.tsbuildinfo
 *.sql
+*.sh
+*.dump

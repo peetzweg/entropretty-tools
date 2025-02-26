@@ -1,4 +1,4 @@
-import { useWorker } from "@/contexts/worker-context"
+import { useAlgorithmService } from "@/contexts/service-context"
 import { supabase } from "@/lib/supabase"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { AlgorithmView } from "@/lib/helper.types"
@@ -8,7 +8,7 @@ import { familyKindFilterAtom } from "@/atoms/family-kind-filter"
 const PAGE_SIZE = 3
 
 export function useHotAlgorithms() {
-  const { artist } = useWorker()
+  const algorithmService = useAlgorithmService()
   const familyKindFilter = useAtomValue(familyKindFilterAtom)
 
   return useInfiniteQuery<AlgorithmView[]>({
@@ -33,8 +33,7 @@ export function useHotAlgorithms() {
 
       if (data) {
         for (const algorithm of data) {
-          console.log("Updating", algorithm.id)
-          artist.updateAlgorithm(algorithm.id, algorithm.content)
+          algorithmService.updateAlgorithm(algorithm.id, algorithm.content)
         }
       }
 

@@ -1,0 +1,44 @@
+{
+  "name": "entropretty-compliance",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Image compliance checking library",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./browser": {
+      "import": "./dist/browser.js",
+      "types": "./dist/browser.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    },
+    "./config": {
+      "import": "./dist/config.js",
+      "types": "./dist/config.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "pixelmatch": "^7.1.0",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@types/sharp": "^0.31.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  }
+}

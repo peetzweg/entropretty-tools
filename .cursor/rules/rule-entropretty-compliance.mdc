@@ -1,0 +1,100 @@
+---
+description: 
+globs: packages/entropretty-compliance/*
+alwaysApply: false
+---
+ # Entropretty Compliance Rules
+
+This rule provides guidelines for implementing browser-compatible compliance rules in the Entropretty project.
+
+## Browser-Compatible Image Processing Rules
+
+1. **Use direct Uint8ClampedArray for image data processing**
+   - Always create a Uint8ClampedArray directly from the ArrayBuffer: `const data = new Uint8ClampedArray(buffer)`
+   - Avoid complex image conversion processes using Blob, Image elements, or Canvas when possible
+
+2. **Import configuration from config file**
+   - Always use `import { defaultConfig } from "../config"` instead of accessing `window.getConfig()`
+   - Reference config values with `defaultConfig.rules.ruleName.propertyName`
+
+3. **Handle image dimensions appropriately**
+   - Either calculate dimensions from pixel data or accept them as parameters
+   - Include validation to ensure dimensions are valid: `if (!Number.isInteger(width) || !Number.isInteger(height))`
+   - Return informative error messages when dimensions can't be determined
+
+4. **Use efficient pixel data access patterns**
+   - Access pixel data directly: `[data[idx], data[idx + 1], data[idx + 2]]` 
+   - Avoid unnecessary Array.from() and mapping operations
+   - Remember RGBA channel order with 4 bytes per pixel
+
+5. **Consistent error handling**
+   - Wrap rule logic in try/catch blocks
+   - Return structured error responses with descriptive messages
+   - Include the original error message when available: `error instanceof Error ? error.message : "Unknown error"`
+
+6. **Status reporting conventions**
+   - Use "pass" for successful checks
+   - Use "warn" for minor issues that don't require immediate attention
+   - Use "error" for critical issues that need addressing
+
+7. **Metadata formatting**
+   - Include clear, descriptive messages about findings
+   - Format numerical values for readability
+   - Include percentage-based metrics for relative sizing
+   - Group related information logically
+
+8. **Optimization for browser environment**
+   - Avoid heavy computations that might block the main thread
+   - Break large pixel operations into manageable chunks when possible
+   - Consider using Web Workers for CPU-intensive operations
+
+9. **Rule type and interface consistency**
+   - Ensure all rules follow the SingleImageRule or CompareImageRule interface
+   - Implement the check method with correct parameter and return types
+
+10. **Code style consistency**
+    - Use consistent naming conventions across all rules
+    - Follow the project's formatting standards (spaces, semi-colons, etc.)
+    - Group related functionality together for readability
+
+## Example Implementation
+
+```typescript
+import type { SingleImageRule, ComplianceResult } from "./types";
+import { defaultConfig } from "../config";
+
+export const exampleRule: SingleImageRule = {
+  name: "example-rule",
+  description: "Description of what the rule checks",
+  type: "single",
+  check: async (buffer: ArrayBuffer): Promise<ComplianceResult> => {
+    try {
+      const config = defaultConfig.rules.exampleRule;
+      const data = new Uint8ClampedArray(buffer);
+      
+      // Processing logic here
+      
+      return {
+        status: "pass", // or "warn" or "error"
+        metadata: [
+          {
+            message: "Informative message about results",
+            // Additional details as needed
+          },
+        ],
+      };
+    } catch (error: unknown) {
+      return {
+        status: "error",
+        metadata: [
+          {
+            message: `Failed to analyze: ${
+              error instanceof Error ? error.message : "Unknown error"
+            }`,
+          },
+        ],
+      };
+    }
+  },
+};
+```

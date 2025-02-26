@@ -1,7 +1,7 @@
 import "@/globals.css"
 
 import { AuthProvider } from "@/contexts/auth-context.tsx"
-import { WorkerProvider } from "@/contexts/worker-context.tsx"
+import { ServiceProvider } from "@/contexts/service-context.tsx"
 import HeaderLayout from "@/layouts/HeaderLayout.tsx"
 import AlgorithmPage from "@/routes/Algorithm.tsx"
 import NewPage from "@/routes/New"
@@ -33,7 +33,7 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-    <WorkerProvider>
+    <ServiceProvider>
       <AuthProvider>
         <BrowserRouter>
           <Toaster />
@@ -67,6 +67,6 @@ createRoot(document.getElementById("root")!).render(
           </Routes>
         </BrowserRouter>
       </AuthProvider>
-    </WorkerProvider>
+    </ServiceProvider>
   </QueryClientProvider>,
 )

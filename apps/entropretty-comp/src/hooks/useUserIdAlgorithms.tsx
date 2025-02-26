@@ -1,4 +1,4 @@
-import { useWorker } from "@/contexts/worker-context"
+import { useAlgorithmService } from "@/contexts/service-context"
 import { AlgorithmView } from "@/lib/helper.types"
 import { supabase } from "@/lib/supabase"
 import { useInfiniteQuery } from "@tanstack/react-query"
@@ -6,7 +6,7 @@ import { useInfiniteQuery } from "@tanstack/react-query"
 const PAGE_SIZE = 3
 
 export function useUserIdAlgorithms(userId: string | undefined) {
-  const { artist } = useWorker()
+  const algorithmService = useAlgorithmService()
 
   return useInfiniteQuery<AlgorithmView[]>({
     queryKey: ["algorithms", "user-id", userId],
@@ -25,7 +25,7 @@ export function useUserIdAlgorithms(userId: string | undefined) {
 
       if (data) {
         for (const algorithm of data) {
-          artist.updateAlgorithm(algorithm.id, algorithm.content)
+          algorithmService.updateAlgorithm(algorithm.id, algorithm.content)
         }
       }
 

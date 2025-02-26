@@ -1,6 +1,6 @@
 import { AlgorithmInfiniteGrid } from "@/components/AlgorithmInfiniteGrid"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useWorker } from "@/contexts/worker-context"
+import { useAlgorithmService } from "@/contexts/service-context"
 import { Database } from "@/lib/database.types"
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
@@ -11,9 +11,9 @@ type AlgorithmView =
 
 export default function AlgorithmPage() {
   const { algorithmId } = useParams()
+  const algorithmService = useAlgorithmService()
 
-  const { artist } = useWorker()
-  const { data: algorithm, isLoading } = useQuery({
+  const { data: algorithm, isLoading } = useQuery<AlgorithmView>({
     queryKey: ["algorithm", algorithmId],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -23,33 +23,38 @@ export default function AlgorithmPage() {
         .single()
 
       if (error) throw error
-      if (data) {
-        artist.updateAlgorithm(data.id, data.content)
-      }
-      return data as AlgorithmView
+      if (!data) throw new Error("Algorithm not found")
+
+      algorithmService.updateAlgorithm(data.id, data.content)
+
+      return data
     },
-    enabled: !!algorithmId,
   })
 
   if (isLoading) {
     return (
-      <div className="mx-auto my-4">
-        <Skeleton className="flex aspect-square w-full rounded-none" />
+      <div className="flex flex-col gap-4 p-8">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-8 w-32" />
+        <div className="grid grid-cols-3 gap-4">
+          {Array(9)
+            .fill(0)
+            .map((_, i) => (
+              <Skeleton key={i} className="aspect-square" />
+            ))}
+        </div>
       </div>
     )
   }
 
   if (!algorithm) {
-    return (
-      <div className="mx-auto my-4">
-        Algorithm does not exist or was deleted
-      </div>
-    )
+    return <div>Algorithm not found</div>
   }
 
   return (
-    <div className="relative my-4 h-[calc(100vh-8rem)]">
-      {/* <AlgorithmDemo algorithm={algorithm} /> */}
+    <div className="flex flex-col gap-4 p-8">
+      <h1 className="text-2xl font-bold">{algorithm.name}</h1>
+      <div className="text-lg">by {algorithm.username}</div>
       <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )
