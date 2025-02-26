@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { AlgorithmId } from "@/workers/artist"
 import { seedToKey } from "entropretty-utils"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useAlgorithmService } from "../../contexts/service-context"
+import { useAlgorithmService } from "@/contexts/service-context"
 
 interface Props {
   algorithmId: AlgorithmId
@@ -18,7 +18,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   algorithmId,
   seed,
   size,
-  scale = 2,
+  scale = 1,
   onClick,
   version = 0,
   className,

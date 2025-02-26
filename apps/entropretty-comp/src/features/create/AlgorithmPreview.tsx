@@ -2,7 +2,6 @@ import { useAlgorithmService } from "@/contexts/service-context"
 import { seedToKey } from "entropretty-utils"
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
-import { AlgorithmBitmap } from "./AlgorithmBitmap"
 import {
   editorCodeAtom,
   editorCodeVersionAtom,
@@ -48,17 +47,10 @@ export const AlgorithmPreview = () => {
                 key={`compliance-${index}`}
                 algorithmId={0}
                 seed={seed}
+                scale={2}
                 size={PREVIEW_SIZE}
-              >
-                <AlgorithmBitmap
-                  key={`bitmap-${index}`}
-                  algorithmId={0}
-                  seed={seed}
-                  size={PREVIEW_SIZE}
-                  scale={2}
-                  version={codeVersion}
-                />
-              </AlgorithmCompliance>
+                version={codeVersion}
+              />
             )}
           </div>
         </div>

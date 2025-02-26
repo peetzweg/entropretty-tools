@@ -28,8 +28,8 @@ export class AlgorithmService {
     return this.artistWorker.render(algorithmId, size, seed)
   }
 
-  async checkCompliance(algorithmId: number, seed: number[]) {
-    return this.complianceWorker.checkCompliance(algorithmId, 100, seed)
+  async checkCompliance(algorithmId: number, size: number, seed: number[]) {
+    return this.complianceWorker.checkCompliance(algorithmId, size, seed)
   }
 
   cancelRender(algorithmId: number, size: number, seed: number[]) {

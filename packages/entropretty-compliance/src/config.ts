@@ -1,30 +1,30 @@
 export interface Config {
   rules: {
     colorCount: {
-      maxColors: number;
-      tolerance: number;
-    };
+      maxColors: number
+      tolerance: number
+    }
     colorIslands: {
-      minIslandSize: number;
-      warningThreshold: number;
-      errorThreshold: number;
-      colorTolerance: number;
-    };
+      minIslandSize: number
+      warningThreshold: number
+      errorThreshold: number
+      colorTolerance: number
+    }
     colorContrast: {
-      maxContrastDelta: number; // Maximum allowed color difference between adjacent pixels
-      minContrastLength: number; // Minimum length of high contrast edge to trigger warning
-      samplingSteps: number; // How many pixels to check in each direction
-    };
+      maxContrastDelta: number // Maximum allowed color difference between adjacent pixels
+      minContrastLength: number // Minimum length of high contrast edge to trigger warning
+      samplingSteps: number // How many pixels to check in each direction
+    }
     imageHash: {
-      warningThreshold: number;
-      errorThreshold: number;
-    };
-  };
+      warningThreshold: number
+      errorThreshold: number
+    }
+  }
   preprocessors: {
     colorMerge: {
-      tolerance: number;
-    };
-  };
+      tolerance: number
+    }
+  }
 }
 
 export const defaultConfig: Config = {
@@ -54,12 +54,12 @@ export const defaultConfig: Config = {
       tolerance: 25, // Default tolerance for color merging
     },
   },
-};
+}
 
-let currentConfig = { ...defaultConfig };
+let currentConfig = { ...defaultConfig }
 
 export function getConfig(): Config {
-  return currentConfig;
+  return currentConfig
 }
 
 export function updateConfig(newConfig: Partial<Config>) {
@@ -70,5 +70,5 @@ export function updateConfig(newConfig: Partial<Config>) {
       ...currentConfig.rules,
       ...(newConfig.rules || {}),
     },
-  };
+  }
 }

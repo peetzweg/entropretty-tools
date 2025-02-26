@@ -11,7 +11,7 @@ import type {
 } from "entropretty-compliance/browser"
 
 const COMPLIANCE_TIMEOUT_MS = 300
-const COMPLIANCE_REFERENCE_SIZE = 100
+const COMPLIANCE_REFERENCE_SIZE = 300
 
 type Size = number
 export type AlgorithmId = number
@@ -26,6 +26,7 @@ type ComplianceJob = {
 export interface ComplianceResult {
   isCompliant: boolean
   issues: CheckMetadata[]
+  issueOverlayImageData?: ImageData
 }
 
 // Centralized registry of all compliance rules
@@ -46,7 +47,6 @@ const workerAPI = {
     } else {
       if (!algorithms.has(algorithmId)) {
         algorithms.set(algorithmId, algorithm)
-        console.info("Updated compliance algo", algorithmId)
       }
     }
   },
@@ -143,8 +143,6 @@ async function processQueue() {
       // Draw the algorithm first
       drawAlgorithm(ctx, seed)
 
-      console.log("drawAlgorithm")
-
       // Get the raw pixel data directly from the original canvas
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 
@@ -166,9 +164,67 @@ async function processQueue() {
         }
       }
 
+      // Create issue overlay if there are issues with location data
+      let issueOverlayImageData: ImageData | undefined = undefined
+      if (
+        !isCompliant &&
+        issues.length > 0 &&
+        issues.some((issue) => issue.location)
+      ) {
+        // Create a new canvas for the overlay with the target size
+        const overlayCanvas = new OffscreenCanvas(size, size)
+        const overlayCtx = overlayCanvas.getContext("2d")
+
+        if (overlayCtx) {
+          // Set up the context for drawing red rectangles
+          overlayCtx.fillStyle = "rgba(0, 0, 0, 0)" // Transparent background
+          overlayCtx.fillRect(0, 0, size, size) // Clear the canvas
+          overlayCtx.strokeStyle = "rgba(255, 0, 0, 0.7)" // Red with some transparency
+          overlayCtx.lineWidth = 4
+
+          // Calculate scaling factor from reference size to target size
+          const scaleFactor = size / COMPLIANCE_REFERENCE_SIZE
+
+          // Add padding to make rectangles a bit bigger (in pixels)
+          const paddingPixels = 5
+
+          // Draw each issue with location data
+          for (const issue of issues) {
+            if (issue.location) {
+              const { x, y, width, height } = issue.location
+
+              // Scale the coordinates to the target size
+              const scaledX = x * scaleFactor
+              const scaledY = y * scaleFactor
+              const scaledWidth = width * scaleFactor
+              const scaledHeight = height * scaleFactor
+
+              // Apply padding to make the rectangle bigger
+              const paddedX = Math.max(0, scaledX - paddingPixels)
+              const paddedY = Math.max(0, scaledY - paddingPixels)
+              const paddedWidth = Math.min(
+                size - paddedX,
+                scaledWidth + paddingPixels * 2,
+              )
+              const paddedHeight = Math.min(
+                size - paddedY,
+                scaledHeight + paddingPixels * 2,
+              )
+
+              // Draw the rectangle with padding
+              overlayCtx.strokeRect(paddedX, paddedY, paddedWidth, paddedHeight)
+            }
+          }
+
+          // Get the image data from the overlay canvas
+          issueOverlayImageData = overlayCtx.getImageData(0, 0, size, size)
+        }
+      }
+
       return {
         isCompliant,
         issues,
+        issueOverlayImageData,
       }
     })()
 
