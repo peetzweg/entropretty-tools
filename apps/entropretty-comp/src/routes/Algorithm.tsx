@@ -53,8 +53,8 @@ export default function AlgorithmPage() {
 
   return (
     <div className="flex flex-col gap-4 p-8">
-      <h1 className="text-2xl font-bold">{algorithm.name}</h1>
-      <div className="text-lg">by {algorithm.username}</div>
+      {/* <h1 className="text-2xl font-bold">{algorithm.name}</h1>
+      <div className="text-lg">by {algorithm.username}</div> */}
       <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )

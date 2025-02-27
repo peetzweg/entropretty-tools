@@ -4,7 +4,7 @@ import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { WinterAssemblyPromotionCard } from "../components/WinterAssemblyPromotionCard"
+import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -52,7 +52,7 @@ export default function HotPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
-        <WinterAssemblyPromotionCard />
+        <EntroprettyGeneralPromotionCard />
         <FamilyKindFilter />
         <Feed />
       </div>
