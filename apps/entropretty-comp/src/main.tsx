@@ -42,7 +42,7 @@ createRoot(document.getElementById("root")!).render(
             <Route element={<HeaderLayout />}>
               <Route path="/new" element={<NewPage />} />
               <Route path="/hot" element={<HotPage />} />
-              <Route path="/" element={<HotPage />} />
+              <Route path="/" element={<NewPage />} />
               <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
               <Route path="/u/:username" element={<UserPage />} />
               <Route element={<RequireUser />}>
