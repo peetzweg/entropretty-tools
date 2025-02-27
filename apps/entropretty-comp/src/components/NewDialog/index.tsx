@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { cn, familyKindColor, familyKindLabel } from "@/lib/utils"
+import { cn, familyKindColor } from "@/lib/utils"
 import { FamilyKind } from "entropretty-utils"
 import { ArrowUpRight, PlusIcon } from "lucide-react"
 import { Link, useNavigate } from "react-router"
@@ -18,25 +18,53 @@ interface SeedTypeCardProps {
 
 function SeedTypeCard({ kind }: SeedTypeCardProps) {
   const navigate = useNavigate()
+  const isProceduralKind = kind === "Procedural"
+  const colorClass = familyKindColor(kind)
 
   return (
-    <button
-      onClick={() => navigate(`/create?type=${kind}`)}
-      className={cn(
-        "flex aspect-square w-full flex-col items-center justify-center gap-2 border p-4 transition-colors hover:opacity-90",
-        familyKindColor(kind),
-        kind === "Procedural"
-          ? "text-primary-foreground"
-          : "text-primary-background",
+    <div className={cn("relative", isProceduralKind && "pb-2")}>
+      {isProceduralKind && (
+        <>
+          <div
+            className={cn(
+              "absolute inset-0 -m-2 border",
+              colorClass,
+              "z-0 bg-transparent",
+            )}
+          ></div>
+          <div
+            className={cn(
+              "absolute bottom-0 left-1/2 z-10 -translate-x-1/2 translate-y-4 px-4 py-0.5",
+              colorClass,
+              "text-primary-foreground font-jersey whitespace-nowrap text-xs",
+            )}
+          >
+            START HERE
+          </div>
+        </>
       )}
-    >
-      <div className="font-jersey text-xl">{familyKindLabel(kind)}</div>
-      <div className="text-sm">
-        {kind === "Procedural" && "4 random bytes for creative designs"}
-        {kind === "ProceduralPersonal" && "8 bytes for personal identifiers"}
-        {kind === "ProceduralAccount" && "32 bytes for account-based designs"}
-      </div>
-    </button>
+      <button
+        onClick={() => navigate(`/create?type=${kind}`)}
+        className={cn(
+          "z-5 relative flex aspect-square w-full flex-col items-center justify-center gap-2 p-4 transition-colors hover:opacity-90",
+          colorClass,
+          isProceduralKind
+            ? "text-primary-foreground"
+            : "text-primary-background",
+        )}
+      >
+        <div className="font-jersey text-xl">
+          {kind === "Procedural" && "Entropy"}
+          {kind === "ProceduralPersonal" && "Personal Id"}
+          {kind === "ProceduralAccount" && "Account Id"}
+        </div>
+        <div className="text-sm">
+          {kind === "Procedural" && "4 random bytes for creative designs"}
+          {kind === "ProceduralPersonal" && "8 bytes for personal identifiers"}
+          {kind === "ProceduralAccount" && "32 bytes for account-based designs"}
+        </div>
+      </button>
+    </div>
   )
 }
 
