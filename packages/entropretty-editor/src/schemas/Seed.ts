@@ -1,5 +1,4 @@
 import type { Schema, Seed } from "entropretty-utils"
-import { numeric } from "entropretty-utils"
 
 function draw(ctx: CanvasRenderingContext2D, seed: Seed) {
   // Set up the canvas

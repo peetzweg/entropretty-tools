@@ -136,7 +136,7 @@ async function processQueue() {
   processQueue()
 }
 
-function compareNumberArrays(a: number[], b: number[]): boolean {
+function compareNumberArrays(a: Seed, b: Seed): boolean {
   if (a.length !== b.length) return false
   return a.every((val, i) => val === b[i])
 }

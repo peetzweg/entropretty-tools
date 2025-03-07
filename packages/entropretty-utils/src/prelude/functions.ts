@@ -1,3 +1,5 @@
+import { Seed } from "../types"
+
 /**
  * Helper function to safely get a byte from a Seed type
  * @param {Seed} seed - The seed to get byte from

@@ -19,7 +19,7 @@ export type AlgorithmId = number
 type ComplianceJob = {
   algorithmId: AlgorithmId
   size: Size
-  seed: number[]
+  seed: Seed
   resolve: (result: ComplianceResult) => void
   reject: (error: Error) => void
 }
@@ -67,7 +67,7 @@ const workerAPI = {
     seed: Seed,
   ): Promise<ComplianceResult> {
     return new Promise((resolve, reject) => {
-      const seedCopy = [...seed]
+      const seedCopy: Seed = [...seed]
       const job: ComplianceJob = {
         algorithmId,
         size,
@@ -273,7 +273,7 @@ async function runAllComplianceRules(
   return Promise.all(complianceRules.map((rule) => rule.check(buffer)))
 }
 
-function compareNumberArrays(a: number[], b: number[]): boolean {
+function compareNumberArrays(a: Seed, b: Seed): boolean {
   if (a.length !== b.length) return false
   return a.every((val, i) => val === b[i])
 }
