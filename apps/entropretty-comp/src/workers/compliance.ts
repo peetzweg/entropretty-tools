@@ -9,6 +9,7 @@ import type {
   ComplianceResult as RuleComplianceResult,
   CheckMetadata,
 } from "entropretty-compliance/browser"
+import type { Seed } from "entropretty-utils"
 
 const COMPLIANCE_TIMEOUT_MS = 300
 const COMPLIANCE_REFERENCE_SIZE = 300
@@ -28,6 +29,14 @@ export interface ComplianceResult {
   issues: CheckMetadata[]
   issueOverlayImageData?: ImageData
   ruleTypesFailed: string[]
+}
+
+export interface ComplianceRequest {
+  algorithmId: AlgorithmId
+  size: Size
+  seed: Seed
+  resolve: (result: ComplianceResult) => void
+  reject: (error: Error) => void
 }
 
 // Centralized registry of all compliance rules
@@ -55,7 +64,7 @@ const workerAPI = {
   async checkCompliance(
     algorithmId: AlgorithmId,
     size: Size,
-    seed: number[],
+    seed: Seed,
   ): Promise<ComplianceResult> {
     return new Promise((resolve, reject) => {
       const seedCopy = [...seed]
@@ -71,7 +80,7 @@ const workerAPI = {
     })
   },
 
-  cancelCheck(algorithmId: AlgorithmId, size: Size, seed: number[]) {
+  cancelCheck(algorithmId: AlgorithmId, size: Size, seed: Seed) {
     const index = complianceQueue.findIndex(
       (job) =>
         job.algorithmId === algorithmId &&

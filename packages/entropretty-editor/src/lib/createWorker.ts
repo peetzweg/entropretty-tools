@@ -1,5 +1,6 @@
 import { Schema, SchemaMetadata } from "entropretty-utils"
 import * as Comlink from "comlink"
+import type { Seed } from "entropretty-utils"
 
 export const createWorker = (
   dynamicImports: Record<string, () => Promise<unknown>>,
@@ -41,7 +42,7 @@ export const createWorker = (
     hasSchema: (name: string) => {
       return _schemas.has(name)
     },
-    drawTransfer: async (name: string, seed: Uint8Array, size: number) => {
+    drawTransfer: async (name: string, seed: Seed, size: number) => {
       const canvas = new OffscreenCanvas(size, size)
       const context = canvas.getContext("2d")
       if (!context) throw "Unable to get Context from OffscreenCanvas in Worker"

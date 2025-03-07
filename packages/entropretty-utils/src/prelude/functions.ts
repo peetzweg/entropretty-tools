@@ -1,10 +1,20 @@
 /**
+ * Helper function to safely get a byte from a Seed type
+ * @param {Seed} seed - The seed to get byte from
+ * @param {number} index - Index of the byte
+ * @returns {number} The byte value
+ */
+function getByte(seed: Seed, index: number): number {
+  return seed[index % seed.length]
+}
+
+/**
  * Splits a seed into multiple parts by dividing its bits
- * @param {number[]} seed - The seed to split
+ * @param {Seed} seed - The seed to split
  * @param {number} parts - Number of parts to split the seed into
  * @returns {number[]} Array of numbers, each representing a portion of the seed
  */
-export function split(seed: number[], parts: number): number[] {
+export function split(seed: Seed, parts: number): number[] {
   const r: number[] = []
   let last = 0
   for (let i = 0; i < parts; ++i) {
@@ -16,37 +26,39 @@ export function split(seed: number[], parts: number): number[] {
 }
 
 /**
- * Converts an array of bytes into an array of nibbles (4-bit values)
- * @param {number[]} bytes - Array of bytes to convert
+ * Converts a Seed into an array of nibbles (4-bit values)
+ * @param {Seed} bytes - Seed to convert
  * @returns {number[]} Array of nibbles (values 0-15)
  */
-export function bytesToNibbles(bytes: number[]): number[] {
+export function bytesToNibbles(bytes: Seed): number[] {
   const nibbles = new Array(bytes.length * 2)
   for (let i = 0; i < bytes.length; i++) {
-    nibbles[i * 2] = (bytes[i] >> 4) & 15
-    nibbles[i * 2 + 1] = bytes[i] & 15
+    const byte = getByte(bytes, i)
+    nibbles[i * 2] = (byte >> 4) & 15
+    nibbles[i * 2 + 1] = byte & 15
   }
   return nibbles
 }
 
 /**
  * Gets a specific bit from a seed at a given position
- * @param {number[]} seed - The seed to extract bit from
+ * @param {Seed} seed - The seed to extract bit from
  * @param {number} i - Bit position
  * @returns {0 | 1} The bit value (0 or 1)
  */
-export function bit(seed: number[], i: number): 0 | 1 {
-  return ((seed[Math.floor(i / 8) % seed.length] >> i % 8) & 1) as 0 | 1
+export function bit(seed: Seed, i: number): 0 | 1 {
+  const byte = getByte(seed, Math.floor(i / 8))
+  return ((byte >> i % 8) & 1) as 0 | 1
 }
 
 /**
  * Extracts a range of bits from a seed and converts them to a number
- * @param {number[]} seed - The seed to extract bits from
+ * @param {Seed} seed - The seed to extract bits from
  * @param {number} [from=0] - Starting bit position
  * @param {number} [to=32] - Ending bit position
  * @returns {number} The extracted bits as an unsigned 32-bit integer
  */
-export function bits(seed: number[], from = 0, to = 32): number {
+export function bits(seed: Seed, from = 0, to = 32): number {
   let r = 0
   for (let i = from; i < to; ++i) {
     r = ((r << 1) | bit(seed, i)) >>> 0
@@ -114,29 +126,29 @@ export function fillEach<T>(
 }
 
 /**
- * Converts a byte array into a BigInt
- * @param {number[]} seed - Byte array to convert
+ * Converts a Seed into a BigInt
+ * @param {Seed} seed - Seed to convert
  * @returns {BigInt} The numeric value as a BigInt
  * @throws {string} If seed is too long
  */
-export function numeric(seed: number[]): bigint {
+export function numeric(seed: Seed): bigint {
   const MAX_BYTES = 64
   if (seed.length > MAX_BYTES) {
     throw "Seed too long to safely convert to a bigint"
   }
   let result = 0n
   for (let i = 0; i < seed.length; i++) {
-    result = (result << 8n) | BigInt(seed[i])
+    result = (result << 8n) | BigInt(getByte(seed, i))
   }
   return result
 }
 
 /**
  * Creates a random number generator from a seed
- * @param {number[]} seed - Seed for the random number generator
+ * @param {Seed} seed - Seed for the random number generator
  * @returns {() => number} A function that generates random numbers between 0 and 1
  */
-export function randomGenerator(seed: number[]): () => number {
+export function randomGenerator(seed: Seed): () => number {
   let a: number = bits(seed)
   let b: number = bits(seed)
   let c: number = bits(seed)

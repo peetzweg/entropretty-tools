@@ -3,6 +3,7 @@ import ArtistWorker from "@/workers/artist?worker"
 import ComplianceWorker from "@/workers/compliance?worker"
 import type { ArtistWorker as ArtistWorkerType } from "@/workers/artist"
 import type { ComplianceWorker as ComplianceWorkerType } from "@/workers/compliance"
+import type { Seed } from "entropretty-utils"
 
 export class AlgorithmService {
   private artistWorker: Remote<ArtistWorkerType>
@@ -24,19 +25,19 @@ export class AlgorithmService {
     ])
   }
 
-  async render(algorithmId: number, size: number, seed: number[]) {
+  async render(algorithmId: number, size: number, seed: Seed) {
     return this.artistWorker.render(algorithmId, size, seed)
   }
 
-  async checkCompliance(algorithmId: number, size: number, seed: number[]) {
+  async checkCompliance(algorithmId: number, size: number, seed: Seed) {
     return this.complianceWorker.checkCompliance(algorithmId, size, seed)
   }
 
-  cancelRender(algorithmId: number, size: number, seed: number[]) {
+  cancelRender(algorithmId: number, size: number, seed: Seed) {
     this.artistWorker.cancelRender(algorithmId, size, seed)
   }
 
-  cancelComplianceCheck(algorithmId: number, size: number, seed: number[]) {
+  cancelComplianceCheck(algorithmId: number, size: number, seed: Seed) {
     this.complianceWorker.cancelCheck(algorithmId, size, seed)
   }
 }

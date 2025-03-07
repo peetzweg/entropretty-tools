@@ -1,3 +1,5 @@
+import type { Seed } from "./types"
+
 export function contextPrelude(ctx: CanvasRenderingContext2D) {
   ctx.lineWidth = 1
   ctx.lineCap = "butt"
@@ -9,7 +11,7 @@ export function contextPrelude(ctx: CanvasRenderingContext2D) {
   ctx.save()
 }
 
-export function split(seed: Uint8Array, parts: number) {
+export function split(seed: Seed, parts: number) {
   let r: Array<number> = []
   let last = 0
   for (let i = 0; i < parts; ++i) {
@@ -20,7 +22,7 @@ export function split(seed: Uint8Array, parts: number) {
   return r
 }
 
-export function bytesToNibbles(bytes: Uint8Array) {
+export function bytesToNibbles(bytes: Seed) {
   const nibbles = []
   for (let i = 0; i < bytes.length; i++) {
     // Split each 8-bit number into two 4-bit numbers
@@ -30,11 +32,11 @@ export function bytesToNibbles(bytes: Uint8Array) {
   return nibbles
 }
 
-export function bit(seed: Uint8Array, i: number): number {
+export function bit(seed: Seed, i: number): number {
   return (seed[Math.floor(i / 8) % seed.length] >> i % 8) & 1
 }
 
-export function bits(seed: Uint8Array, from = 0, to = 32): number {
+export function bits(seed: Seed, from = 0, to = 32): number {
   let r = 0
   for (let i = from; i < to; ++i) {
     r = ((r << 1) | bit(seed, i)) >>> 0
@@ -81,7 +83,7 @@ export function fillEach<E, T extends Array<E>>(
   })
 }
 
-export function numeric(seed: Uint8Array): bigint {
+export function numeric(seed: Seed): bigint {
   const MAX_BYTES = 64
 
   if (seed.length > MAX_BYTES) {
