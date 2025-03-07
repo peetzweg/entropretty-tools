@@ -1,5 +1,5 @@
 import { Remote, wrap } from "comlink"
-import type { FamilyKind, SchemaMetadata } from "entropretty-utils"
+import type { FamilyKind, SchemaMetadata, Seed } from "entropretty-utils"
 import { getSeedFamily } from "entropretty-utils"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
@@ -14,7 +14,7 @@ export const MODES = [
 ] as const
 type Mode = (typeof MODES)[number]
 
-type SeedStash = Record<FamilyKind, Array<Array<Uint8Array>>>
+type SeedStash = Record<FamilyKind, Array<Array<Seed>>>
 
 interface AppState {
   worker: Remote<EntroprettyEditorWorker> | null

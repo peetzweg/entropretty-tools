@@ -1,7 +1,7 @@
-import type { Schema } from "entropretty-utils"
+import type { Schema, Seed } from "entropretty-utils"
 import { numeric } from "entropretty-utils"
 
-function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
+function draw(ctx: CanvasRenderingContext2D, seed: Seed) {
   const size = 100
   const personalId = numeric(seed).toString() // Convert seed to BigInt and then to string
 

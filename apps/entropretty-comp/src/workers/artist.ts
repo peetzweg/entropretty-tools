@@ -1,19 +1,20 @@
 import { expose, transfer } from "comlink"
 import { preludeScript } from "./prelude"
+import type { Seed } from "entropretty-utils"
 
 const RENDER_TIMEOUT_MS = 300
 type Size = number
 export type AlgorithmId = number
-type RenderJob = {
+export interface RenderRequest {
   algorithmId: AlgorithmId
   size: Size
-  seed: number[]
+  seed: Seed
   resolve: (image: ImageBitmap) => void
   reject: (error: Error) => void
 }
 
 const algorithms: Map<AlgorithmId, string> = new Map()
-const renderQueue: RenderJob[] = []
+const renderQueue: RenderRequest[] = []
 let isRendering = false
 
 const workerAPI = {
@@ -36,11 +37,11 @@ const workerAPI = {
   async render(
     algorithmId: AlgorithmId,
     size: Size,
-    seed: number[],
+    seed: Seed,
   ): Promise<ImageBitmap> {
     return new Promise((resolve, reject) => {
       const seedCopy = [...seed] // Copy to avoid shared memory issues
-      const job: RenderJob = {
+      const job: RenderRequest = {
         algorithmId,
         size,
         seed: seedCopy,
@@ -52,16 +53,14 @@ const workerAPI = {
     })
   },
 
-  cancelRender(algorithmId: AlgorithmId, size: Size, seed: number[]) {
+  cancelRender(algorithmId: AlgorithmId, size: Size, seed: Seed) {
     const index = renderQueue.findIndex(
       (job) =>
         job.algorithmId === algorithmId &&
         job.size === size &&
         compareNumberArrays(job.seed, seed),
     )
-
     if (index !== -1) {
-      renderQueue[index].reject(new Error("Render request cancelled"))
       renderQueue.splice(index, 1)
     }
   },
@@ -137,7 +136,7 @@ async function processQueue() {
   processQueue()
 }
 
-function compareNumberArrays(a: number[], b: number[]): boolean {
+function compareNumberArrays(a: Seed, b: Seed): boolean {
   if (a.length !== b.length) return false
   return a.every((val, i) => val === b[i])
 }

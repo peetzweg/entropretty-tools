@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useApp } from "../lib/state"
+import { Seed } from "entropretty-utils"
 
 interface Props {
   id?: string
-  seed: Uint8Array
+  seed: Seed
   schema: string
   size: number
   scale?: number
