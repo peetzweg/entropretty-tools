@@ -13,7 +13,7 @@ import {
   symmetrical,
 } from "entropretty-utils"
 
-// Create the prelude script by stringifying all the functions
+// Create the prelude script by stringify all the functions
 export const preludeScript = `
   const black = "${COLORS.black}"
   const white = "${COLORS.white}"
@@ -32,3 +32,5 @@ export const preludeScript = `
   ${randomGenerator.toString()}
   ${sfc32.toString()}
 `
+
+console.log({preludeScript})
