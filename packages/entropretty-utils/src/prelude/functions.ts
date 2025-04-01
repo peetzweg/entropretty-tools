@@ -6,7 +6,7 @@ import { Seed } from "../types"
  * @param {number} index - Index of the byte
  * @returns {number} The byte value
  */
-function getByte(seed: Seed, index: number): number {
+export function getByte(seed: Seed, index: number): number {
   return seed[index % seed.length]
 }
 

@@ -21,6 +21,7 @@ const MonacoEditor = () => {
         declare const seed: number[];
 
         // Function declarations
+        declare function getByte(seed: number[], index: number): number;
         declare function split(seed: number[], parts: number): number[];
         declare function bytesToNibbles(bytes: number[]): number[];
         declare function bit(seed: number[], i: number): 0 | 1;

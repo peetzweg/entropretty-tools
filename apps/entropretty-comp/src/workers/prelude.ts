@@ -1,15 +1,16 @@
 import {
-  split,
-  bytesToNibbles,
   bit,
   bits,
-  symmetrical,
-  strokeEach,
+  bytesToNibbles,
+  COLORS,
   fillEach,
+  getByte,
   numeric,
   randomGenerator,
   sfc32,
-  COLORS,
+  split,
+  strokeEach,
+  symmetrical,
 } from "entropretty-utils"
 
 // Create the prelude script by stringifying all the functions
@@ -19,6 +20,7 @@ export const preludeScript = `
   const light = "${COLORS.light}"
   const dark = "${COLORS.dark}"
 
+  ${getByte.toString()}
   ${split.toString()}
   ${bytesToNibbles.toString()}
   ${bit.toString()}
@@ -30,5 +32,3 @@ export const preludeScript = `
   ${randomGenerator.toString()}
   ${sfc32.toString()}
 `
-
-console.log(preludeScript)
