@@ -507,20 +507,20 @@ importers:
   packages/entropretty-utils:
     dependencies:
       vitest:
-        specifier: ^2.1.8
+        specifier: ^2.1.9
         version: 2.1.9(@types/node@22.13.16)
     devDependencies:
       '@types/node':
-        specifier: ^22.10.5
+        specifier: ^22.13.16
         version: 22.13.16
       eslint:
-        specifier: ^9.18.0
+        specifier: ^9.23.0
         version: 9.23.0(jiti@1.21.7)
       prando:
         specifier: ^6.0.1
         version: 6.0.1
       tsup:
-        specifier: ^8.3.5
+        specifier: ^8.4.0
         version: 8.4.0(@microsoft/api-extractor@7.52.2(@types/node@22.13.16))(@swc/core@1.11.16)(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.2)(yaml@2.7.1)
 
   playgrounds/bun-playground:
