@@ -1,3 +1,4 @@
+import React from "react"
 import AnimatedShinyText from "@/components/magicui/animated-shiny-text"
 import { cn } from "@/lib/utils"
 import { CheckIcon, CopyIcon } from "lucide-react"

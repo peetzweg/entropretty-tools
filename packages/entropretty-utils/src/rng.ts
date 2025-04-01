@@ -1,14 +1,7 @@
-import Prando from "prando"
-import { bits, numeric } from "./helpers.js"
+import { bits } from "./helpers.js"
 import type { Seed } from "./types"
 
-export function randomGenerator(seed: Seed) {
-  const p = new Prando(numeric(seed).toString())
 
-  return () => {
-    return p.next()
-  }
-}
 
 export function cheapRandomGenerator(seed: Seed) {
   let a = bits(seed)

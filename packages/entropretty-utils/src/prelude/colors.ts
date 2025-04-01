@@ -1,8 +1,13 @@
+export const black = "#000000"
+export const white = "#fff"
+export const light = "#aaa"
+export const dark = "#666"
+
 export const COLORS = {
-  black: "#000000",
-  white: "#fff",
-  light: "#aaa",
-  dark: "#666",
+  black,
+  white,
+  light,
+  dark,
 } as const
 
 export type Colors = typeof COLORS
