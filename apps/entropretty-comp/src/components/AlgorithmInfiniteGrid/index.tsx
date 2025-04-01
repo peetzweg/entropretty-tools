@@ -9,7 +9,7 @@ import { Link } from "react-router"
 import { LikeButton } from "../AlgorithmCard/LikeButton"
 import { AlgorithmInfo } from "../AlgorithmInfo"
 import { FamilyKindBadge } from "../FamilyKindBadge"
-
+import { useDisplaySizes } from "@/hooks/useDisplaySizes"
 interface AlgorithmInfiniteGridProps {
   algorithm: AlgorithmView
   className?: string
@@ -24,6 +24,8 @@ export function AlgorithmInfiniteGrid({
     threshold: 0,
     rootMargin: "400px", // Start loading more content before reaching the bottom
   })
+
+  const { infinite } = useDisplaySizes()
 
   useEffect(() => {
     const initial = getSeed(algorithm.family_kind!)
@@ -69,16 +71,16 @@ export function AlgorithmInfiniteGrid({
   }, [inView, loadMore])
 
   return (
-    <div className="relative flex flex-col px-4">
+    <div className="relative flex flex-col">
       <div className={`flex w-full flex-col ${className} relative`}>
         <div className="h-full w-full p-4">
-          <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-6 sm:gap-16">
+          <div className="mx-auto flex w-full flex-wrap items-center justify-evenly gap-4 sm:gap-16">
             {seeds.map((seed) => (
               <AlgorithmBitmap
                 key={seedToKey(seed)}
                 algorithmId={algorithm.id!}
                 seed={seed}
-                size={150}
+                size={infinite}
                 scale={2}
               />
             ))}

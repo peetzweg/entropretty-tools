@@ -1,15 +1,9 @@
-import Prando from "prando"
-import { bits, numeric } from "./helpers.js"
+import { bits } from "./helpers.js"
+import type { Seed } from "./types"
 
-export function randomGenerator(seed: Uint8Array) {
-  const p = new Prando(numeric(seed).toString())
 
-  return () => {
-    return p.next()
-  }
-}
 
-export function cheapRandomGenerator(seed: Uint8Array) {
+export function cheapRandomGenerator(seed: Seed) {
   let a = bits(seed)
   let b = bits(seed)
   let c = bits(seed)

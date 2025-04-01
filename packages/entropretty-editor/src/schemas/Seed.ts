@@ -1,6 +1,6 @@
-import { Schema } from "entropretty-utils"
+import type { Schema, Seed } from "entropretty-utils"
 
-function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
+function draw(ctx: CanvasRenderingContext2D, seed: Seed) {
   // Set up the canvas
   ctx.translate(5, 5) // Add a small margin
 

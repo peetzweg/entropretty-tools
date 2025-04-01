@@ -1,9 +1,9 @@
 // Inspired by "Quadrate - Herbert Franke".
 
-import { cheapRandomGenerator } from "entropretty-utils";
+import { sfc32 } from "entropretty-utils";
 
 export function doDraw(ctx, seed, monochrome) {
-  let rng = cheapRandomGenerator(seed);
+  let rng = sfc32(seed);
   const pallete = ["#D00000", "#FFBA08", "#3F88C5", "#032B43", "#136F63"];
   ctx.scale(100, 100);
   ctx.lineWidth = 1 / 200;

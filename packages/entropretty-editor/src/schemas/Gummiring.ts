@@ -1,6 +1,6 @@
-import { Schema } from "entropretty-utils"
+import type { Schema, Seed } from "entropretty-utils"
 
-function draw(ctx: CanvasRenderingContext2D, seed: Uint8Array) {
+function draw(ctx: CanvasRenderingContext2D, seed: Seed) {
   ctx.scale(100, 100)
   let seedIndex = 0
   const random = () => {

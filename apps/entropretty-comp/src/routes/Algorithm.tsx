@@ -5,6 +5,7 @@ import { Database } from "@/lib/database.types"
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
+import { useDisplaySizes } from "../hooks/useDisplaySizes"
 
 type AlgorithmView =
   Database["public"]["Views"]["algorithms_with_user_profile"]["Row"]
@@ -12,6 +13,7 @@ type AlgorithmView =
 export default function AlgorithmPage() {
   const { algorithmId } = useParams()
   const algorithmService = useAlgorithmService()
+  const { infinite } = useDisplaySizes()
 
   const { data: algorithm, isLoading } = useQuery<AlgorithmView>({
     queryKey: ["algorithm", algorithmId],
@@ -33,15 +35,19 @@ export default function AlgorithmPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4 p-8">
-        <Skeleton className="h-8 w-48" />
-        <Skeleton className="h-8 w-32" />
-        <div className="grid grid-cols-3 gap-4">
-          {Array(9)
-            .fill(0)
-            .map((_, i) => (
-              <Skeleton key={i} className="aspect-square" />
-            ))}
+      <div className="h-full w-full p-4">
+        <div className="flex flex-col gap-4 p-0 sm:p-8">
+          <div className="mx-auto flex w-full flex-wrap items-center justify-evenly gap-4 sm:gap-16">
+            {Array(48)
+              .fill(0)
+              .map((_, i) => (
+                <Skeleton
+                  key={i}
+                  style={{ width: infinite, height: infinite }}
+                  className={`aspect-square rounded-none`}
+                />
+              ))}
+          </div>
         </div>
       </div>
     )
@@ -52,9 +58,7 @@ export default function AlgorithmPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-8">
-      {/* <h1 className="text-2xl font-bold">{algorithm.name}</h1>
-      <div className="text-lg">by {algorithm.username}</div> */}
+    <div className="flex flex-col gap-4 p-0 sm:p-8">
       <AlgorithmInfiniteGrid algorithm={algorithm} />
     </div>
   )

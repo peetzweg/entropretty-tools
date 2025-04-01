@@ -1,8 +1,8 @@
-import type { FamilyKind } from "./types"
+import type { FamilyKind, Seed } from "./types"
 
 export const rng = sfc32(1, 2, 3, 4)
 
-export function getSeed(kind: FamilyKind): Uint8Array {
+export function getSeed(kind: FamilyKind): Seed {
   return {
     Procedural: getRandomBytes(4, rng),
     ProceduralPersonal: Uint8Array.from([
@@ -30,20 +30,17 @@ export function uint8ArrayToBinaryString(arr: Uint8Array): string {
   return binaryString
 }
 
-export function seedToKey(seed: Uint8Array | Array<number>): string {
-  return seed.join(",")
+export function seedToKey(seed: Seed): string {
+  return Array.from(seed).join(",")
 }
 
-export function getSeedFamily(
-  kind: FamilyKind,
-  size: number = 16,
-): Uint8Array[] {
+export function getSeedFamily(kind: FamilyKind, size: number = 16): Seed[] {
   const seed = getSeed(kind)
   return deriveSeedFamily(seed, { size, maxBits: 3, minBits: 1 })
 }
 
 export function mutateSeed(
-  seed: Uint8Array,
+  seed: Seed,
   options: {
     minBits: number
     maxBits: number
@@ -51,7 +48,7 @@ export function mutateSeed(
     minBits: 1,
     maxBits: 3,
   },
-): Uint8Array {
+): Seed {
   if (options.minBits > options.maxBits) {
     throw new Error("minBits must be less than maxBits")
   }
@@ -62,8 +59,7 @@ export function mutateSeed(
     throw new Error("maxBits must be greater than 0")
   }
 
-  const mutatedSeed = new Uint8Array(seed)
-  // Only relevant now, maybe similar seed type in the future.
+  const mutatedSeed = Array.from(seed)
   const isProceduralPersonal = seed.length === 8
 
   if (isProceduralPersonal) {
@@ -72,7 +68,7 @@ export function mutateSeed(
     mutateBits(
       Math.max(Math.floor(Math.random() * options.maxBits), options.minBits),
     )(lastBytes)
-    mutatedSeed.set(lastBytes, mutatedSeed.length - noOfBytes)
+    mutatedSeed.splice(-noOfBytes, noOfBytes, ...lastBytes)
   } else {
     mutateBits(Math.floor(Math.random() * 3) + 1)(mutatedSeed)
   }
@@ -81,27 +77,28 @@ export function mutateSeed(
 }
 
 export function deriveSeedFamily(
-  seed: Uint8Array,
+  seed: Seed,
   options: {
     size: number
     minBits: number
     maxBits: number
   },
-): Uint8Array[] {
-  const seedFamilyMap = new Map<string, Uint8Array>()
-  seedFamilyMap.set(seedToKey(seed), seed)
+): Seed[] {
+  const seedFamilyMap = new Map<string, Seed>()
+  seedFamilyMap.set(seedToKey(seed), Array.from(seed))
 
   while (seedFamilyMap.size < options.size) {
     const mutatedSeed = mutateSeed(seed)
-    if (!seedFamilyMap.has(seedToKey(mutatedSeed))) {
-      seedFamilyMap.set(seedToKey(mutatedSeed), mutatedSeed)
+    const key = seedToKey(mutatedSeed)
+    if (!seedFamilyMap.has(key)) {
+      seedFamilyMap.set(key, mutatedSeed)
     }
   }
 
   return [...seedFamilyMap.values()]
 }
 
-function getRandomBytes(bytes: number, rng: () => number): Uint8Array {
+function getRandomBytes(bytes: number, rng: () => number): Seed {
   const result = new Uint8Array(bytes)
   for (let i = 0; i < bytes; i++) {
     result[i] = Math.floor(rng() * 255)
@@ -126,11 +123,31 @@ function sfc32(a: number, b: number, c: number, d: number): () => number {
 }
 
 export function mutateBits(count: number) {
-  return (seed: Uint8Array) => {
+  return (seed: number[]) => {
     for (let b = 0; b < count; ++b) {
       const bit = 2 ** Math.floor(Math.random() * 8)
       const item = Math.floor(Math.random() * 4)
       seed[item] ^= bit
     }
   }
+}
+
+export function incrementSeed(seed: Seed): Seed {
+  // Create a copy of the seed to avoid modifying the original
+  const newSeed = Array.from(seed)
+
+  // Start from least significant bit (right-most)
+  for (let byteIndex = newSeed.length - 1; byteIndex >= 0; byteIndex--) {
+    // If current byte is less than 255, we can increment it
+    if (newSeed[byteIndex] < 255) {
+      newSeed[byteIndex]++
+      return newSeed
+    }
+    // If we reach here, we need to carry over to next byte
+    newSeed[byteIndex] = 0
+  }
+
+  // If we reach here, we've overflowed (all bytes were 255)
+  // Return the wrapped around value (all zeros)
+  return newSeed
 }
