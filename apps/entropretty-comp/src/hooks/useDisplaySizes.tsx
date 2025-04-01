@@ -10,6 +10,9 @@ export const useDisplaySizes = () => {
       grid: parseFloat(
         getComputedStyle(root).getPropertyValue("--grid-algorithm"),
       ),
+      infinite: parseFloat(
+        getComputedStyle(root).getPropertyValue("--infinite-algorithm"),
+      ),
     }
   }, [])
 }
