@@ -32,6 +32,7 @@
   "scripts": {
     "watch": "tsup --watch",
     "build": "tsup",
+    "generate-prelude": "bun run generatePreludeString.ts",
     "test": "vitest",
     "lint": "tsc && eslint ."
   },

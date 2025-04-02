@@ -3,9 +3,9 @@ import { NewDialog } from "@/components/NewDialog"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
-import { useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
 import { useUserProfile } from "../hooks/useUserProfile"
+import { Helmet } from "react-helmet-async"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
@@ -13,21 +13,14 @@ export default function HeaderLayout() {
   const location = useLocation()
   const { data: profile, isLoading: isLoadingProfile } = useUserProfile()
 
-  useEffect(() => {
-    // Set random favicon
-    const randomFaviconNumber = Math.floor(Math.random() * 13) + 1
-    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement
-    if (!link) {
-      const newLink = document.createElement("link")
-      newLink.rel = "icon"
-      document.head.appendChild(newLink)
-    }
-    ;(document.querySelector("link[rel~='icon']") as HTMLLinkElement).href =
-      `/favicon/${randomFaviconNumber}.png`
-  }, [])
+  const randomFaviconNumber = Math.floor(Math.random() * 13) + 1
 
   return (
     <div className="flex h-screen w-screen flex-col">
+      <Helmet>
+        <meta property="og:image" content="/open-graph-dynamic.png" />
+        <link id="favicon" rel="icon" href={`/favicon/${randomFaviconNumber}.png`} />
+      </Helmet>
       <nav className="relative flex flex-row items-center justify-between gap-2 border-b border-gray-200 px-6 py-2">
         <div className="flex flex-1 flex-row items-center justify-start gap-2">
           <Button

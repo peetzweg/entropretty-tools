@@ -11,6 +11,7 @@ import UserPage from "@/routes/User.tsx"
 import MinePage from "@/routes/Mine.tsx"
 import Profile from "@/routes/Profile.tsx"
 import { Suspense, lazy } from "react"
+import { HelmetProvider } from 'react-helmet-async';
 
 import { Toaster } from "@/components/ui/sonner"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -32,41 +33,43 @@ const queryClient = new QueryClient({
 })
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <ServiceProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Toaster />
-          <ScrollToTop />
-          <Routes>
-            <Route element={<HeaderLayout />}>
-              <Route path="/new" element={<NewPage />} />
-              <Route path="/hot" element={<HotPage />} />
-              <Route path="/" element={<NewPage />} />
-              <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
-              <Route path="/u/:username" element={<UserPage />} />
-              <Route element={<RequireUser />}>
-                <Route path="/mine" element={<MinePage />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route element={<RequireUsername />}>
-                  <Route
-                    path="/create"
-                    element={
-                      <Suspense
-                        fallback={<div className="p-8">Loading editor...</div>}
-                      >
-                        <Create />
-                      </Suspense>
-                    }
-                  />
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <ServiceProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Toaster />
+            <ScrollToTop />
+            <Routes>
+              <Route element={<HeaderLayout />}>
+                <Route path="/new" element={<NewPage />} />
+                <Route path="/hot" element={<HotPage />} />
+                <Route path="/" element={<NewPage />} />
+                <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
+                <Route path="/u/:username" element={<UserPage />} />
+                <Route element={<RequireUser />}>
+                  <Route path="/mine" element={<MinePage />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route element={<RequireUsername />}>
+                    <Route
+                      path="/create"
+                      element={
+                        <Suspense
+                          fallback={<div className="p-8">Loading editor...</div>}
+                        >
+                          <Create />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
                 </Route>
               </Route>
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </ServiceProvider>
-  </QueryClientProvider>,
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </ServiceProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 )
