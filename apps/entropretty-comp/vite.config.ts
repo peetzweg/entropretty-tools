@@ -32,11 +32,6 @@ export default defineConfig(({ mode }) => ({
   build: {
     target: "esnext",
     sourcemap: mode === "analyze",
-    esbuild: {
-      minifyIdentifiers: false, // <- stops name mangling
-      minifySyntax: true,
-      minifyWhitespace: true,
-    },
   },
   worker: {
     format: "es",
