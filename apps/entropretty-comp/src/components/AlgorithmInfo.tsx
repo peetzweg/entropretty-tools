@@ -26,8 +26,8 @@ export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
         {`by `}
         <Link
           className="text-muted-foreground underline"
-          to={`/u/$id`}
-          params={{ id: algorithm.username || "Anonymous" }}
+          to={`/u/$username`}
+          params={{ username: algorithm.username || "Anonymous" }}
         >
           {algorithm.username || "Anonymous"}
         </Link>

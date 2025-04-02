@@ -45,7 +45,8 @@ export function AlgorithmRow({ algorithm }: AlgorithmRowProps) {
         {user && (
           <Button asChild variant="link">
             <Link
-              to={`/create?remix=${algorithm.id}`}
+              to={`/create`}
+              search={{remix: algorithm.id.toString()}}
               className="text-gray-500 hover:text-gray-900"
             >
               {`REMIX`}
