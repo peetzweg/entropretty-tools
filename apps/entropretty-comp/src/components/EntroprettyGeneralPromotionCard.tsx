@@ -1,4 +1,3 @@
-import { Link } from "react-router"
 import { useEffect, useState } from "react"
 
 function PromotionContent() {
@@ -14,13 +13,13 @@ function PromotionContent() {
       </div>
       <div className="text-sm text-white">
         Learn more at{" "}
-        <Link
-          to="https://entropretty.com"
+        <a
+          href="https://entropretty.com"
           target="_blank"
           className="text-gray-300 underline hover:text-white"
         >
           Entropretty.com
-        </Link>
+        </a>
       </div>
     </div>
   )

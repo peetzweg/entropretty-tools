@@ -1,12 +1,10 @@
 import { AlgorithmCard } from "@/components/AlgorithmCard"
+import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
 import { useUserAlgorithms } from "@/hooks/useUserAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { useParams } from "react-router"
-import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
 
-export default function UserPage() {
-  const { username } = useParams()
+export default function UserPage({ username }: { username: string }) {
   const { ref, inView } = useInView()
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useUserAlgorithms(username)

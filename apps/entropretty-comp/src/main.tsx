@@ -1,75 +1,29 @@
-import "@/globals.css"
 
-import { AuthProvider } from "@/contexts/auth-context.tsx"
-import { ServiceProvider } from "@/contexts/service-context.tsx"
-import HeaderLayout from "@/layouts/HeaderLayout.tsx"
-import AlgorithmPage from "@/routes/Algorithm.tsx"
-import NewPage from "@/routes/New"
-import Login from "@/routes/Login.tsx"
-import SignUp from "@/routes/SignUp.tsx"
-import UserPage from "@/routes/User.tsx"
-import MinePage from "@/routes/Mine.tsx"
-import Profile from "@/routes/Profile.tsx"
-import { Suspense, lazy } from "react"
-import { HelmetProvider } from 'react-helmet-async';
 
-import { Toaster } from "@/components/ui/sonner"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { createRoot } from "react-dom/client"
-import { BrowserRouter, Route, Routes } from "react-router"
-import RequireUser from "./layouts/RequireUser"
-import HotPage from "./routes/Hot"
-import ScrollToTop from "@/components/ScrollToTop"
-import RequireUsername from "./layouts/RequireUsername"
-const Create = lazy(() => import("@/routes/Create"))
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1 minute
-      retry: 1,
-    },
-  },
-})
+// Import the generated route tree
+import { routeTree } from './routeTree.gen'
 
-createRoot(document.getElementById("root")!).render(
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <ServiceProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <Toaster />
-            <ScrollToTop />
-            <Routes>
-              <Route element={<HeaderLayout />}>
-                <Route path="/new" element={<NewPage />} />
-                <Route path="/hot" element={<HotPage />} />
-                <Route path="/" element={<NewPage />} />
-                <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
-                <Route path="/u/:username" element={<UserPage />} />
-                <Route element={<RequireUser />}>
-                  <Route path="/mine" element={<MinePage />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route element={<RequireUsername />}>
-                    <Route
-                      path="/create"
-                      element={
-                        <Suspense
-                          fallback={<div className="p-8">Loading editor...</div>}
-                        >
-                          <Create />
-                        </Suspense>
-                      }
-                    />
-                  </Route>
-                </Route>
-              </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </ServiceProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
-)
+// Create a new router instance
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+// Render the app
+const rootElement = document.getElementById('root')!
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+}

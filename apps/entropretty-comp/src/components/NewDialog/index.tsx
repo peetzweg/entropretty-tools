@@ -8,9 +8,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { cn, familyKindColor } from "@/lib/utils"
+import { useNavigate } from "@tanstack/react-router"
 import { FamilyKind } from "entropretty-utils"
 import { ArrowUpRight, PlusIcon } from "lucide-react"
-import { Link, useNavigate } from "react-router"
 
 interface SeedTypeCardProps {
   kind: FamilyKind
@@ -44,7 +44,7 @@ function SeedTypeCard({ kind }: SeedTypeCardProps) {
         </>
       )}
       <button
-        onClick={() => navigate(`/create?type=${kind}`)}
+        onClick={() => navigate({to: "/create", search: {seedType: kind}})}
         className={cn(
           "z-5 relative flex aspect-square w-full flex-col items-center justify-center gap-2 p-4 transition-colors hover:opacity-90",
           colorClass,
@@ -115,14 +115,14 @@ export function NewDialog() {
 
         <DialogFooter>
           <Button variant="link" asChild>
-            <Link
-              to="https://entropretty.com/rules#seed-details"
+            <a
+              href="https://entropretty.com/rules#seed-details"
               target="_blank"
               className="text-primary hover:underline"
             >
               Learn about seed types & meaning
               <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -9,7 +9,7 @@ import { supabase } from "@/lib/supabase"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useAtom } from "jotai"
 import { Loader2 } from "lucide-react"
-import { useNavigate } from "react-router"
+import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 import {
   algorithmNameAtom,
@@ -87,7 +87,7 @@ export const PostButton = () => {
       console.info("Successfully created algorithm", data)
       setAlgorithmName("")
       queryClient.invalidateQueries({ queryKey: ["algorithms", "latest"] })
-      navigate(`/new`)
+      navigate({to: "/new"})
     },
     onError: (error: Error) => {
       toast.error(error.message)

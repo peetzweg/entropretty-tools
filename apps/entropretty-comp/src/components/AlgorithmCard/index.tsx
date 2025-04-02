@@ -8,7 +8,7 @@ import { useDisplaySizes } from "@/hooks/useDisplaySizes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeedFamily, seedToKey } from "entropretty-utils"
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
-import { Link } from "react-router"
+import { Link } from '@tanstack/react-router'
 
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
@@ -25,7 +25,7 @@ export function AlgorithmCard({ algorithm }: AlgorithmCardProps) {
 
   return (
     <div className="flex w-full flex-col border border-gray-200">
-      <Link to={`/a/${algorithm.id}`}>
+      <Link to={`/a/$id`} params={{ id: algorithm.id.toString() }}>
         <div className="relative flex flex-col items-center justify-center gap-4 p-4 md:flex-row">
           <div className={`flex aspect-square items-center justify-center`}>
             <AlgorithmBitmap
@@ -91,7 +91,8 @@ const AlgorithmActions = ({
       {user && (
         <Button asChild variant="link">
           <Link
-            to={`/create?remix=${algorithm.id}`}
+            // to={`/create?remix=${algorithm.id}`}
+            to={`/`}
             className="text-gray-500 hover:text-gray-900"
           >
             {`REMIX`}
