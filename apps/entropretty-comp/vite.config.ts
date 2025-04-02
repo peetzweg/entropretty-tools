@@ -32,11 +32,10 @@ export default defineConfig(({ mode }) => ({
   build: {
     target: "esnext",
     sourcemap: mode === "analyze",
-    minify: 'terser',
-    terserOptions: {
-      mangle: {
-        reserved: ['bytesToNibbles', 'randomGenerator'],
-      },
+    esbuild: {
+      minifyIdentifiers: false, // <- stops name mangling
+      minifySyntax: true,
+      minifyWhitespace: true,
     },
   },
   worker: {
