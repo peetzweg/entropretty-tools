@@ -7,6 +7,5 @@ export default defineConfig({
   clean: true,
   dts: true,
   keepNames: true,
-  minify: true,
   name: "entropretty-utils",
 })
