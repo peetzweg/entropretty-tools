@@ -80,6 +80,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.64.1
         version: 5.71.3(react@19.1.0)
+      '@tanstack/react-router':
+        specifier: ^1.114.32
+        version: 1.114.32(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@uiw/react-textarea-code-editor':
         specifier: ^3.1.0
         version: 3.1.0(@babel/runtime@7.27.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
