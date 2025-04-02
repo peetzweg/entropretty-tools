@@ -1,3 +1,4 @@
+import { FeedbackDialog } from "@/components/FeedbackDialog"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -5,10 +6,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { FeedbackDialog } from "@/components/FeedbackDialog"
-import { cn } from "@/lib/utils"
 import { useAuth } from "@/contexts/auth-context"
-import { Link } from "react-router"
+import { cn } from "@/lib/utils"
 
 export const ListItem = ({
   className,
@@ -49,29 +48,29 @@ export function HelpMenu() {
             <div className="grid gap-2 p-2 md:w-[300px] lg:w-[400px]">
               <div className="grid gap-1">
                 {user && <FeedbackDialog />}
-                <Link to="https://entropretty.com/rules" target="_blank">
+                <a href="https://entropretty.com/rules" target="_blank">
                   <ListItem
                     title="Competition Rules"
                     description="Learn about the rules of the competition"
                   />
-                </Link>
+                </a>
 
-                <Link
-                  to="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D"
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D"
                   target="_blank"
                 >
                   <ListItem
                     title="Canvas API Reference"
                     description="Documentation for the CanvasRenderingContext2D API used for drawing"
                   />
-                </Link>
+                </a>
               </div>
-              <Link to="https://entropretty.com/" target="_blank">
+              <a href="https://entropretty.com/" target="_blank">
                 <ListItem
                   title="What is this?"
                   description="https://entropretty.com/"
                 />
-              </Link>
+              </a>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
