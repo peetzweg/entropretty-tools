@@ -5,6 +5,7 @@
     "dev:entropretty-editor": "pnpm --filter entropretty-editor dev",
     "dev:entropretty-gallery": "pnpm --filter entropretty-gallery dev",
     "dev:entropretty-comp": "pnpm --filter entropretty-comp dev",
+    "dev:tanstack": "pnpm --filter tanstack dev",
     "dev:create-entropretty": "pnpm --filter create-entropretty dev",
     "playground": "pnpm --filter playground-typescript dev",
     "watch": "pnpm run --r --filter \"./packages/**\" watch",

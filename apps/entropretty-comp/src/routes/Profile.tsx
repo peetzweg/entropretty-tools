@@ -1,9 +1,17 @@
-import { Profile } from "@/features/profile"
+import { createFileRoute } from "@tanstack/react-router"
+import ProfilePage from "@/pages/Profile"
 
-export default function ProfilePage() {
-  return (
-    <div className="flex w-full max-w-4xl flex-col gap-4 p-4">
-      <Profile />
-    </div>
-  )
-}
+export const Route = createFileRoute("/profile")({
+  component: ProfilePage,
+  head: () => ({
+    meta: [
+      {
+        name: "description",
+        content: "Profile page",
+      },
+      {
+        title: "Profile",
+      },
+    ],
+  }),
+})

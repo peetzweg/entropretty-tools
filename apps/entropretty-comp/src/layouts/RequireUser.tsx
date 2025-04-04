@@ -1,5 +1,5 @@
-import { Outlet } from "react-router"
-import { useAuth } from "../contexts/auth-context"
+import { Outlet } from '@tanstack/react-router'
+import { useAuth } from "@/contexts/auth-context"
 
 export default function RequireUser() {
   const { user } = useAuth()

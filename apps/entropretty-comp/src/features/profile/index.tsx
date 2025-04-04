@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router"
+import { useNavigate } from "@tanstack/react-router"
 
 import { useAuth } from "@/contexts/auth-context"
 import { useUserProfile } from "@/hooks/useUserProfile"
@@ -10,7 +10,7 @@ export function Profile() {
   const { data: profile, isLoading } = useUserProfile()
 
   if (!user) {
-    navigate("/login")
+    navigate({to: "/login"})
     return null
   }
 

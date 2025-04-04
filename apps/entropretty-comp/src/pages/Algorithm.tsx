@@ -4,14 +4,12 @@ import { useAlgorithmService } from "@/contexts/service-context"
 import { Database } from "@/lib/database.types"
 import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
-import { useParams } from "react-router"
 import { useDisplaySizes } from "../hooks/useDisplaySizes"
 
 type AlgorithmView =
   Database["public"]["Views"]["algorithms_with_user_profile"]["Row"]
 
-export default function AlgorithmPage() {
-  const { algorithmId } = useParams()
+export default function AlgorithmPage({ algorithmId }: { algorithmId: string }) {
   const algorithmService = useAlgorithmService()
   const { infinite } = useDisplaySizes()
 

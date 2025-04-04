@@ -1,5 +1,5 @@
 import { AlgorithmView } from "@/lib/helper.types"
-import { Link } from "react-router"
+import { Link } from '@tanstack/react-router'
 
 export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
   return (
@@ -9,17 +9,16 @@ export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
           {`${algorithm.name || "Untitled"} `}
           <Link
             className="text-muted-foreground underline"
-            to={`/a/${algorithm.id}`}
+            to={`/a/$id`}
+            params={{ id: algorithm.id!.toString() }}
           >{`/a/${algorithm.id}`}</Link>
         </span>
 
         {algorithm.remix_of && (
           <>
             {` remix of `}
-            <Link
-              className="text-muted-foreground underline"
-              to={`/a/${algorithm.remix_of}`}
-            >{`/a/${algorithm.remix_of}`}</Link>
+            <Link to={`/a/$id`} params={{ id: algorithm.remix_of.toString() }}>
+            {`/a/${algorithm.remix_of}`}</Link>
           </>
         )}
       </div>
@@ -27,7 +26,8 @@ export const AlgorithmInfo = ({ algorithm }: { algorithm: AlgorithmView }) => {
         {`by `}
         <Link
           className="text-muted-foreground underline"
-          to={`/u/${algorithm.username || "Anonymous"}`}
+          to={`/u/$username`}
+          params={{ username: algorithm.username || "Anonymous" }}
         >
           {algorithm.username || "Anonymous"}
         </Link>

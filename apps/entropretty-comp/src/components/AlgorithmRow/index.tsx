@@ -7,7 +7,7 @@ import { AlgorithmBitmap } from "@/features/create/AlgorithmBitmap"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeed, seedToKey } from "entropretty-utils"
 import { useMemo } from "react"
-import { Link } from "react-router"
+import { Link } from '@tanstack/react-router'
 
 interface AlgorithmRowProps {
   algorithm: AlgorithmView
@@ -45,7 +45,8 @@ export function AlgorithmRow({ algorithm }: AlgorithmRowProps) {
         {user && (
           <Button asChild variant="link">
             <Link
-              to={`/create?remix=${algorithm.id}`}
+              to={`/create`}
+              search={{remix: algorithm.id.toString()}}
               className="text-gray-500 hover:text-gray-900"
             >
               {`REMIX`}

@@ -5,7 +5,7 @@ import { AlgorithmView } from "@/lib/helper.types"
 import { deriveSeedFamily, getSeed, seedToKey } from "entropretty-utils"
 import { useCallback, useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
-import { Link } from "react-router"
+import { Link } from "@tanstack/react-router"
 import { LikeButton } from "../AlgorithmCard/LikeButton"
 import { AlgorithmInfo } from "../AlgorithmInfo"
 import { FamilyKindBadge } from "../FamilyKindBadge"
@@ -109,7 +109,8 @@ const AlgorithmActions = ({ algorithm }: { algorithm: AlgorithmView }) => {
       {user && (
         <Button asChild variant="link">
           <Link
-            to={`/create?remix=${algorithm.id}`}
+            to={`/create`}
+            search={{ remix: algorithm.id!.toString() }}
             className="text-gray-500 hover:text-gray-900"
           >
             {`REMIX`}
