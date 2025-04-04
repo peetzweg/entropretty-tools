@@ -69,7 +69,9 @@ export function AlgorithmDemo({ algorithm, className = "" }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-10">
+    <div
+      className={`flex flex-col items-center justify-center bg-white p-10 ${className}`}
+    >
       <div className="flex w-full flex-col items-center justify-center border border-b-0">
         <div className="relative aspect-square h-[70vh] overflow-hidden">
           <AnimatePresence mode="sync">

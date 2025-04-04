@@ -5,7 +5,6 @@ import { supabase } from "@/lib/supabase"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
 import { AlgorithmDemo } from "../components/AlgorithmDemo"
-import { useDisplaySizes } from "../hooks/useDisplaySizes"
 
 type AlgorithmView =
   Database["public"]["Views"]["algorithms_with_user_profile"]["Row"]

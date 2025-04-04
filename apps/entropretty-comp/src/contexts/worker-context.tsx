@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo, useRef } from "react"
 import { Remote, wrap } from "comlink"
-import Worker from "@/workers/artist?worker" // Import the Web Worker
-import { ArtistWorker } from "@/workers/artist.ts"
+import Worker from "../workers/artist?worker" // Import the Web Worker
+import { ArtistWorker } from "../workers/artist.ts"
 
 interface WorkerContextType {
   artist: Remote<ArtistWorker>
