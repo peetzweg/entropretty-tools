@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { useUserIdAlgorithms } from "@/hooks/useUserIdAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { Navigate } from "react-router"
+import { Navigate } from "@tanstack/react-router"
 
 export default function Mine() {
   const { user } = useAuth()

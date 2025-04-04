@@ -8,7 +8,7 @@ import { useDisplaySizes } from "@/hooks/useDisplaySizes"
 import { AlgorithmView } from "@/lib/helper.types"
 import { getSeedFamily, seedToKey } from "entropretty-utils"
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
-import { Link } from '@tanstack/react-router'
+import { Link } from "@tanstack/react-router"
 
 interface AlgorithmCardProps {
   algorithm: AlgorithmView
@@ -91,8 +91,8 @@ const AlgorithmActions = ({
       {user && (
         <Button asChild variant="link">
           <Link
-            // to={`/create?remix=${algorithm.id}`}
-            to={`/`}
+            to={`/create`}
+            search={{ remix: algorithm.id!.toString() }}
             className="text-gray-500 hover:text-gray-900"
           >
             {`REMIX`}
