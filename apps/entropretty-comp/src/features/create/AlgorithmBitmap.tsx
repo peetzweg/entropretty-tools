@@ -12,6 +12,7 @@ interface Props {
   onClick?: () => void
   version?: number
   className?: string
+  style?: React.CSSProperties
 }
 
 export const AlgorithmBitmap: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
   onClick,
   version = 0,
   className,
+  style,
 }) => {
   const [ready, setIsReady] = useState(false)
   const service = useAlgorithmService()
@@ -73,7 +75,7 @@ export const AlgorithmBitmap: React.FC<Props> = ({
       width={drawingSize}
       height={drawingSize}
       title={`${seedToKey(seed)} (Alt+Click to download)`}
-      style={{ width: size, height: size }}
+      style={style ?? { width: size, height: size }}
     />
   )
 }

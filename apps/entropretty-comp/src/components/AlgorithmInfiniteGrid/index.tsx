@@ -117,6 +117,15 @@ const AlgorithmActions = ({ algorithm }: { algorithm: AlgorithmView }) => {
         </Button>
       )}
 
+      <Button asChild variant="link">
+        <Link
+          to={`/demo/${algorithm.id}`}
+          className="text-gray-500 hover:text-gray-900"
+        >
+          {`DEMO`}
+        </Link>
+      </Button>
+
       <LikeButton algorithm={algorithm} />
     </div>
   )
