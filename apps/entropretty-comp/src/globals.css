@@ -10,7 +10,7 @@
     --single-algorithm: 210px; /* Mobile default */
     --grid-algorithm: 100px; /* Mobile default */
     --infinite-algorithm: 130px; /* Mobile default */
-
+    --demo-algorithm: 210px; /* Mobile default */
     /* Brand Colors */
     --brand-blue: 239 69% 62%;    /* #484DF7 */
     --brand-red: 2 81% 60%;       /* #EB4B46 */
@@ -21,6 +21,7 @@
       --single-algorithm: 300px; /* Desktop size */
       --grid-algorithm: 100px; /* Desktop size */
       --infinite-algorithm: 150px; /* Desktop size */
+      --demo-algorithm: 480px; /* Desktop size */
     }
 
     /* Init Values */

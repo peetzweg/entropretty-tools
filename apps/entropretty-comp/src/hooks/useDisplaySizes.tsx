@@ -13,6 +13,9 @@ export const useDisplaySizes = () => {
       infinite: parseFloat(
         getComputedStyle(root).getPropertyValue("--infinite-algorithm"),
       ),
+      demo: parseFloat(
+        getComputedStyle(root).getPropertyValue("--demo-algorithm"),
+      ),
     }
   }, [])
 }
