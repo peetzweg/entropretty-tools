@@ -7,6 +7,7 @@ import DemoPage from "@/routes/Demo.tsx"
 import Login from "@/routes/Login.tsx"
 import MinePage from "@/routes/Mine.tsx"
 import NewPage from "@/routes/New"
+import GalleryPage from "@/routes/Gallery"
 import Profile from "@/routes/Profile.tsx"
 import SignUp from "@/routes/SignUp.tsx"
 import UserPage from "@/routes/User.tsx"
@@ -46,6 +47,7 @@ createRoot(document.getElementById("root")!).render(
               <Route element={<HeaderLayout />}>
                 <Route path="/new" element={<NewPage />} />
                 <Route path="/hot" element={<HotPage />} />
+                <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/" element={<NewPage />} />
                 <Route path="/a/:algorithmId" element={<AlgorithmPage />} />
                 <Route path="/u/:username" element={<UserPage />} />

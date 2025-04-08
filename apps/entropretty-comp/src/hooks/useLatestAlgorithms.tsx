@@ -31,7 +31,7 @@ export function useLatestAlgorithms() {
 
       if (data) {
         for (const algorithm of data) {
-          algorithmService.updateAlgorithm(algorithm.id, algorithm.content)
+          algorithmService.addAlgorithm(algorithm.id, algorithm.content)
         }
       }
 

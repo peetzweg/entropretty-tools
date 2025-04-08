@@ -21,13 +21,13 @@ export default function AlgorithmPage() {
       const { data, error } = await supabase
         .from("algorithms_with_user_profile")
         .select()
-        .eq("id", algorithmId)
+        .eq("id", Number(algorithmId))
         .single()
 
       if (error) throw error
       if (!data) throw new Error("Algorithm not found")
 
-      algorithmService.updateAlgorithm(data.id, data.content)
+      algorithmService.addAlgorithm(data.id!, data.content!)
 
       return data
     },

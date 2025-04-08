@@ -25,7 +25,7 @@ export function useUserAlgorithms(username: string | undefined) {
 
       if (data) {
         for (const algorithm of data) {
-          algorithmService.updateAlgorithm(algorithm.id, algorithm.content)
+          algorithmService.addAlgorithm(algorithm.id, algorithm.content)
         }
       }
 
