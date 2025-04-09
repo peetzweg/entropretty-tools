@@ -5,6 +5,9 @@ import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
+import { WinterAssemblyPromotionCard } from "../components/WinterAssemblyPromotionCard"
+import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
+import { Revision2025EventCard } from "../components/events/Revision2025EventCard"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -52,7 +55,7 @@ export default function NewPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
-        <EntroprettyGeneralPromotionCard />
+        <RevisionPromotionCard />
         <FamilyKindFilter />
         <Feed />
       </div>

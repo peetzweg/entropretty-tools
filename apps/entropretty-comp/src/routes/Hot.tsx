@@ -5,6 +5,7 @@ import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
+import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -52,7 +53,7 @@ export default function HotPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
-        <EntroprettyGeneralPromotionCard />
+        <RevisionPromotionCard />
         <FamilyKindFilter />
         <Feed />
       </div>
