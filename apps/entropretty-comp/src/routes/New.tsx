@@ -1,10 +1,10 @@
 import { AlgorithmCard } from "@/components/AlgorithmCard"
 import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
+import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { FamilyKindFilter } from "@/components/FamilyKindFilter"
-import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
+import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -52,7 +52,7 @@ export default function NewPage() {
   return (
     <div className="mx-auto my-4">
       <div className="space-y-4">
-        <EntroprettyGeneralPromotionCard />
+        <RevisionPromotionCard />
         <FamilyKindFilter />
         <Feed />
       </div>
