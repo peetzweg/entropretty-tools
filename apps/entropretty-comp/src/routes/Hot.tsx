@@ -4,7 +4,6 @@ import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
 import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
 
 function Feed() {

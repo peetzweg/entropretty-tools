@@ -7,9 +7,9 @@ function Content() {
         <div className="text-lg uppercase text-white">
           ONGOING: Global Competition
         </div>
-        <div className="text-3xl font-bold uppercase text-white">
+        {/* <div className="text-3xl font-bold uppercase text-white">
           1000 EUR Prize Money
-        </div>
+        </div> */}
 
         <div className="text-2xl font-bold text-white">
           Entropretty x Revision
@@ -27,7 +27,10 @@ function Content() {
       </div>
       <div className="flex flex-col gap-2 text-gray-300">
         <Button asChild variant={"link"} className="text-base">
-          <a className="text-white" href="https://entropretty.com/rules">
+          <a
+            className="text-white"
+            href="https://2025.revision-party.net/competitions/entropretty/"
+          >
             {`> Read the competition rules`}
           </a>
         </Button>
@@ -39,7 +42,7 @@ function Content() {
 export function RevisionPromotionCard() {
   return (
     <div className="mx-auto flex w-screen flex-col overflow-hidden border bg-black text-white sm:flex-col md:w-[682px]">
-      <div className="relative aspect-video h-48 w-full sm:aspect-video sm:h-60">
+      <div className="relative aspect-video h-48 w-full sm:aspect-video sm:h-48">
         <img
           src="/assets/revision-2025-bg.jpg"
           alt="Revision Promo Background"
@@ -53,7 +56,7 @@ export function RevisionPromotionCard() {
           />
         </div>
         <div className="absolute bottom-0 left-0 bg-black px-4 py-2 text-sm uppercase">
-          Submit by APRIL 23RD 2025
+          Submit by APRIL 20Th 2025
         </div>
       </div>
 
