@@ -1,13 +1,10 @@
 import { AlgorithmCard } from "@/components/AlgorithmCard"
 import { AlgorithmCardSkeleton } from "@/components/AlgorithmCard/AlgorithmCardSkeleton"
+import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { FamilyKindFilter } from "@/components/FamilyKindFilter"
-import { EntroprettyGeneralPromotionCard } from "@/components/EntroprettyGeneralPromotionCard"
-import { WinterAssemblyPromotionCard } from "../components/WinterAssemblyPromotionCard"
 import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
-import { Revision2025EventCard } from "../components/events/Revision2025EventCard"
 
 function Feed() {
   const { ref, inView } = useInView()
