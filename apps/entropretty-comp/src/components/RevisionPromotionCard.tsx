@@ -56,7 +56,7 @@ export function RevisionPromotionCard() {
           />
         </div>
         <div className="absolute bottom-0 left-0 bg-black px-4 py-2 text-sm uppercase">
-          Submit by APRIL 20Th 2025
+          Submit by 8PM CEST APRIL 19TH 2025
         </div>
       </div>
 
