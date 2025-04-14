@@ -108,8 +108,8 @@ export const AlgorithmCompliance: React.FC<Props> = ({
               </p>
 
               <Button
-                variant="ghost"
-                className="w-1/2 self-end font-mono"
+                variant="outline"
+                className="w-1/2 self-end bg-transparent font-mono"
                 size="sm"
                 onClick={() => toast.dismiss(id)}
               >
