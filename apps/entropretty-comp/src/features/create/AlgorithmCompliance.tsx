@@ -1,19 +1,17 @@
-import { useEffect, useState, useRef, useMemo } from "react"
-import { AlgorithmId } from "@/workers/artist"
-import { useAlgorithmService } from "@/contexts/service-context"
-import { AlgorithmBitmap } from "./AlgorithmBitmap"
 import { Badge } from "@/components/ui/badge"
-import { toast } from "sonner"
-import { CheckMetadata } from "entropretty-compliance/browser"
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover"
+import { useAlgorithmService } from "@/contexts/service-context"
 import { cn } from "@/lib/utils"
-import { AlertDescription, AlertTitle } from "../../components/ui/alert"
-import { Alert } from "../../components/ui/alert"
+import { AlgorithmId } from "@/workers/artist"
+import { CheckMetadata } from "entropretty-compliance/browser"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { toast } from "sonner"
 import { Button } from "../../components/ui/button"
+import { AlgorithmBitmap } from "./AlgorithmBitmap"
 
 // Extend the CheckMetadata type to include the details property with colors
 interface ExtendedCheckMetadata extends CheckMetadata {
