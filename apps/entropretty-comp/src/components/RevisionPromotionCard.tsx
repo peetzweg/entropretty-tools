@@ -41,7 +41,7 @@ function CountdownTimer() {
     return () => clearInterval(timer)
   }, [])
 
-  if (!isExpired) {
+  if (isExpired) {
     return (
       <div className="font-bold">
         <p className="text-center font-bold text-red-500">
