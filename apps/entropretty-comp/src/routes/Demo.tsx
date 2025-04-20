@@ -44,7 +44,7 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-black">
+    <div className="flex h-screen w-screen cursor-none flex-col items-center justify-center bg-black">
       <AlgorithmDemo algorithm={algorithm} />
     </div>
   )
