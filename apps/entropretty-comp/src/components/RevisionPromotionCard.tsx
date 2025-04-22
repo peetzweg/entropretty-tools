@@ -43,7 +43,7 @@ function Content() {
             className="text-white"
             href="https://www.pouet.net/party_results.php?which=1550&when=2025&font=1"
           >
-            {`> CHECK OUT THE FULL RESULTS ON POUET.NET`}
+            {`> Full results on pouet.net`}
           </a>
         </Button>
       </div>
