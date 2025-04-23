@@ -3,9 +3,9 @@ import { NewDialog } from "@/components/NewDialog"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
+import { Helmet } from "react-helmet-async"
 import { Link, Outlet, useLocation, useNavigate } from "react-router"
 import { useUserProfile } from "../hooks/useUserProfile"
-import { Helmet } from "react-helmet-async"
 
 export default function HeaderLayout() {
   const { user, signOut } = useAuth()
@@ -111,7 +111,7 @@ export default function HeaderLayout() {
           )}
         </div>
       </nav>
-      <main className="flex h-full w-full flex-col items-center">
+      <main className="relative flex h-full w-full flex-col items-center">
         <Outlet />
       </main>
     </div>

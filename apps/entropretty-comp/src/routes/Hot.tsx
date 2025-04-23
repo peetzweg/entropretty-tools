@@ -5,6 +5,8 @@ import { useHotAlgorithms } from "@/hooks/useHotAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
+import { FeedbackDialog } from "../components/FeedbackDialog"
+import { useAuth } from "@/contexts/auth-context"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -49,13 +51,17 @@ function Feed() {
 }
 
 export default function HotPage() {
+  const { user } = useAuth()
   return (
-    <div className="mx-auto my-4">
-      <div className="space-y-4">
-        <RevisionPromotionCard />
-        <FamilyKindFilter />
-        <Feed />
+    <>
+      {user && <FeedbackDialog className="fixed bottom-4 left-4 z-50" />}
+      <div className="mx-auto my-4">
+        <div className="space-y-4">
+          <RevisionPromotionCard />
+          <FamilyKindFilter />
+          <Feed />
+        </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -5,6 +5,8 @@ import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
+import { useAuth } from "../contexts/auth-context"
+import { FeedbackDialog } from "../components/FeedbackDialog"
 
 function Feed() {
   const { ref, inView } = useInView()
@@ -49,13 +51,17 @@ function Feed() {
 }
 
 export default function NewPage() {
+  const { user } = useAuth()
   return (
-    <div className="mx-auto my-4">
-      <div className="space-y-4">
-        <RevisionPromotionCard />
-        <FamilyKindFilter />
-        <Feed />
+    <>
+      {user && <FeedbackDialog className="fixed bottom-4 left-4 z-50" />}
+      <div className="mx-auto my-4">
+        <div className="space-y-4">
+          <RevisionPromotionCard />
+          <FamilyKindFilter />
+          <Feed />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
