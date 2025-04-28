@@ -57,7 +57,6 @@ export default function NewPage() {
       {user && <FeedbackDialog className="fixed bottom-4 left-4 z-50" />}
       <div className="mx-auto my-4">
         <div className="space-y-4">
-          <RevisionPromotionCard />
           <FamilyKindFilter />
           <Feed />
         </div>
