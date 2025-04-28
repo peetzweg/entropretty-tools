@@ -4,9 +4,8 @@ import { FamilyKindFilter } from "@/components/FamilyKindFilter"
 import { useLatestAlgorithms } from "@/hooks/useLatestAlgorithms"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
-import { RevisionPromotionCard } from "../components/RevisionPromotionCard"
-import { useAuth } from "../contexts/auth-context"
 import { FeedbackDialog } from "../components/FeedbackDialog"
+import { useAuth } from "../contexts/auth-context"
 
 function Feed() {
   const { ref, inView } = useInView()
