@@ -25,7 +25,7 @@ export default function DemoPage() {
       if (error) throw error
       if (!data) throw new Error("Algorithm not found")
 
-      algorithmService.updateAlgorithm(data.id, data.content)
+      algorithmService.addAlgorithm(data.id, data.content)
 
       return data
     },
