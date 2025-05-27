@@ -26,6 +26,9 @@ export default function HeaderLayout() {
       </Helmet>
       <nav className="relative flex flex-row items-center justify-between gap-2 border-b border-gray-200 px-6 py-2">
         <div className="flex flex-1 flex-row items-center justify-start gap-2">
+          <Button asChild variant={"link"}>
+            <Link to="/explore">explore</Link>
+          </Button>
           <Button
             asChild
             variant={"link"}
