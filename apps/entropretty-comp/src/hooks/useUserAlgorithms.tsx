@@ -19,13 +19,13 @@ export function useUserAlgorithms(username: string | undefined) {
       const { data, error } = await supabase
         .from("algorithms_with_user_profile")
         .select()
-        .eq("username", username)
+        .eq("username", username!)
         .order("created_at", { ascending: false })
         .range(from, to)
 
       if (data) {
         for (const algorithm of data) {
-          algorithmService.addAlgorithm(algorithm.id, algorithm.content)
+          algorithmService.addAlgorithm(algorithm.id!, algorithm.content!)
         }
       }
 

@@ -20,7 +20,7 @@ export function useAlgorithm(algorithmId: number) {
 
       algorithmService.addAlgorithm(data.id!, data.content!)
 
-      return data
+      return data as AlgorithmView
     },
     staleTime: Infinity,
   })
