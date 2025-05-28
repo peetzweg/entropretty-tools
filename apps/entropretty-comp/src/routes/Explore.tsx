@@ -1,3 +1,4 @@
+import { EntroprettyLogo } from "@/components/EntroprettyLogo"
 import { getSeed, seedToKey } from "entropretty-utils"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useInView } from "react-intersection-observer"
@@ -7,8 +8,6 @@ import { AlgorithmBitmap } from "../features/create/AlgorithmBitmap"
 import { useAlgorithm } from "../hooks/useAlgorithm"
 import { useDisplaySizes } from "../hooks/useDisplaySizes"
 import { useQueryAlgorithmIds } from "../hooks/useQueryAlgorithmIds"
-import { Button } from "../components/ui/button"
-import { EntroprettyLogo } from "@/components/EntroprettyLogo"
 
 export function ExploreGallery() {
   const [algorithmIds, setAlgorithmIds] = useState<number[]>([])
