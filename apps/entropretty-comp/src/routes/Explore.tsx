@@ -8,6 +8,7 @@ import { useAlgorithm } from "../hooks/useAlgorithm"
 import { useDisplaySizes } from "../hooks/useDisplaySizes"
 import { useQueryAlgorithmIds } from "../hooks/useQueryAlgorithmIds"
 import { Button } from "../components/ui/button"
+import { EntroprettyLogo } from "@/components/EntroprettyLogo"
 
 export function ExploreGallery() {
   const [algorithmIds, setAlgorithmIds] = useState<number[]>([])
@@ -61,11 +62,11 @@ export function ExploreGallery() {
             <div ref={ref} className="h-4 w-full" />
           </div>
         </div>
-        <div className="bg-background fixed bottom-0 right-0 flex w-full items-center justify-end gap-8 gap-y-2 border border-gray-200 p-4 pb-8 text-gray-600 sm:w-1/3 sm:pb-4">
-          <div className="flex flex-1 items-center justify-end gap-2">
-            <Button>Create your Own</Button>
+        <Link to="/hot">
+          <div className="bg-background fixed bottom-0 right-0 flex w-auto items-center justify-center gap-8 gap-y-2 border border-gray-200 px-8 py-4 sm:pb-4">
+            <EntroprettyLogo />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )
